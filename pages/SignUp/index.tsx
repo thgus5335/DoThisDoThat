@@ -57,6 +57,24 @@ export default function SignUp() {
           onChange={handleChange}
           validate={validateNickname}
         />
+        <div>비밀번호</div>
+        <Input
+          type="password"
+          name="password"
+          placeholder="8자 이상 입력해 주세요"
+          value={formData.password}
+          onChange={handleChange}
+          validate={validatePassword}
+        />
+        <div>비밀번호 확인</div>
+        <Input
+          type="password"
+          name="confirmPassword"
+          placeholder="비밀번호를 한번 더 입력해 주세요"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          validate={validateConfirmPassword}
+        />
       </div>
     </>
   );
