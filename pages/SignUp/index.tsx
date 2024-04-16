@@ -1,6 +1,7 @@
 import Input from '@/src/components/common/Input';
 import styles from './SignUp.module.scss';
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -28,6 +29,7 @@ export default function SignUp() {
 
   const validateNickname = (value: string) => {
     if (!value) return '닉네임을 입력해주세요.';
+    if (value.length > 11) return '열 자 이하로 작성해주세요.';
     return '';
   };
 
@@ -44,46 +46,56 @@ export default function SignUp() {
     return '';
   };
 
+  const goToHome = () => {
+    window.location.href = '/';
+  };
+
   return (
     <>
-      <div>첫 방문을 환영합니다!</div>
-      <div className={styles.inputContainer}>
-        <div>이메일</div>
-        <Input
-          type="email"
-          name="email"
-          placeholder="이메일을 입력해 주세요"
-          value={formData.email}
-          onChange={handleChange}
-          validate={validateEmail}
-        />
-        <div>닉네임</div>
-        <Input
-          type="text"
-          name="nickname"
-          placeholder="닉네임을 입력해 주세요"
-          value={formData.nickname}
-          onChange={handleChange}
-          validate={validateNickname}
-        />
-        <div>비밀번호</div>
-        <Input
-          type="password"
-          name="password"
-          placeholder="8자 이상 입력해 주세요"
-          value={formData.password}
-          onChange={handleChange}
-          validate={validatePassword}
-        />
-        <div>비밀번호 확인</div>
-        <Input
-          type="password"
-          name="confirmPassword"
-          placeholder="비밀번호를 한번 더 입력해 주세요"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          validate={validateConfirmPassword}
-        />
+      <div className={styles.bigContainer}>
+        <div className={styles.logoContainer}>
+          <img src="./Logo.svg" alt="로고그림" className={styles.logoImage} onClick={goToHome} />
+          <img src="./Taskify.svg" alt="로고명" className={styles.logoName} onClick={goToHome} />
+        </div>
+        <div className={styles.welcomeMessage}>첫 방문을 환영합니다!</div>
+        <div className={styles.inputContainer}>
+          <div className={styles.title}>이메일</div>
+          <Input
+            type="email"
+            name="email"
+            placeholder="이메일을 입력해 주세요"
+            value={formData.email}
+            onChange={handleChange}
+            validate={validateEmail}
+          />
+          <div className={styles.title}>닉네임</div>
+          <Input
+            type="text"
+            name="nickname"
+            placeholder="닉네임을 입력해 주세요"
+            value={formData.nickname}
+            onChange={handleChange}
+            validate={validateNickname}
+          />
+          <div className={styles.title}>비밀번호</div>
+          <Input
+            type="password"
+            name="password"
+            placeholder="8자 이상 입력해 주세요"
+            value={formData.password}
+            onChange={handleChange}
+            validate={validatePassword}
+          />
+          <div className={styles.title}>비밀번호 확인</div>
+          <Input
+            type="password"
+            name="confirmPassword"
+            placeholder="비밀번호를 한번 더 입력해 주세요"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            validate={validateConfirmPassword}
+          />
+        </div>
       </div>
     </>
   );
