@@ -1,6 +1,4 @@
-@import url('./color.scss');
-@import url('./mixin.scss');
-@import url('./reset.scss');
+@import 'color', 'mixin', 'reset';
 
 * {
   box-sizing: border-box;
