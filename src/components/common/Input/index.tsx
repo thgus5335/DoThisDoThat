@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, FocusEvent, useState } from 'react';
 import styles from './Input.module.scss';
 
 interface InputProps {
@@ -12,9 +12,24 @@ interface InputProps {
 
 export default function Input({ type, name, placeholder, value, onChange, validate }: InputProps) {
   const [error, setError] = useState<string>('');
+
+  // 유효성 검사
+  const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
+    const validationError = validate(e.target.value);
+    setError(validationError);
+  };
+
   return (
     <div className={styles.inputContainer}>
-      <input />
+      <input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        onBlur={handleBlur}
+        className={error ? styles.errorInput : undefined}
+      />
     </div>
   );
 }

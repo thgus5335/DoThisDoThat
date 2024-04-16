@@ -5,7 +5,6 @@ export default function Home() {
   return (
     <>
       <p className={styles.test}>main</p>
-      <Input />
     </>
   );
 }
