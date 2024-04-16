@@ -30,6 +30,7 @@ export default function Input({ type, name, placeholder, value, onChange, valida
         onBlur={handleBlur}
         className={error ? styles.errorInput : undefined}
       />
+      {error && <div className={styles.errorMessage}>{error}</div>}
     </div>
   );
 }
