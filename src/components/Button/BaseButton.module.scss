@@ -1,0 +1,32 @@
+%btnBaseStyle {
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: $violet_55;
+  color: $white_FF;
+  text-align: center;
+  font-style: normal;
+  line-height: normal;
+
+  @include text-l-500;
+
+  &:disabled {
+    background: $gray_D9;
+    cursor: default;
+  }
+}
+
+.large {
+  @extend %btnBaseStyle;
+  width: 520px;
+  padding: 14px 236px;
+}
+
+.medium {
+  @extend %btnBaseStyle;
+  width: 351px;
+  padding: 14px 150px;
+}
