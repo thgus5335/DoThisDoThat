@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 173px;
+  margin-top: 60px;
 }
 .logoContainer {
   display: flex;
@@ -42,6 +42,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 10px;
 }
 
 .agreeCheck {
@@ -53,4 +54,42 @@
 
 .agreeMessage {
   @include text-m-400;
+}
+
+.button {
+  width: 520px;
+  height: 50px;
+  padding: 14px 236px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: $gray_D9;
+  @include text-l-500;
+  color: $white_FF;
+  margin-bottom: 26px;
+  cursor: not-allowed;
+}
+
+.buttonEnabled {
+  width: 520px;
+  height: 50px;
+  padding: 14px 236px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  @include text-l-500;
+  color: $white_FF;
+  margin-bottom: 26px;
+  cursor: pointer;
+  background-color: $purple_76;
+}
+
+.question {
+  text-align: center;
+  @include text-m-400;
+}
+
+.goToLoginPage {
+  padding: 5px;
+  color: $violet_55;
 }

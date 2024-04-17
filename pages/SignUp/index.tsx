@@ -1,7 +1,6 @@
 import Input from '@/src/components/common/Input';
 import styles from './SignUp.module.scss';
 import React, { useState } from 'react';
-import Link from 'next/link';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -10,6 +9,7 @@ export default function SignUp() {
     password: '',
     confirmPassword: '',
   });
+  const [checkboxAgreed, setCheckboxAgreed] = useState(false); // 이용 약관 동의 여부
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -46,8 +46,16 @@ export default function SignUp() {
     return '';
   };
 
+  const allFieldsFilled = Object.values(formData).every(x => x);
+  const isSubmitEnabled = allFieldsFilled && checkboxAgreed;
+  console.log(isSubmitEnabled);
+
   const goToHome = () => {
     window.location.href = '/';
+  };
+
+  const goToLogin = () => {
+    window.location.href = '/Login';
   };
 
   return (
@@ -96,8 +104,19 @@ export default function SignUp() {
             validate={validateConfirmPassword}
           />
           <div className={styles.agreeContainer}>
-            <input type="checkbox" className={styles.agreeCheck} />
+            <input type="checkbox" className={styles.agreeCheck} onChange={() => setCheckboxAgreed(!checkboxAgreed)} />
             <div className={styles.agreeMessage}>이용약관에 동의합니다.</div>
+          </div>
+          <button className={`${isSubmitEnabled ? styles.buttonEnabled : styles.button}`} disabled={!isSubmitEnabled}>
+            가입하기
+          </button>
+          <div className={styles.goToLogin}>
+            <div className={styles.question}>
+              이미 가입하셨나요?
+              <span className={styles.goToLoginPage} onClick={goToLogin}>
+                로그인하기
+              </span>
+            </div>
           </div>
         </form>
       </div>
