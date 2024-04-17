@@ -58,6 +58,12 @@ export default function SignUp() {
     window.location.href = '/Login';
   };
 
+  const goToLoginWithAlert = e => {
+    e.preventDefault();
+    alert('가입이 완료되었습니다');
+    window.location.href = '/Login';
+  };
+
   return (
     <>
       <div className={styles.bigContainer}>
@@ -107,7 +113,10 @@ export default function SignUp() {
             <input type="checkbox" className={styles.agreeCheck} onChange={() => setCheckboxAgreed(!checkboxAgreed)} />
             <div className={styles.agreeMessage}>이용약관에 동의합니다.</div>
           </div>
-          <button className={`${isSubmitEnabled ? styles.buttonEnabled : styles.button}`} disabled={!isSubmitEnabled}>
+          <button
+            className={`${isSubmitEnabled ? styles.buttonEnabled : styles.button}`}
+            disabled={!isSubmitEnabled}
+            onClick={goToLoginWithAlert}>
             가입하기
           </button>
           <div className={styles.goToLogin}>
