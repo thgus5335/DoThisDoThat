@@ -9,13 +9,20 @@ export default function SignUp() {
     password: '',
     confirmPassword: '',
   });
+  const [formErrors, setFormErrors] = useState({
+    email: '',
+    nickname: '',
+    password: '',
+    confirmPassword: '',
+  });
   const [checkboxAgreed, setCheckboxAgreed] = useState(false); // 이용 약관 동의 여부
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+  const setFormError = (name, error) => {
+    setFormErrors(prev => ({ ...prev, [name]: error }));
   };
 
   const validateEmail = (value: string): string => {
@@ -47,8 +54,17 @@ export default function SignUp() {
   };
 
   const allFieldsFilled = Object.values(formData).every(x => x);
-  const isSubmitEnabled = allFieldsFilled && checkboxAgreed;
+  const allErrorsResolved = Object.values(formErrors).every(x => !x);
+  const isSubmitEnabled = allFieldsFilled && allErrorsResolved && checkboxAgreed;
   console.log(isSubmitEnabled);
+
+  const handleSubmit = e => {
+    e.preventDefault(); // 폼 제출 기본 이벤트 방지
+    if (isSubmitEnabled) {
+      // 서버에 데이터 전송 로직
+      console.log('Form submitted:', formData);
+    }
+  };
 
   const goToHome = () => {
     window.location.href = '/';
@@ -72,7 +88,7 @@ export default function SignUp() {
           <img src="./Taskify.svg" alt="로고명" className={styles.logoName} onClick={goToHome} />
         </div>
         <div className={styles.welcomeMessage}>첫 방문을 환영합니다!</div>
-        <form className={styles.inputContainer}>
+        <form className={styles.inputContainer} onSubmit={handleSubmit}>
           <div className={styles.title}>이메일</div>
           <Input
             type="email"
@@ -81,6 +97,7 @@ export default function SignUp() {
             value={formData.email}
             onChange={handleChange}
             validate={validateEmail}
+            setFormError={setFormError}
           />
           <div className={styles.title}>닉네임</div>
           <Input
@@ -90,6 +107,7 @@ export default function SignUp() {
             value={formData.nickname}
             onChange={handleChange}
             validate={validateNickname}
+            setFormError={setFormError}
           />
           <div className={styles.title}>비밀번호</div>
           <Input
@@ -99,6 +117,7 @@ export default function SignUp() {
             value={formData.password}
             onChange={handleChange}
             validate={validatePassword}
+            setFormError={setFormError}
           />
           <div className={styles.title}>비밀번호 확인</div>
           <Input
@@ -108,6 +127,7 @@ export default function SignUp() {
             value={formData.confirmPassword}
             onChange={handleChange}
             validate={validateConfirmPassword}
+            setFormError={setFormError}
           />
           <div className={styles.agreeContainer}>
             <input type="checkbox" className={styles.agreeCheck} onChange={() => setCheckboxAgreed(!checkboxAgreed)} />
