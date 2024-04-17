@@ -1,0 +1,37 @@
+.pagenationButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+%pagenationButtonStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $gray_D9;
+  background: $white_FF;
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.left {
+  border-radius: 4px 0px 0px 4px;
+}
+
+.right {
+  border-radius: 0px 4px 4px 0px;
+}
+
+.large {
+  @extend %pagenationButtonStyle;
+  width: 40px;
+  height: 40px;
+}
+
+.small {
+  @extend %pagenationButtonStyle;
+  width: 36px;
+  height: 36px;
+}
