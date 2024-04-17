@@ -1,0 +1,95 @@
+.bigContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 150px;
+}
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logoImage {
+  width: 164.557px;
+  height: 189.796px;
+  margin-left: 37px;
+}
+
+.logoName {
+  margin-top: 30.07px;
+  width: 198.407px;
+  height: 55.186px;
+}
+
+.welcomeMessage {
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 13.95px;
+  font-family: Pretendard;
+}
+
+.inputContainer {
+  margin-top: 32px;
+}
+
+.title {
+  @include text-m-400;
+}
+
+.agreeContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.agreeCheck {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid $gray_D9;
+}
+
+.agreeMessage {
+  @include text-m-400;
+}
+
+.button {
+  width: 520px;
+  height: 50px;
+  padding: 14px 236px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: $gray_D9;
+  @include text-l-500;
+  color: $white_FF;
+  margin-bottom: 26px;
+  cursor: not-allowed;
+}
+
+.buttonEnabled {
+  width: 520px;
+  height: 50px;
+  padding: 14px 236px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  @include text-l-500;
+  color: $white_FF;
+  margin-bottom: 26px;
+  cursor: pointer;
+  background-color: $purple_76;
+}
+
+.question {
+  text-align: center;
+  @include text-m-400;
+}
+
+.goToLoginPage {
+  padding: 5px;
+  color: $violet_55;
+}

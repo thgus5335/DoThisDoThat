@@ -5,7 +5,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 interface InputProps {
   type: string; // 입력 필드의 종류 (nickname, password ...etc)
-  name: 'email' | 'nickname' | 'password' | 'confirmPasword'; // 입력 필드의 이름
+  name: 'email' | 'nickname' | 'password' | 'confirmPassword'; // 입력 필드의 이름
   placeholder: string; // placeholder
   value: string; // 입력 필드의 현재 값
   onChange: (e: ChangeEvent<HTMLInputElement>) => void; // 입력 필드의 값이 변경될 때마다 실행
@@ -22,7 +22,7 @@ export default function Input({ type, name, placeholder, value, onChange, valida
   }, [error, name, setFormError]);
 
   // 유효성 검사
-  const handleInputChange = e => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     onChange(e); // 상위 컴포넌트의 상태 업데이트
     const validationError = validate(value);

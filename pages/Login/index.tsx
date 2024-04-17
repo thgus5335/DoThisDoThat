@@ -1,21 +1,17 @@
+import styles from './Login.module.scss';
 import Input from '@/src/components/common/Input';
-import styles from './SignUp.module.scss';
 import React, { useState, useEffect } from 'react';
 
-export default function SignUp() {
+export default function Login() {
   const [formData, setFormData] = useState({
     email: '',
-    nickname: '',
     password: '',
-    confirmPassword: '',
   });
+
   const [formErrors, setFormErrors] = useState({
     email: '',
-    nickname: '',
     password: '',
-    confirmPassword: '',
   });
-  const [checkboxAgreed, setCheckboxAgreed] = useState(false); // 이용 약관 동의 여부
   const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,25 +19,17 @@ export default function SignUp() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const checkFormValidity = (checkboxAgreed, formErrors, formData) => {
+  const checkFormValidity = (formErrors: any, formData: any) => {
     const allFieldsFilled = Object.values(formData).every(x => x);
     const allErrorsResolved = Object.values(formErrors).every(x => !x);
-    setIsSubmitEnabled(allErrorsResolved && allFieldsFilled && checkboxAgreed);
-  };
-
-  const handleCheckboxChange = () => {
-    setCheckboxAgreed(prev => {
-      const newAgreed = !prev;
-      checkFormValidity(newAgreed, formErrors, formData);
-      return newAgreed;
-    });
+    setIsSubmitEnabled(allErrorsResolved && allFieldsFilled);
   };
 
   useEffect(() => {
-    checkFormValidity(checkboxAgreed, formErrors, formData);
-  }, [formData, formErrors, checkboxAgreed]);
+    checkFormValidity(formErrors, formData);
+  }, [formData, formErrors]);
 
-  const setFormError = (name: 'email' | 'nickname' | 'password' | 'confirmPassword', newError: string) => {
+  const setFormError = (name: 'email' | 'password', newError: string) => {
     setFormErrors(prevErrors => {
       // 이전 에러와 새 에러가 다르면 업데이트
       if (prevErrors[name] !== newError) {
@@ -61,22 +49,9 @@ export default function SignUp() {
     return '';
   };
 
-  const validateNickname = (value: string) => {
-    if (!value) return '닉네임을 입력해주세요.';
-    if (value.length > 11) return '열 자 이하로 작성해주세요.';
-    return '';
-  };
-
   const validatePassword = (value: string) => {
     if (!value) return '비밀번호를 입력해 주세요.';
     if (value.length < 8) return '8자 이상 입력해 주세요.';
-    return '';
-  };
-
-  const validateConfirmPassword = (value: string) => {
-    if (!value) return '비밀번호를 입력해 주세요.';
-    if (value.length < 8) return '8자 이상 입력해 주세요.';
-    if (value !== formData.password) return '비밀번호가 일치하지 않습니다.';
     return '';
   };
 
@@ -92,16 +67,14 @@ export default function SignUp() {
     window.location.href = '/';
   };
 
-  const goToLogin = () => {
-    window.location.href = '/Login';
+  const goToSignUp = () => {
+    window.location.href = '/SignUp';
   };
 
-  const goToSignUpWithAlert = e => {
+  const goToLoginWithAlert = e => {
     e.preventDefault();
-    alert('가입이 완료되었습니다');
-    window.location.href = '/Login';
+    window.location.href = '/Mydashboard';
   };
-
   return (
     <>
       <div className={styles.bigContainer}>
@@ -109,7 +82,7 @@ export default function SignUp() {
           <img src="./Logo.svg" alt="로고그림" className={styles.logoImage} onClick={goToHome} />
           <img src="./Taskify.svg" alt="로고명" className={styles.logoName} onClick={goToHome} />
         </div>
-        <div className={styles.welcomeMessage}>첫 방문을 환영합니다!</div>
+        <div className={styles.welcomeMessage}>오늘도 만나서 반가워요!</div>
         <form className={styles.inputContainer} onSubmit={handleSubmit}>
           <div className={styles.title}>이메일</div>
           <Input
@@ -119,16 +92,6 @@ export default function SignUp() {
             value={formData.email}
             onChange={handleChange}
             validate={validateEmail}
-            setFormError={setFormError}
-          />
-          <div className={styles.title}>닉네임</div>
-          <Input
-            type="text"
-            name="nickname"
-            placeholder="닉네임을 입력해 주세요"
-            value={formData.nickname}
-            onChange={handleChange}
-            validate={validateNickname}
             setFormError={setFormError}
           />
           <div className={styles.title}>비밀번호</div>
@@ -141,31 +104,17 @@ export default function SignUp() {
             validate={validatePassword}
             setFormError={setFormError}
           />
-          <div className={styles.title}>비밀번호 확인</div>
-          <Input
-            type="password"
-            name="confirmPassword"
-            placeholder="비밀번호를 한번 더 입력해 주세요"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            validate={validateConfirmPassword}
-            setFormError={setFormError}
-          />
-          <div className={styles.agreeContainer}>
-            <input type="checkbox" className={styles.agreeCheck} onChange={() => setCheckboxAgreed(!checkboxAgreed)} />
-            <div className={styles.agreeMessage}>이용약관에 동의합니다.</div>
-          </div>
           <button
             className={`${isSubmitEnabled ? styles.buttonEnabled : styles.button}`}
             disabled={!isSubmitEnabled}
-            onClick={goToSignUpWithAlert}>
-            가입하기
+            onClick={goToLoginWithAlert}>
+            로그인
           </button>
           <div className={styles.goToLogin}>
             <div className={styles.question}>
-              이미 가입하셨나요?
-              <span className={styles.goToLoginPage} onClick={goToLogin}>
-                로그인하기
+              회원이 아니신가요?
+              <span className={styles.goToLoginPage} onClick={goToSignUp}>
+                회원가입하기
               </span>
             </div>
           </div>
