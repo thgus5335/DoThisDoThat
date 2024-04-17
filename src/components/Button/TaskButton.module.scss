@@ -1,0 +1,51 @@
+%button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background: $violet_55;
+  text-align: center;
+  font-style: normal;
+  line-height: normal;
+}
+
+.large {
+  @extend %button;
+  @include text-s-500;
+  width: 84px;
+  height: 32px;
+  padding: 7px 29px;
+}
+
+.medium {
+  @extend %button;
+  @include text-s-500;
+  width: 72px;
+  height: 30px;
+  padding: 6px 23px;
+}
+
+.long {
+  @extend %button;
+  @include text-xs-500;
+  width: 109px;
+  padding: 7px 37px;
+}
+
+.small {
+  @extend %button;
+  @include text-xs-500;
+  width: 52px;
+  padding: 7px 9px;
+}
+
+.violet {
+  background: $violet_55;
+  color: $white_FF;
+}
+
+.white {
+  border: 1px solid $gray_D9;
+  background: $white_FF;
+  color: $violet_55;
+}
