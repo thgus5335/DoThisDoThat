@@ -18,17 +18,30 @@ export default function SignUp() {
   const [checkboxAgreed, setCheckboxAgreed] = useState(false); // 이용 약관 동의 여부
   const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
 
-  useEffect(() => {
-    const allFieldsFilled = Object.values(formData).every(x => x);
-    const allErrorsResolved = Object.values(formErrors).every(x => !x);
-    setIsSubmitEnabled(allErrorsResolved && allFieldsFilled && checkboxAgreed);
-  }, [formData, formErrors, checkboxAgreed]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-  const setFormError = (name: keyof typeof formErrors, newError: string) => {
+
+  const checkFormValidity = (checkboxAgreed, formErrors, formData) => {
+    const allFieldsFilled = Object.values(formData).every(x => x);
+    const allErrorsResolved = Object.values(formErrors).every(x => !x);
+    setIsSubmitEnabled(allErrorsResolved && allFieldsFilled && checkboxAgreed);
+  };
+
+  const handleCheckboxChange = () => {
+    setCheckboxAgreed(prev => {
+      const newAgreed = !prev;
+      checkFormValidity(newAgreed, formErrors, formData);
+      return newAgreed;
+    });
+  };
+
+  useEffect(() => {
+    checkFormValidity(checkboxAgreed, formErrors, formData);
+  }, [formData, formErrors, checkboxAgreed]);
+
+  const setFormError = (name: 'email' | 'nickname' | 'password' | 'confirmPassword', newError: string) => {
     setFormErrors(prevErrors => {
       // 이전 에러와 새 에러가 다르면 업데이트
       if (prevErrors[name] !== newError) {
