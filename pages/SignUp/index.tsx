@@ -1,6 +1,6 @@
 import Input from '@/src/components/common/Input';
 import styles from './SignUp.module.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -16,13 +16,27 @@ export default function SignUp() {
     confirmPassword: '',
   });
   const [checkboxAgreed, setCheckboxAgreed] = useState(false); // 이용 약관 동의 여부
+  const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
+
+  useEffect(() => {
+    const allFieldsFilled = Object.values(formData).every(x => x);
+    const allErrorsResolved = Object.values(formErrors).every(x => !x);
+    setIsSubmitEnabled(allErrorsResolved && allFieldsFilled && checkboxAgreed);
+  }, [formData, formErrors, checkboxAgreed]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-  const setFormError = (name, error) => {
-    setFormErrors(prev => ({ ...prev, [name]: error }));
+  const setFormError = (name: keyof typeof formErrors, newError: string) => {
+    setFormErrors(prevErrors => {
+      // 이전 에러와 새 에러가 다르면 업데이트
+      if (prevErrors[name] !== newError) {
+        return { ...prevErrors, [name]: newError };
+      }
+      // 변경이 없으면 이전 상태 반환
+      return prevErrors;
+    });
   };
 
   const validateEmail = (value: string): string => {
@@ -53,13 +67,8 @@ export default function SignUp() {
     return '';
   };
 
-  const allFieldsFilled = Object.values(formData).every(x => x);
-  const allErrorsResolved = Object.values(formErrors).every(x => !x);
-  const isSubmitEnabled = allFieldsFilled && allErrorsResolved && checkboxAgreed;
-  console.log(isSubmitEnabled);
-
   const handleSubmit = e => {
-    e.preventDefault(); // 폼 제출 기본 이벤트 방지
+    e.preventDefault();
     if (isSubmitEnabled) {
       // 서버에 데이터 전송 로직
       console.log('Form submitted:', formData);
