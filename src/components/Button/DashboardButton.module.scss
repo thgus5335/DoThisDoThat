@@ -1,0 +1,162 @@
+%DashboardButtonStyle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $gray_D9;
+  background: $white_FF;
+}
+
+%columnStyle {
+  @extend %DashboardButtonStyle;
+  color: $black_33;
+  line-height: normal;
+  border-radius: 8px;
+  gap: 12px;
+}
+
+%taskStyle {
+  @extend %DashboardButtonStyle;
+  border-radius: 6px;
+}
+
+%dashboardStyle {
+  @extend %DashboardButtonStyle;
+  border-radius: 8px;
+  gap: 12px;
+  color: $black_33;
+  text-align: center;
+  font-style: normal;
+  line-height: normal;
+}
+
+%iconStyle {
+  display: flex;
+  padding: 3px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: $violet_F1;
+}
+
+// columnType
+.columnLarge {
+  @extend %columnStyle;
+  font-size: 18px;
+  font-weight: 700;
+  width: 354px;
+  height: 70px;
+
+  .icon {
+    @extend %iconStyle;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.columnLong {
+  @extend %columnStyle;
+  font-size: 18px;
+  font-weight: 700;
+  width: 544px;
+  height: 70px;
+
+  .icon {
+    @extend %iconStyle;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.columnSmall {
+  @extend %columnStyle;
+  font-size: 16px;
+  font-weight: 700;
+  width: 284px;
+  height: 60px;
+
+  .icon {
+    @extend %iconStyle;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// taskType
+.taskLarge {
+  @extend %taskStyle;
+  width: 314px;
+  height: 40px;
+
+  .icon {
+    @extend %iconStyle;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.taskLong {
+  @extend %taskStyle;
+  width: 544px;
+  height: 40px;
+
+  .icon {
+    @extend %iconStyle;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.taskSmall {
+  @extend %taskStyle;
+  width: 284px;
+  height: 32px;
+
+  .icon {
+    @extend %iconStyle;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// dashboardType
+.dashboardLarge {
+  @extend %dashboardStyle;
+  width: 332px;
+  height: 70px;
+  font-size: 16px;
+  font-weight: 600;
+
+  .icon {
+    @extend %iconStyle;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.dashboardMedium {
+  @extend %dashboardStyle;
+  width: 247px;
+  height: 68px;
+  font-size: 16px;
+  font-weight: 600;
+
+  .icon {
+    @extend %iconStyle;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.dashboardSmall {
+  @extend %dashboardStyle;
+  @include text-s-600;
+  width: 260px;
+  height: 58px;
+
+  .icon {
+    @extend %iconStyle;
+    width: 20px;
+    height: 20px;
+  }
+}
