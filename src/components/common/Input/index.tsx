@@ -1,5 +1,7 @@
 import React, { ChangeEvent, FocusEvent, useEffect, useState } from 'react';
 import styles from './Input.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 interface InputProps {
   type: string; // 입력 필드의 종류 (nickname, password ...etc)
@@ -42,7 +44,7 @@ export default function Input({ type, name, placeholder, value, onChange, valida
       />
       {type === 'password' && (
         <button onClick={togglePasswordVisibility} className={styles.toggleButton}>
-          {showPassword ? 'Hide' : 'Show'}
+          {showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
         </button>
       )}
       {error && <div className={styles.errorMessage}>{error}</div>}

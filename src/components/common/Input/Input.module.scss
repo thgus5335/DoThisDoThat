@@ -8,6 +8,10 @@
   margin-bottom: 16px;
 }
 
+.inputContainer {
+  position: relative;
+}
+
 .errorInput {
   width: 520px;
   height: 50px;
@@ -22,4 +26,11 @@
   color: $red_D6;
   margin-bottom: 8px;
   font-size: 14px;
+}
+
+.toggleButton {
+  color: $gray_9F;
+  position: absolute;
+  right: 20px;
+  top: 24px;
 }
