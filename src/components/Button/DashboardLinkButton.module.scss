@@ -1,0 +1,81 @@
+%dashboardLinkButtonStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid $gray_D9;
+  background: $white_FF;
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+%contentStyle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.large {
+  @extend %dashboardLinkButtonStyle;
+  width: 332px;
+  height: 70px;
+
+  .content {
+    @extend %contentStyle;
+    width: 292.103px;
+  }
+
+  .title {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 8px 0 16px;
+  }
+}
+
+.medium {
+  @extend %dashboardLinkButtonStyle;
+  width: 247px;
+  height: 68px;
+
+  .content {
+    @extend %contentStyle;
+    width: 206.59px;
+  }
+
+  .title {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 6px 0 12px;
+  }
+}
+
+.small {
+  @extend %dashboardLinkButtonStyle;
+  width: 260px;
+  height: 58px;
+
+  .content {
+    @extend %contentStyle;
+    width: 220px;
+  }
+
+  .title {
+    @include text-s-600;
+    display: inline-block;
+    margin: 0 4px 0 12px;
+  }
+}
+
+.color {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+}
+
+.dataBox {
+  display: flex;
+  align-items: center;
+}
