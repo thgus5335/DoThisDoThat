@@ -7,3 +7,19 @@
   margin-top: 8px;
   margin-bottom: 16px;
 }
+
+.errorInput {
+  width: 520px;
+  height: 50px;
+  padding: 15px 16px;
+  border: 1px solid $red_D6;
+  border-radius: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.errorMessage {
+  color: $red_D6;
+  margin-bottom: 8px;
+  font-size: 14px;
+}

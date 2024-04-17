@@ -58,7 +58,7 @@ export default function SignUp() {
           <img src="./Taskify.svg" alt="로고명" className={styles.logoName} onClick={goToHome} />
         </div>
         <div className={styles.welcomeMessage}>첫 방문을 환영합니다!</div>
-        <div className={styles.inputContainer}>
+        <form className={styles.inputContainer}>
           <div className={styles.title}>이메일</div>
           <Input
             type="email"
@@ -95,7 +95,11 @@ export default function SignUp() {
             onChange={handleChange}
             validate={validateConfirmPassword}
           />
-        </div>
+          <div className={styles.agreeContainer}>
+            <input type="checkbox" className={styles.agreeCheck} />
+            <div className={styles.agreeMessage}>이용약관에 동의합니다.</div>
+          </div>
+        </form>
       </div>
     </>
   );
