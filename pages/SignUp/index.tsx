@@ -1,6 +1,21 @@
 import Input from '@/src/components/common/Input';
 import styles from './SignUp.module.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
+import { registerUser } from '@/src/apis/authService';
+
+interface FormData {
+  email: string;
+  nickname: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface FormErrors {
+  email: string;
+  nickname: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -23,7 +38,7 @@ export default function SignUp() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const checkFormValidity = (checkboxAgreed, formErrors, formData) => {
+  const checkFormValidity = (checkboxAgreed: boolean, formErrors: FormErrors, formData: FormData) => {
     const allFieldsFilled = Object.values(formData).every(x => x);
     const allErrorsResolved = Object.values(formErrors).every(x => !x);
     setIsSubmitEnabled(allErrorsResolved && allFieldsFilled && checkboxAgreed);
@@ -80,11 +95,18 @@ export default function SignUp() {
     return '';
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmitEnabled) {
       // 서버에 데이터 전송 로직
-      console.log('Form submitted:', formData);
+      try {
+        const result = await registerUser(formData);
+        console.log('Registration successful:', result);
+        alert('가입이 완료되었습니다');
+        window.location.href = '/Login';
+      } catch (error) {
+        console.error('Registration failed', error);
+      }
     }
   };
 
@@ -93,12 +115,6 @@ export default function SignUp() {
   };
 
   const goToLogin = () => {
-    window.location.href = '/Login';
-  };
-
-  const goToSignUpWithAlert = e => {
-    e.preventDefault();
-    alert('가입이 완료되었습니다');
     window.location.href = '/Login';
   };
 
@@ -155,10 +171,7 @@ export default function SignUp() {
             <input type="checkbox" className={styles.agreeCheck} onChange={() => setCheckboxAgreed(!checkboxAgreed)} />
             <div className={styles.agreeMessage}>이용약관에 동의합니다.</div>
           </div>
-          <button
-            className={`${isSubmitEnabled ? styles.buttonEnabled : styles.button}`}
-            disabled={!isSubmitEnabled}
-            onClick={goToSignUpWithAlert}>
+          <button className={`${isSubmitEnabled ? styles.buttonEnabled : styles.button}`} disabled={!isSubmitEnabled}>
             가입하기
           </button>
           <div className={styles.goToLogin}>
