@@ -1,7 +1,7 @@
 %baseButtonStyle {
   @include text-l-500;
   display: flex;
-  height: 50px;
+  height: 5rem;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
@@ -20,12 +20,12 @@
 
 .large {
   @extend %baseButtonStyle;
-  width: 520px;
-  padding: 14px 236px;
+  width: 52rem;
+  padding: 1.4rem 23.6rem;
 }
 
 .medium {
   @extend %baseButtonStyle;
-  width: 351px;
-  padding: 14px 150px;
+  width: 35.1rem;
+  padding: 1.4rem 15rem;
 }

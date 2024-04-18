@@ -15,13 +15,13 @@
 .large {
   @extend %dashboardDeleteButtonStyle;
   @include text-l-500;
-  width: 320px;
-  height: 62px;
+  width: 32rem;
+  height: 6.2rem;
 }
 
 .small {
   @extend %dashboardDeleteButtonStyle;
   @include text-m-500;
-  width: 284px;
-  height: 52px;
+  width: 28.4rem;
+  height: 5.2rem;
 }

@@ -18,60 +18,60 @@
 
 .large {
   @extend %dashboardLinkButtonStyle;
-  width: 332px;
-  height: 70px;
+  width: 33.2rem;
+  height: 7rem;
 
   .dashboardLinkBtnContent {
     @extend %dashboardLinkButtonContentStyle;
-    width: 292.103px;
+    width: 29.2rem;
   }
 
   .title {
     display: inline-block;
     font-size: 16px;
     font-weight: 600;
-    margin: 0 8px 0 16px;
+    margin: 0 0.8rem 0 1.6rem;
   }
 }
 
 .medium {
   @extend %dashboardLinkButtonStyle;
-  width: 247px;
-  height: 68px;
+  width: 24.7rem;
+  height: 6.8rem;
 
   .dashboardLinkBtnContent {
     @extend %dashboardLinkButtonContentStyle;
-    width: 206.59px;
+    width: 20.7rem;
   }
 
   .title {
     display: inline-block;
     font-size: 16px;
     font-weight: 600;
-    margin: 0 6px 0 12px;
+    margin: 0 0.6rem 0 1.2rem;
   }
 }
 
 .small {
   @extend %dashboardLinkButtonStyle;
-  width: 260px;
-  height: 58px;
+  width: 26rem;
+  height: 5.8rem;
 
   .dashboardLinkBtnContent {
     @extend %dashboardLinkButtonContentStyle;
-    width: 220px;
+    width: 22rem;
   }
 
   .title {
     @include text-s-600;
     display: inline-block;
-    margin: 0 4px 0 12px;
+    margin: 0 0.4rem 0 1.2rem;
   }
 }
 
 .color {
-  width: 8px;
-  height: 8px;
+  width: 0.8rem;
+  height: 0.8rem;
   border-radius: 9999px;
 }
 

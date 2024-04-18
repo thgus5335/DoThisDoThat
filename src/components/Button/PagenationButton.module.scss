@@ -17,21 +17,21 @@
 }
 
 .left {
-  border-radius: 4px 0px 0px 4px;
+  border-radius: 0.4rem 0px 0px 0.4rem;
 }
 
 .right {
-  border-radius: 0px 4px 4px 0px;
+  border-radius: 0px 0.4rem 0.4rem 0px;
 }
 
 .large {
   @extend %pagenationButtonStyle;
-  width: 40px;
-  height: 40px;
+  width: 4rem;
+  height: 4rem;
 }
 
 .small {
   @extend %pagenationButtonStyle;
-  width: 36px;
-  height: 36px;
+  width: 3.6rem;
+  height: 3.6rem;
 }
