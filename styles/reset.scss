@@ -15,9 +15,11 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 62.5%;
 	font: inherit;
 	vertical-align: baseline;
+}
+html {
+  font-size: 62.5%;
 }
 /* prettier-ignore */
 article, aside, details, figcaption, figure, 
