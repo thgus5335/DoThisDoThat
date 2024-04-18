@@ -1,4 +1,5 @@
-%btnBaseStyle {
+%baseButtonStyle {
+  @include text-l-500;
   display: flex;
   height: 50px;
   justify-content: center;
@@ -11,8 +12,6 @@
   font-style: normal;
   line-height: normal;
 
-  @include text-l-500;
-
   &:disabled {
     background: $gray_D9;
     cursor: default;
@@ -20,13 +19,13 @@
 }
 
 .large {
-  @extend %btnBaseStyle;
+  @extend %baseButtonStyle;
   width: 520px;
   padding: 14px 236px;
 }
 
 .medium {
-  @extend %btnBaseStyle;
+  @extend %baseButtonStyle;
   width: 351px;
   padding: 14px 150px;
 }

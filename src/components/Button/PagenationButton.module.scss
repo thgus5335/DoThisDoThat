@@ -1,9 +1,3 @@
-.pagenationButton {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}
-
 %pagenationButtonStyle {
   display: flex;
   justify-content: center;
@@ -14,6 +8,12 @@
   &:disabled {
     cursor: default;
   }
+}
+
+.pagenationButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .left {

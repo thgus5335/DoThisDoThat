@@ -10,7 +10,7 @@
   line-height: normal;
 }
 
-%contentStyle {
+%dashboardLinkButtonContentStyle {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,8 +21,8 @@
   width: 332px;
   height: 70px;
 
-  .content {
-    @extend %contentStyle;
+  .dashboardLinkBtnContent {
+    @extend %dashboardLinkButtonContentStyle;
     width: 292.103px;
   }
 
@@ -39,8 +39,8 @@
   width: 247px;
   height: 68px;
 
-  .content {
-    @extend %contentStyle;
+  .dashboardLinkBtnContent {
+    @extend %dashboardLinkButtonContentStyle;
     width: 206.59px;
   }
 
@@ -57,8 +57,8 @@
   width: 260px;
   height: 58px;
 
-  .content {
-    @extend %contentStyle;
+  .dashboardLinkBtnContent {
+    @extend %dashboardLinkButtonContentStyle;
     width: 220px;
   }
 
@@ -75,7 +75,7 @@
   border-radius: 9999px;
 }
 
-.dataBox {
+.dashboardDataBox {
   display: flex;
   align-items: center;
 }

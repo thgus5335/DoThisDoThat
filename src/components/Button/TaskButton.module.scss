@@ -1,4 +1,4 @@
-%button {
+%TaskbuttonStyle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +10,7 @@
 }
 
 .large {
-  @extend %button;
+  @extend %TaskbuttonStyle;
   @include text-s-500;
   width: 84px;
   height: 32px;
@@ -18,7 +18,7 @@
 }
 
 .medium {
-  @extend %button;
+  @extend %TaskbuttonStyle;
   @include text-s-500;
   width: 72px;
   height: 30px;
@@ -26,14 +26,14 @@
 }
 
 .long {
-  @extend %button;
+  @extend %TaskbuttonStyle;
   @include text-xs-500;
   width: 109px;
   padding: 7px 37px;
 }
 
 .small {
-  @extend %button;
+  @extend %TaskbuttonStyle;
   @include text-xs-500;
   width: 52px;
   padding: 7px 9px;

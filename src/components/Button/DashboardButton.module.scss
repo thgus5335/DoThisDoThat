@@ -1,4 +1,4 @@
-%DashboardButtonStyle {
+%dashboardButtonStyle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6,21 +6,21 @@
   background: $white_FF;
 }
 
-%columnStyle {
-  @extend %DashboardButtonStyle;
+%columnTypeStyle {
+  @extend %dashboardButtonStyle;
   color: $black_33;
   line-height: normal;
   border-radius: 8px;
   gap: 12px;
 }
 
-%taskStyle {
-  @extend %DashboardButtonStyle;
+%taskTypeStyle {
+  @extend %dashboardButtonStyle;
   border-radius: 6px;
 }
 
-%dashboardStyle {
-  @extend %DashboardButtonStyle;
+%dashboardTypeStyle {
+  @extend %dashboardButtonStyle;
   border-radius: 8px;
   gap: 12px;
   color: $black_33;
@@ -41,7 +41,7 @@
 
 // columnType
 .columnLarge {
-  @extend %columnStyle;
+  @extend %columnTypeStyle;
   font-size: 18px;
   font-weight: 700;
   width: 354px;
@@ -55,7 +55,7 @@
 }
 
 .columnLong {
-  @extend %columnStyle;
+  @extend %columnTypeStyle;
   font-size: 18px;
   font-weight: 700;
   width: 544px;
@@ -69,7 +69,7 @@
 }
 
 .columnSmall {
-  @extend %columnStyle;
+  @extend %columnTypeStyle;
   font-size: 16px;
   font-weight: 700;
   width: 284px;
@@ -84,7 +84,7 @@
 
 // taskType
 .taskLarge {
-  @extend %taskStyle;
+  @extend %taskTypeStyle;
   width: 314px;
   height: 40px;
 
@@ -96,7 +96,7 @@
 }
 
 .taskLong {
-  @extend %taskStyle;
+  @extend %taskTypeStyle;
   width: 544px;
   height: 40px;
 
@@ -108,7 +108,7 @@
 }
 
 .taskSmall {
-  @extend %taskStyle;
+  @extend %taskTypeStyle;
   width: 284px;
   height: 32px;
 
@@ -121,7 +121,7 @@
 
 // dashboardType
 .dashboardLarge {
-  @extend %dashboardStyle;
+  @extend %dashboardTypeStyle;
   width: 332px;
   height: 70px;
   font-size: 16px;
@@ -135,7 +135,7 @@
 }
 
 .dashboardMedium {
-  @extend %dashboardStyle;
+  @extend %dashboardTypeStyle;
   width: 247px;
   height: 68px;
   font-size: 16px;
@@ -149,7 +149,7 @@
 }
 
 .dashboardSmall {
-  @extend %dashboardStyle;
+  @extend %dashboardTypeStyle;
   @include text-s-600;
   width: 260px;
   height: 58px;

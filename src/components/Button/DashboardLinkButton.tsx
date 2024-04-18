@@ -4,28 +4,32 @@ import rightArrowIcon from '@/src/assets/icons/rightArrowIcon.svg';
 import styles from './DashboardLinkButton.module.scss';
 import Link from 'next/link';
 
+interface dashboardData {
+  id: number;
+  title: string;
+  color: string;
+  userId: number;
+  createdAt: string;
+  updatedAt: string;
+  createdByMe: boolean;
+}
+
 interface DashboardLinkButtonProps {
-  response?: {
-    id: number;
-    title: string;
-    color: string;
-    createdByMe: boolean;
-  };
+  dashboardData: dashboardData;
   size: 'large' | 'medium' | 'small';
 }
 
-const DashboardLinkButton = ({
-  response = { id: 1, title: '일해라 절해라', color: '#7AC555', createdByMe: true },
-  size,
-}: DashboardLinkButtonProps) => {
+const DashboardLinkButton = ({ dashboardData, size }: DashboardLinkButtonProps) => {
+  const { id, title, color, createdByMe } = dashboardData;
+
   return (
-    <Link href={`/dashboard/${response.id}`}>
+    <Link href={`/dashboard/${id}`}>
       <button className={styles[size]}>
-        <div className={styles.content}>
-          <div className={styles.dataBox}>
-            <div className={styles.color} style={{ backgroundColor: response.color }} />
-            <p className={styles.title}>{response.title}</p>
-            {response.createdByMe && <Image src={crownIcon} alt="crownIcon" />}
+        <div className={styles.dashboardLinkBtnContent}>
+          <div className={styles.dashboardDataBox}>
+            <div className={styles.color} style={{ backgroundColor: color }} />
+            <p className={styles.title}>{title}</p>
+            {createdByMe && <Image src={crownIcon} alt="crownIcon" />}
           </div>
           <Image src={rightArrowIcon} alt="rightArrowIcon" />
         </div>
