@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import styles from './BaseButton.module.scss';
 
 interface BaseButtonProps {
-  children: string;
+  children: ReactNode;
   size: 'large' | 'medium';
   isDisabled?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;

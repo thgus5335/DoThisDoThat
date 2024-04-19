@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import styles from './TaskButton.module.scss';
 
 interface TaskButtonProps {
-  children: string;
+  children: ReactNode;
   size: 'large' | 'medium' | 'long' | 'small';
   color: 'violet' | 'white';
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
