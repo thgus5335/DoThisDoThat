@@ -42,8 +42,7 @@
 // columnType
 .columnLarge {
   @extend %columnTypeStyle;
-  font-size: 18px;
-  font-weight: 700;
+  @include text-l(700);
   width: 354px;
   height: 70px;
 
@@ -56,8 +55,7 @@
 
 .columnLong {
   @extend %columnTypeStyle;
-  font-size: 18px;
-  font-weight: 700;
+  @include text-l(700);
   width: 54.4rem;
   height: 7rem;
 
@@ -70,8 +68,7 @@
 
 .columnSmall {
   @extend %columnTypeStyle;
-  font-size: 16px;
-  font-weight: 700;
+  @include text-m(700);
   width: 28.4rem;
   height: 6rem;
 
@@ -122,10 +119,9 @@
 // dashboardType
 .dashboardLarge {
   @extend %dashboardTypeStyle;
+  @include text-m(600);
   width: 33.2rem;
   height: 7rem;
-  font-size: 16px;
-  font-weight: 600;
 
   .icon {
     @extend %iconStyle;
@@ -136,10 +132,9 @@
 
 .dashboardMedium {
   @extend %dashboardTypeStyle;
+  @include text-m(600);
   width: 24.7rem;
   height: 6.8rem;
-  font-size: 16px;
-  font-weight: 600;
 
   .icon {
     @extend %iconStyle;
@@ -150,7 +145,7 @@
 
 .dashboardSmall {
   @extend %dashboardTypeStyle;
-  @include text-s-600;
+  @include text-s(600);
   width: 26rem;
   height: 5.8rem;
 

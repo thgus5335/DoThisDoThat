@@ -27,9 +27,8 @@
   }
 
   .title {
+    @include text-m(600);
     display: inline-block;
-    font-size: 16px;
-    font-weight: 600;
     margin: 0 0.8rem 0 1.6rem;
   }
 }
@@ -45,9 +44,8 @@
   }
 
   .title {
+    @include text-m(600);
     display: inline-block;
-    font-size: 16px;
-    font-weight: 600;
     margin: 0 0.6rem 0 1.2rem;
   }
 }
@@ -63,7 +61,7 @@
   }
 
   .title {
-    @include text-s-600;
+    @include text-s(600);
     display: inline-block;
     margin: 0 0.4rem 0 1.2rem;
   }

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import Image from 'next/image';
-import addIcon from '../../assets/icons/addIcon.svg';
+import addIcon from '@/src/assets/icons/addIcon.svg';
 import styles from './DashboardButton.module.scss';
 
 interface DashboardButtonProps {
