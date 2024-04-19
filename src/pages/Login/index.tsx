@@ -1,7 +1,7 @@
 import styles from './Login.module.scss';
 import Input from '@/src/components/common/Input';
 import React, { useState, useEffect } from 'react';
-
+import { login } from '@/src/apis/authService';
 export default function Login() {
   const [formData, setFormData] = useState({
     email: '',
@@ -55,11 +55,16 @@ export default function Login() {
     return '';
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isSubmitEnabled) {
-      // 서버에 데이터 전송 로직
-      console.log('Form submitted:', formData);
+    if (!isSubmitEnabled) return;
+    try {
+      const data = await login(formData);
+      console.log('Login successful', data);
+      window.location.href = '/Mydashboard';
+    } catch (error: unknown) {
+      const e = error as Error;
+      alert(e.message);
     }
   };
 
@@ -70,11 +75,7 @@ export default function Login() {
   const goToSignUp = () => {
     window.location.href = '/SignUp';
   };
-
-  const goToLoginWithAlert = e => {
-    e.preventDefault();
-    window.location.href = '/Mydashboard';
-  };
+  
   return (
     <>
       <div className={styles.bigContainer}>
@@ -104,10 +105,7 @@ export default function Login() {
             validate={validatePassword}
             setFormError={setFormError}
           />
-          <button
-            className={`${isSubmitEnabled ? styles.buttonEnabled : styles.button}`}
-            disabled={!isSubmitEnabled}
-            onClick={goToLoginWithAlert}>
+          <button className={`${isSubmitEnabled ? styles.buttonEnabled : styles.button}`} disabled={!isSubmitEnabled}>
             로그인
           </button>
           <div className={styles.goToLogin}>
