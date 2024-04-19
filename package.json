@@ -21,7 +21,10 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "13.5.6",
+    "stylelint": "^16.3.1",
     "stylelint-config-idiomatic-order": "^10.0.0",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-scss": "^6.2.1",
     "typescript": "^5"
   }
 }
