@@ -35,7 +35,7 @@
 }
 
 .title {
-  @include text-m-400;
+  @include text-m(400);
 }
 
 .agreeContainer {
@@ -53,7 +53,7 @@
 }
 
 .agreeMessage {
-  @include text-m-400;
+  @include text-m(400);
 }
 
 .button {
@@ -64,7 +64,7 @@
   align-items: center;
   border-radius: 0.8rem;
   background-color: $gray_D9;
-  @include text-l-500;
+  @include text-l(500);
   color: $white_FF;
   margin-bottom: 2.6rem;
   cursor: not-allowed;
@@ -77,7 +77,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 0.8rem;
-  @include text-l-500;
+  @include text-l(500);
   color: $white_FF;
   margin-bottom: 2.6rem;
   cursor: pointer;
@@ -86,7 +86,7 @@
 
 .question {
   text-align: center;
-  @include text-m-400;
+  @include text-m(400);
 }
 
 .goToLoginPage {
