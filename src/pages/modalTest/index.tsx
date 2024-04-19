@@ -1,11 +1,20 @@
-import CommentSubmitButton from '@/src/components/Modal/ModalButton/CommentSubmitButton';
+import CommentSubmitButton from '@/src/components/Modal/ModalButton/CommentButton/CommentSubmitButton';
 import ModalButton from '@/src/components/Modal/ModalButton/ModalButton';
+import DateInput from '@/src/components/Modal/ModalInput/DateInput/DateInput';
+import AssigneeDropdown from '@/src/components/Modal/ModalInput/Dropdown/AssigneeDropdown/AssigneeDropdown';
+import ColumnDropdown from '@/src/components/Modal/ModalInput/Dropdown/ColumnDropdown/ColumnDropdown';
+import ImageInput from '@/src/components/Modal/ModalInput/ImageInput/ImageInput';
+import TagInput from '@/src/components/Modal/ModalInput/TagInput/TagInput';
 import styles from '@/src/pages/modalTest/modalTest.module.scss';
 
 export default function ModalTestPage() {
+  const handleImageSelected = (file: File) => {
+    console.log('Selected image:', file);
+    //추후 서버로 업로드하는 로직 추가 예정
+  };
   return (
     <div className={styles.container}>
-      <ModalButton size={'large'} color={'violet'}>
+      {/*<ModalButton size={'large'} color={'violet'}>
         확인
       </ModalButton>
       <ModalButton size={'small'} color={'violet'}>
@@ -18,7 +27,12 @@ export default function ModalTestPage() {
         취소
       </ModalButton>
       <CommentSubmitButton size={'large'}>입력</CommentSubmitButton>
-      <CommentSubmitButton size={'small'}>입력</CommentSubmitButton>
+  <CommentSubmitButton size={'small'}>입력</CommentSubmitButton>*/}
+      <AssigneeDropdown />
+      <ColumnDropdown />
+      <ImageInput onImageChange={handleImageSelected} />
+      <TagInput />
+      <DateInput />
     </div>
   );
 }
