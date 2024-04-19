@@ -2,7 +2,6 @@ import styles from './Login.module.scss';
 import Input from '@/src/components/common/Input';
 import React, { useState, useEffect } from 'react';
 import { login } from '@/src/apis/authService';
-
 export default function Login() {
   const [formData, setFormData] = useState({
     email: '',
@@ -76,7 +75,7 @@ export default function Login() {
   const goToSignUp = () => {
     window.location.href = '/SignUp';
   };
-
+  
   return (
     <>
       <div className={styles.bigContainer}>
