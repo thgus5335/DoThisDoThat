@@ -1,9 +1,11 @@
+import Header from '../components/common/Header/Header';
 import styles from './index.module.scss';
 
 export default function Home() {
   return (
     <>
-      <p className={styles.test}>main</p>
+      <Header />
+      {/* <p className={styles.test}>main</p> */}
     </>
   );
 }
