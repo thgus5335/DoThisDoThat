@@ -53,9 +53,13 @@ export default function Input<T extends string>({
         className={error ? styles.errorInput : styles.input}
       />
       {type === 'password' && (
-        <button onClick={togglePasswordVisibility} className={styles.toggleButton}>
-          {showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
-        </button>
+        <div onClick={togglePasswordVisibility} className={styles.toggleButton}>
+          {showPassword ? (
+            <FontAwesomeIcon icon={faEyeSlash} className={styles.icon} />
+          ) : (
+            <FontAwesomeIcon icon={faEye} className={styles.icon} />
+          )}
+        </div>
       )}
       {error && <div className={styles.errorMessage}>{error}</div>}
     </div>
