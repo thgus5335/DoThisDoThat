@@ -10,7 +10,8 @@ const demoData = {
   id: 4990,
   title: '테스트를 하러 왔다 애송이',
   description: '음 이런거구만 날짜는 라이브러리를 써봐야겟구만',
-  tags: ['오잉', '우왕', '신기', '뭐야왜랜덤아님', '색깔', '뭐야', '흠'],
+  //tags: ['오잉', '우왕', '신기', '뭐야왜랜덤아님', '색깔', '뭐야', '흠'],
+  tags: [], //태그 관련 로직은 API 연동할때 더 손볼 예정
   dueDate: '2024-04-21 21:30',
   assignee: {
     id: 1657,
@@ -42,7 +43,7 @@ export default function TagInput() {
 
   // 서버로부터 태그 데이터를 로드
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       const loadedTags = demoData.tags.map((tagText: string) => ({
         text: tagText,
         color: color,
@@ -73,29 +74,23 @@ export default function TagInput() {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={input}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder="입력 후 Enter"
-        style={{ border: '1px solid black' }}
-      />
-      {tags.map((tag, index) => (
-        <span
-          key={index}
-          style={{
-            color: tag.color,
-            backgroundColor: tag.backgroundColor,
-            margin: '5px',
-            padding: '5px',
-            display: 'inline-block',
-            zIndex: 10,
-          }}>
-          {tag.text}
-        </span>
-      ))}
+    <div style={{ border: '1px solid black' }}>
+      {tags &&
+        tags.map((tag, index) => (
+          <span
+            key={index}
+            style={{
+              color: tag.color,
+              backgroundColor: tag.backgroundColor,
+              margin: '5px',
+              padding: '5px',
+              display: 'inline-block',
+              zIndex: 10,
+            }}>
+            {tag.text}
+          </span>
+        ))}
+      <input type="text" value={input} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="입력 후 Enter" />
     </div>
   );
 }

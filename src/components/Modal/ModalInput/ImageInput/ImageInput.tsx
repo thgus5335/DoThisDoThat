@@ -1,4 +1,7 @@
+import Image from 'next/image';
 import React, { ChangeEvent, useState } from 'react';
+import styles from './ImageInput.module.scss';
+import imageAdd from '@/src/assets/icons/imageAdd.svg';
 
 type ImageUploadProps = {
   onImageChange: (file: File) => void;
@@ -17,12 +20,21 @@ const ImageInput = ({ onImageChange }: ImageUploadProps) => {
   };
 
   return (
-    <div>
-      <input type="file" accept="image/*" onChange={handleImageChange} />
-      {preview && (
-        <img src={preview} alt="Image preview" style={{ width: '200px', height: 'auto', marginTop: '10px' }} />
-      )}
-    </div>
+    <>
+      <div className={styles.imageInput}>
+        <label htmlFor="imageInputField" className={styles.imageInputButton}>
+          <Image className={styles.imagePreview} src={preview ? preview : imageAdd} fill alt="추가한 이미지" />
+        </label>
+        {/*{preview && <img src={preview} alt="Image preview" className={styles.imagePreview} />}*/}
+        <input
+          id="imageInputField"
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className={styles.imageInputField}
+        />
+      </div>
+    </>
   );
 };
 

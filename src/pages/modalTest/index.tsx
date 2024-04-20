@@ -5,9 +5,12 @@ import AssigneeDropdown from '@/src/components/Modal/ModalInput/Dropdown/Assigne
 import ColumnDropdown from '@/src/components/Modal/ModalInput/Dropdown/ColumnDropdown/ColumnDropdown';
 import ImageInput from '@/src/components/Modal/ModalInput/ImageInput/ImageInput';
 import TagInput from '@/src/components/Modal/ModalInput/TagInput/TagInput';
+import Modal from '@/src/components/Modal/Modal';
+import useModal from '@/src/hooks/useModal';
 import styles from '@/src/pages/modalTest/modalTest.module.scss';
 
 export default function ModalTestPage() {
+  const { modalState, openModal, closeModal } = useModal();
   const handleImageSelected = (file: File) => {
     console.log('Selected image:', file);
     //추후 서버로 업로드하는 로직 추가 예정
@@ -33,6 +36,12 @@ export default function ModalTestPage() {
       <ImageInput onImageChange={handleImageSelected} />
       <TagInput />
       <DateInput />
+      <button onClick={openModal}>Open Modal</button>
+      {modalState && (
+        <Modal isOpen={modalState} onClose={closeModal}>
+          모달 테스트
+        </Modal>
+      )}
     </div>
   );
 }
