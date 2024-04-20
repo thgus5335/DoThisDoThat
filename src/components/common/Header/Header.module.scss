@@ -10,13 +10,13 @@
 }
 
 .title {
+  @include text-xl(700);
+
   display: flex;
   align-items: center;
   color: $black_33;
   gap: 0.8rem;
   white-space: nowrap;
-
-  @include text-xl(700);
 }
 
 .operation {
@@ -42,6 +42,8 @@
 }
 
 .memberProfile {
+  @include text-m(600);
+
   position: relative;
   display: flex;
   width: 3.8rem;
@@ -52,11 +54,11 @@
   border-radius: 50%;
   background-color: $blue_76;
   color: $white_FF;
-
-  @include text-m(600);
 }
 
 .plusProfile {
+  @include text-m(600);
+
   display: flex;
   width: 3.8rem;
   height: 3.8rem;
@@ -66,8 +68,6 @@
   border-radius: 99px;
   background-color: $blue_76;
   color: $white_FF;
-
-  @include text-m(600);
 }
 
 .myprofileGroup {
@@ -76,6 +76,8 @@
 }
 
 .myProfile {
+  @include text-m(600);
+
   display: flex;
   width: 3.8rem;
   height: 3.8rem;
@@ -85,14 +87,12 @@
   border-radius: 99px;
   background-color: $blue_76;
   color: $white_FF;
-
-  @include text-m(600);
 }
 
 .myName {
+  @include text-m(500);
+
   display: flex;
   align-items: center;
   color: $black_33;
-
-  @include text-m(500);
 }

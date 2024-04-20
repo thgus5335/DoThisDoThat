@@ -1,16 +1,17 @@
 %baseButtonStyle {
   @include text-l(500);
+
   display: flex;
   height: 5rem;
-  justify-content: center;
-  align-items: center;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
   border-radius: 8px;
   background: $violet_55;
   color: $white_FF;
-  text-align: center;
   font-style: normal;
   line-height: normal;
+  text-align: center;
 
   &:disabled {
     background: $gray_D9;
@@ -20,12 +21,14 @@
 
 .large {
   @extend %baseButtonStyle;
+
   width: 52rem;
   padding: 1.4rem 23.6rem;
 }
 
 .medium {
   @extend %baseButtonStyle;
+
   width: 35.1rem;
   padding: 1.4rem 15rem;
 }

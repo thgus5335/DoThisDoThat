@@ -1,17 +1,18 @@
 %TaskbuttonStyle {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   border-radius: 4px;
   background: $violet_55;
-  text-align: center;
   font-style: normal;
   line-height: normal;
+  text-align: center;
 }
 
 .large {
   @extend %TaskbuttonStyle;
   @include text-s(500);
+
   width: 8.4rem;
   height: 3.2rem;
   padding: 0.7rem 2.9rem;
@@ -20,6 +21,7 @@
 .medium {
   @extend %TaskbuttonStyle;
   @include text-s(500);
+
   width: 7.2rem;
   height: 3rem;
   padding: 0.6rem 2.3rem;
@@ -28,6 +30,7 @@
 .long {
   @extend %TaskbuttonStyle;
   @include text-xs(500);
+
   width: 10.9rem;
   padding: 0.7rem 3.7rem;
 }
@@ -35,6 +38,7 @@
 .small {
   @extend %TaskbuttonStyle;
   @include text-xs(500);
+
   width: 5.2rem;
   padding: 0.7rem 0.9rem;
 }
