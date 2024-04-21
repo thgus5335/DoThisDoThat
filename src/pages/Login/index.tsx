@@ -2,6 +2,7 @@ import styles from './Login.module.scss';
 import Input from '@/src/components/common/Input';
 import React, { useState, useEffect } from 'react';
 import { login } from '@/src/apis/authService';
+import { saveTokenToLocalStorage } from '@/src/utils/authUtils';
 export default function Login() {
   const [formData, setFormData] = useState({
     email: '',
@@ -61,6 +62,7 @@ export default function Login() {
     try {
       const data = await login(formData);
       console.log('Login successful', data);
+      saveTokenToLocalStorage(data.accessToken);
       window.location.href = '/Mydashboard';
     } catch (error: unknown) {
       const e = error as Error;
@@ -75,7 +77,7 @@ export default function Login() {
   const goToSignUp = () => {
     window.location.href = '/SignUp';
   };
-  
+
   return (
     <>
       <div className={styles.bigContainer}>
