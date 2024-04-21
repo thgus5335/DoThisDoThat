@@ -1,0 +1,33 @@
+.modalBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContainer {
+  position: relative;
+  background: $white_FF;
+  border-radius: 8px;
+  width: 54rem;
+  height: 25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $black_33;
+  text-align: center;
+  @include text-l(500);
+  font-style: normal;
+  line-height: normal;
+}
+
+.okButton {
+  position: absolute;
+  bottom: 2.8rem;
+  right: 2.8rem;
+}

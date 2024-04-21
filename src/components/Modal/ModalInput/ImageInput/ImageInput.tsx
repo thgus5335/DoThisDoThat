@@ -20,7 +20,8 @@ const ImageInput = ({ onImageChange }: ImageUploadProps) => {
   };
 
   return (
-    <>
+    <div className={styles.imageInputContainer}>
+      <span className={styles.label}>이미지</span>
       <div className={styles.imageInput}>
         <label htmlFor="imageInputField" className={styles.imageInputButton}>
           <Image className={styles.imagePreview} src={preview ? preview : imageAdd} fill alt="추가한 이미지" />
@@ -34,7 +35,7 @@ const ImageInput = ({ onImageChange }: ImageUploadProps) => {
           className={styles.imageInputField}
         />
       </div>
-    </>
+    </div>
   );
 };
 

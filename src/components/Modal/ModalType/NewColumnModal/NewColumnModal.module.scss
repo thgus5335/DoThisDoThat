@@ -1,0 +1,18 @@
+.modalContainer {
+  margin: 3.2rem 2.8rem;
+  position: relative;
+}
+
+.modalName {
+  color: $black_33;
+  @include text-2xl(700);
+  font-style: normal;
+  line-height: normal;
+  margin-bottom: 3rem;
+}
+
+.modalButton {
+  position: absolute;
+  right: 0.2rem;
+  bottom: -9.5rem;
+}

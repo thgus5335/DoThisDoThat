@@ -1,3 +1,17 @@
+.imageInputContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.label {
+  color: $black_33;
+  @include text-l(500);
+  font-style: normal;
+  line-height: normal;
+}
+
 .imageInput {
   display: flex;
   position: relative;

@@ -1,13 +1,15 @@
 import { ReactNode, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import styles from './NormalModal.module.scss';
 
-interface ModalProps {
+interface NormalModalProps {
   children: ReactNode;
   isOpen: boolean;
   onClose: () => void;
+  onClick?: () => void;
 }
 
-const Modal = ({ children, isOpen, onClose }: ModalProps) => {
+const NormalModal = ({ children, isOpen, onClose }: NormalModalProps) => {
   const modalRoot = document.getElementById('modal-root') as HTMLElement;
 
   useEffect(() => {
@@ -24,19 +26,8 @@ const Modal = ({ children, isOpen, onClose }: ModalProps) => {
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      }}>
-      <div style={{ position: 'relative', padding: '20px', backgroundColor: 'white', borderRadius: '5px' }}>
+    <div className={styles.modalBackground}>
+      <div className={styles.modalContainer}>
         {children}
         <button onClick={onClose}>Close</button>
       </div>
@@ -45,4 +36,4 @@ const Modal = ({ children, isOpen, onClose }: ModalProps) => {
   );
 };
 
-export default Modal;
+export default NormalModal;

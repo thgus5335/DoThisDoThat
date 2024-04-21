@@ -90,7 +90,6 @@ export default function TagInput() {
                 display: 'inline-block',
                 borderRadius: '4px',
                 fontSize: '12px',
-                zIndex: 10,
               }}>
               {tag.text}
             </span>

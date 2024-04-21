@@ -3,6 +3,7 @@ import styles from './ModalButton.module.scss';
 
 interface ModalButtonProps {
   children: ReactNode;
+  type?: string;
   size: 'large' | 'small';
   color: 'violet' | 'white';
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
