@@ -1,0 +1,74 @@
+.dropDownContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.label {
+  color: $black_33;
+  @include text-l(500);
+  font-style: normal;
+  line-height: normal;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.input {
+  display: flex;
+  width: 21.7rem;
+  height: 4.8rem;
+  padding: 1.4rem 1.6rem;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 6px;
+  border: 1px solid $gray_D9;
+  background: $white_FF;
+  color: $black_33;
+  @include text-m(400);
+  font-style: normal;
+  line-height: normal;
+
+  &::placeholder {
+    color: $gray_9F;
+    @include text-m(400);
+    font-style: normal;
+    line-height: normal;
+  }
+
+  &:focus {
+    border: 1px solid $violet_55;
+  }
+}
+
+.ulContainer {
+  width: 21.7rem;
+  height: auto;
+  list-style: none;
+  padding: 0;
+  border-radius: 6px;
+  border: 1px solid $gray_D9;
+  background: $white_FF;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
+}
+
+.liContainer {
+  color: $black_33;
+  @include text-m(400);
+  font-style: normal;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.profileImage {
+  border-radius: 50%;
+}

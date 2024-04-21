@@ -9,7 +9,7 @@ interface CommentSubmitButtonProps {
 
 const CommentSubmitButton = ({ children, size, onClick }: CommentSubmitButtonProps) => {
   return (
-    <button className={`${styles[size]}`} onClick={onClick}>
+    <button type="submit" className={`${styles[size]}`} onClick={onClick}>
       {children}
     </button>
   );

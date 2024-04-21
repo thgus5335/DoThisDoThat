@@ -8,6 +8,10 @@ import TagInput from '@/src/components/Modal/ModalInput/TagInput/TagInput';
 import Modal from '@/src/components/Modal/Modal';
 import useModal from '@/src/hooks/useModal';
 import styles from '@/src/pages/modalTest/modalTest.module.scss';
+import NormalInput from '@/src/components/Modal/ModalInput/NormalInput/NormalInput';
+import CommentInput from '@/src/components/Modal/ModalInput/CommentInput/CommentInput';
+import DescriptionInput from '@/src/components/Modal/ModalInput/NormalInput/DescriptionInput';
+import TitleInput from '@/src/components/Modal/ModalInput/NormalInput/TitleInput';
 
 export default function ModalTestPage() {
   const { modalState, openModal, closeModal } = useModal();
@@ -36,12 +40,16 @@ export default function ModalTestPage() {
       <ImageInput onImageChange={handleImageSelected} />
       <TagInput />
       <DateInput />
-      <button onClick={openModal}>Open Modal</button>
+      {/*<button onClick={openModal}>Open Modal</button>
       {modalState && (
         <Modal isOpen={modalState} onClose={closeModal}>
           모달 테스트
         </Modal>
-      )}
+      )}*/}
+      <CommentInput />
+      <TitleInput />
+      <DescriptionInput />
+      <NormalInput inputName="이름" placeholder="새 컬럼 이름을 입력해주세요" />
     </div>
   );
 }

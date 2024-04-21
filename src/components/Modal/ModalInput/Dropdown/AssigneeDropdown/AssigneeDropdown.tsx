@@ -1,4 +1,7 @@
 import { useState, useEffect, ChangeEvent } from 'react';
+import Image from 'next/image';
+import defaultUser from '@/src/assets/images/defaultUser.png';
+import styles from './AssigneeDropdown.module.scss';
 
 type User = {
   id: number;
@@ -58,29 +61,39 @@ const AssigneeDropdown = () => {
   };
 
   return (
-    <div>
-      <label>담당자</label>
-      <input
-        type="text"
-        value={selectedNickname}
-        onChange={handleInputChange}
-        onClick={() => setIsOpen(!isOpen)}
-        placeholder="이름을 입력해주세요"
-      />
-      {isOpen && (
-        <ul style={{ listStyle: 'none', padding: 0 }}>
-          {filteredUsers.map(user => (
-            <li
-              key={user.id}
-              style={{ padding: '10px', cursor: 'pointer' }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'lavender')}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'white')}
-              onClick={() => handleSelectNickname(user.nickname)}>
-              {user.nickname}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className={styles.dropDownContainer}>
+      <label className={styles.label}>담당자</label>
+      <div className={styles.inputContainer}>
+        <input
+          type="text"
+          value={selectedNickname}
+          onChange={handleInputChange}
+          onClick={() => setIsOpen(!isOpen)}
+          placeholder="이름을 입력해주세요"
+          className={styles.input}
+        />
+        {isOpen && (
+          <ul className={styles.ulContainer}>
+            {filteredUsers.map(user => (
+              <li
+                key={user.id}
+                className={styles.liContainer}
+                onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'lavender')}
+                onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'white')}
+                onClick={() => handleSelectNickname(user.nickname)}>
+                <Image
+                  width={24}
+                  height={24}
+                  src={user.profileImageUrl ? user.profileImageUrl : defaultUser}
+                  alt="프로필"
+                  className={styles.profileImage}
+                />
+                {user.nickname}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };

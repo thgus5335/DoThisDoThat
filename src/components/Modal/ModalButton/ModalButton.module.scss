@@ -10,7 +10,7 @@
 
 .large {
   @extend %ModalButtonStyle;
-  @include text-m-500;
+  @include text-m(500);
   width: 12rem;
   height: 4.8rem;
   padding: 1.4rem 4.6rem;
@@ -18,7 +18,7 @@
 
 .small {
   @extend %ModalButtonStyle;
-  @include text-s-500;
+  @include text-s(500);
   width: 13.8rem;
   height: 4.2rem;
   padding: 1.2rem 5.6rem;

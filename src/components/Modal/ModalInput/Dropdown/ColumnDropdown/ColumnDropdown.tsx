@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './ColumnDropdown.module.scss';
 
 type ColumnData = {
   id: number;
@@ -54,22 +55,33 @@ const ColumnDropdown = () => {
   };
 
   return (
-    <div>
-      <input type="text" value={selectedColumn} readOnly onClick={() => setIsOpen(!isOpen)} placeholder="컬럼명" />
-      {isOpen && (
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          {data.map(item => (
-            <li
-              key={item.id}
-              style={{ padding: '10px', cursor: 'pointer' }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'lavender')}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'white')}
-              onClick={() => handleSelectColumn(item.title)}>
-              {item.title}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className={styles.dropDownContainer}>
+      <label className={styles.label}>상태</label>
+      <div className={styles.inputContainer}>
+        <input
+          type="text"
+          value={selectedColumn}
+          readOnly
+          onClick={() => setIsOpen(!isOpen)}
+          placeholder="컬럼명"
+          className={styles.input}
+        />
+        {isOpen && (
+          <ul className={styles.ulContainer}>
+            {data.map(item => (
+              <li
+                key={item.id}
+                className={styles.liContainer}
+                //onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'lavender')}
+                //onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'white')}
+                onClick={() => handleSelectColumn(item.title)}>
+                <span className={styles.circle}>•</span>
+                {item.title}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };

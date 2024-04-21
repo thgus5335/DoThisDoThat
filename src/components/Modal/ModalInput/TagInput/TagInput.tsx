@@ -1,4 +1,5 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
+import styles from './TagInput.module.scss';
 
 type Tag = {
   text: string;
@@ -74,23 +75,34 @@ export default function TagInput() {
   };
 
   return (
-    <div style={{ border: '1px solid black' }}>
-      {tags &&
-        tags.map((tag, index) => (
-          <span
-            key={index}
-            style={{
-              color: tag.color,
-              backgroundColor: tag.backgroundColor,
-              margin: '5px',
-              padding: '5px',
-              display: 'inline-block',
-              zIndex: 10,
-            }}>
-            {tag.text}
-          </span>
-        ))}
-      <input type="text" value={input} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="입력 후 Enter" />
+    <div className={styles.tagContainer}>
+      <label className={styles.label}>태그</label>
+      <div className={styles.tagBox}>
+        {tags &&
+          tags.map((tag, index) => (
+            <span
+              key={index}
+              style={{
+                color: tag.color,
+                backgroundColor: tag.backgroundColor,
+                margin: '5px',
+                padding: '5px',
+                display: 'inline-block',
+                borderRadius: '4px',
+                fontSize: '12px',
+                zIndex: 10,
+              }}>
+              {tag.text}
+            </span>
+          ))}
+        <input
+          type="text"
+          value={input}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="입력 후 Enter"
+        />
+      </div>
     </div>
   );
 }
