@@ -2,6 +2,7 @@ import Input from '@/src/components/common/Input';
 import styles from './SignUp.module.scss';
 import React, { useState, useEffect, FormEvent } from 'react';
 import { registerUser } from '@/src/apis/authService';
+import BaseButton from '@/src/components/common/Button/BaseButton';
 
 interface FormData {
   email: string;
@@ -95,7 +96,7 @@ export default function SignUp() {
     return '';
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmitEnabled) {
       // 서버에 데이터 전송 로직
@@ -108,6 +109,11 @@ export default function SignUp() {
         console.error('Registration failed', error);
       }
     }
+  };
+
+  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleFormSubmit(new Event('submit') as unknown as React.FormEvent<HTMLFormElement>); // 직접적인 제출 함수 호출을 피함
   };
 
   const goToHome = () => {
@@ -126,7 +132,7 @@ export default function SignUp() {
           <img src="./Taskify.svg" alt="로고명" className={styles.logoName} onClick={goToHome} />
         </div>
         <div className={styles.welcomeMessage}>첫 방문을 환영합니다!</div>
-        <form className={styles.inputContainer} onSubmit={handleSubmit}>
+        <form className={styles.inputContainer} onSubmit={handleFormSubmit}>
           <div className={styles.title}>이메일</div>
           <Input
             type="email"
@@ -171,9 +177,9 @@ export default function SignUp() {
             <input type="checkbox" className={styles.agreeCheck} onChange={() => setCheckboxAgreed(!checkboxAgreed)} />
             <div className={styles.agreeMessage}>이용약관에 동의합니다.</div>
           </div>
-          <button className={`${isSubmitEnabled ? styles.buttonEnabled : styles.button}`} disabled={!isSubmitEnabled}>
-            가입하기
-          </button>
+          <BaseButton size="large" isDisabled={!isSubmitEnabled} onClick={handleButtonClick}>
+            회원가입
+          </BaseButton>
           <div className={styles.goToLogin}>
             <div className={styles.question}>
               이미 가입하셨나요?

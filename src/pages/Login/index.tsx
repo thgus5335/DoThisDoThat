@@ -57,20 +57,6 @@ export default function Login() {
     return '';
   };
 
-  // const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   if (!isSubmitEnabled) return;
-  //   try {
-  //     const data = await login(formData);
-  //     console.log('Login successful', data);
-  //     saveTokenToLocalStorage(data.accessToken);
-  //     window.location.href = '/Mydashboard';
-  //   } catch (error: unknown) {
-  //     const e = error as Error;
-  //     alert(e.message);
-  //   }
-  // };
-
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isSubmitEnabled) return;
