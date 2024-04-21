@@ -8,10 +8,10 @@ const MainHeader = () => {
   return (
     <>
       <header className={styles.mainHeader}>
-        <div className={styles.headerLogo}>
+        <Link href={'/'} className={styles.headerLogo}>
           <Image src={headerIcon} alt="logo image" />
           <Image src={headerTitle} alt="logo title" />
-        </div>
+        </Link>
         <div className={styles.linkBox}>
           <Link href={'/Login'} className={styles.signLink}>
             로그인

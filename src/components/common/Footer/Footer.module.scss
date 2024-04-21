@@ -1,0 +1,22 @@
+.footer {
+  @include text-m(400);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 4.1rem 10.4rem;
+  background: $gray_9F;
+  color: $white_FF;
+  font-style: normal;
+  line-height: normal;
+}
+
+.centerContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 3.2rem;
+}
+
+.social {
+  display: flex;
+  gap: 1.4rem;
+}
