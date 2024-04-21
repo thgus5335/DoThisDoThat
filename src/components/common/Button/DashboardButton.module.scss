@@ -1,0 +1,157 @@
+%dashboardButtonStyle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $gray_D9;
+  background: $white_FF;
+}
+
+%columnTypeStyle {
+  @extend %dashboardButtonStyle;
+  color: $black_33;
+  line-height: normal;
+  border-radius: 8px;
+  gap: 1.2rem;
+}
+
+%taskTypeStyle {
+  @extend %dashboardButtonStyle;
+  border-radius: 6px;
+}
+
+%dashboardTypeStyle {
+  @extend %dashboardButtonStyle;
+  border-radius: 8px;
+  gap: 1.2rem;
+  color: $black_33;
+  text-align: center;
+  font-style: normal;
+  line-height: normal;
+}
+
+%iconStyle {
+  display: flex;
+  padding: 0.3rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: $violet_F1;
+}
+
+// columnType
+.columnLarge {
+  @extend %columnTypeStyle;
+  @include text-l(700);
+  width: 354px;
+  height: 70px;
+
+  .icon {
+    @extend %iconStyle;
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+.columnLong {
+  @extend %columnTypeStyle;
+  @include text-l(700);
+  width: 54.4rem;
+  height: 7rem;
+
+  .icon {
+    @extend %iconStyle;
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+.columnSmall {
+  @extend %columnTypeStyle;
+  @include text-m(700);
+  width: 28.4rem;
+  height: 6rem;
+
+  .icon {
+    @extend %iconStyle;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+// taskType
+.taskLarge {
+  @extend %taskTypeStyle;
+  width: 31.4rem;
+  height: 4rem;
+
+  .icon {
+    @extend %iconStyle;
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+.taskLong {
+  @extend %taskTypeStyle;
+  width: 54.4rem;
+  height: 4rem;
+
+  .icon {
+    @extend %iconStyle;
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+.taskSmall {
+  @extend %taskTypeStyle;
+  width: 28.4rem;
+  height: 3.2rem;
+
+  .icon {
+    @extend %iconStyle;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+// dashboardType
+.dashboardLarge {
+  @extend %dashboardTypeStyle;
+  @include text-m(600);
+  width: 33.2rem;
+  height: 7rem;
+
+  .icon {
+    @extend %iconStyle;
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+.dashboardMedium {
+  @extend %dashboardTypeStyle;
+  @include text-m(600);
+  width: 24.7rem;
+  height: 6.8rem;
+
+  .icon {
+    @extend %iconStyle;
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+.dashboardSmall {
+  @extend %dashboardTypeStyle;
+  @include text-s(600);
+  width: 26rem;
+  height: 5.8rem;
+
+  .icon {
+    @extend %iconStyle;
+    width: 2rem;
+    height: 2rem;
+  }
+}

@@ -1,4 +1,169 @@
-.test {
-  color: $violet_55;
-  font-size: 2rem;
+.homePageLayout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 9.4rem 0;
+}
+
+.coverImg {
+  width: 72.2rem;
+  height: 42.3rem;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+
+.mainTextBox {
+  display: flex;
+  align-items: center;
+  gap: 2.8rem;
+  margin: 4rem 0 8rem 0;
+}
+
+.mainTitle {
+  color: $black_00;
+  text-align: center;
+  font-size: 76px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 10rem;
+  letter-spacing: -2px;
+}
+
+.mainArticleSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10rem;
+  margin-bottom: 10rem;
+
+  .mainArticleBox:nth-child(odd) {
+    flex-direction: row;
+    padding-left: 10rem;
+
+    .mainArticleImg {
+      margin-left: auto;
+    }
+  }
+
+  .mainArticleBox:nth-child(even) {
+    flex-direction: row-reverse;
+    padding-right: 10rem;
+
+    .mainArticleImg {
+      margin-right: auto;
+    }
+  }
+}
+
+.mainArticleBox {
+  display: flex;
+  align-items: center;
+  width: 120rem;
+  height: 60rem;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: $violet-F1;
+}
+
+.mainArticleTextBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 8rem;
+}
+
+.point {
+  color: $gray_9F;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.mainArticleDescription {
+  width: 40rem;
+  color: $black_00;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 6.4rem;
+}
+
+.mainArticleImg {
+  display: flex;
+  width: 59.4rem;
+  height: 49.8rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+
+.subArticleSection {
+  display: flex;
+  flex-direction: column;
+  width: 120rem;
+  margin-bottom: 10rem;
+}
+
+.subArticleMainTitle {
+  color: $black_00;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 3.6rem;
+}
+
+.subArticle {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+  width: 100%;
+}
+
+.subArticleImgBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 37.8rem;
+  height: 26rem;
+  flex-shrink: 0;
+  border-radius: 0.8rem 0.8rem 0 0;
+  background: $violet-F1;
+}
+
+.subDescriptionBox {
+  display: flex;
+  flex-direction: column;
+  padding: 3.3rem;
+  width: 37.8rem;
+  height: 12.4rem;
+  flex-shrink: 0;
+  border-radius: 0 0 0.8rem 0.8rem;
+  background: $violet_55;
+  gap: 1.8rem;
+  color: $white_FF;
+  font-style: normal;
+  line-height: normal;
+}
+
+.subArticleTitle {
+  @include text-l(700);
+}
+
+.subArticleDescription {
+  @include text-m(500);
 }
