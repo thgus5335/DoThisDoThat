@@ -4,7 +4,7 @@ import rightArrowIcon from '@/src/assets/icons/rightArrowIcon.svg';
 import styles from './DashboardLinkButton.module.scss';
 import Link from 'next/link';
 
-interface dashboardData {
+export interface dashboardData {
   id: number;
   title: string;
   color: string;
