@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import styles from './Header.module.scss';
 import iconCrown from '@/src/assets/icons/crownIcon.svg';
+import iconAdd from '@/src/assets/icons/addBox.svg';
+import iconSetting from '@/src/assets/icons/setting.svg';
 
 import { useRef, useState } from 'react';
 import useClickOutside from '@/src/utils/useClickOutside';
@@ -27,9 +29,15 @@ const Header = () => {
         <Image src={iconCrown} alt={`대시보드.`} />
       </div>
       <div className={styles.operation}>
-        <div className={styles.button}>
-          <p>관리_버튼</p>
-          <p>초대하기_버튼</p>
+        <div className={styles.buttonGroup}>
+          <button>
+            <Image src={iconSetting} alt={`관리하기 버튼.`} />
+            관리
+          </button>
+          <button>
+            <Image src={iconAdd} alt={`초대하기 버튼.`} />
+            초대하기
+          </button>
         </div>
         <div className={styles.line} />
         <div className={styles.memberprofileGroup} onMouseOver={handleMemberDropdown} onMouseOut={handleMemberDropdown}>

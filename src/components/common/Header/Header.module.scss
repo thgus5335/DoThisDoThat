@@ -25,9 +25,28 @@
   gap: 3.2rem;
 }
 
-.button {
+.buttonGroup {
   display: flex;
   gap: 1.6rem;
+}
+
+.buttonGroup > button {
+  @include text-m(500);
+
+  display: flex;
+  width: 11.6rem;
+  height: 4rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $gray_D9;
+  border-radius: 8px;
+  background: $white_FF;
+  color: $gray_78;
+  gap: 0.8rem;
+}
+
+.buttonGroup > button:hover {
+  background: $gray_EE;
 }
 
 .line {
