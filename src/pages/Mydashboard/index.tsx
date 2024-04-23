@@ -52,7 +52,7 @@ export default function Mydashboard() {
     };
     const data = await fetchDashboards(params);
     setDashboards(data.dashboards);
-    setTotalPages(Math.ceil(Math.ceil(data.totalCount) / params.size));
+    setTotalPages(Math.ceil(data.totalCount / params.size));
   };
 
   const handlePageChange = (newPage: number) => {
@@ -102,6 +102,7 @@ export default function Mydashboard() {
               <div className={styles.yesInvitedContainer}>
                 <input type="text" name="search" placeholder="검색" className={styles.invitedInput} />
                 <img src="./search.svg" className={styles.searchIcon} />
+                <div></div>
               </div>
             </div>
           </div>
