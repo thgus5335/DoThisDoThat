@@ -1,0 +1,93 @@
+.dropDownContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.label {
+  color: $black_33;
+  @include text-l(500);
+  font-style: normal;
+  line-height: normal;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.input {
+  display: flex;
+  width: 21.7rem;
+  height: 4.8rem;
+  padding: 1.4rem 1.6rem;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 6px;
+  border: 1px solid $gray_D9;
+  background: $white_FF;
+  color: $violet_55;
+  @include text-xs(400);
+  font-style: normal;
+  line-height: normal;
+
+  &::placeholder {
+    color: $gray_9F;
+    @include text-m(400);
+    font-style: normal;
+    line-height: normal;
+  }
+
+  &:focus {
+    border: 1px solid $violet_55;
+  }
+}
+
+.ulContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  width: 21.7rem;
+  height: auto;
+  list-style: none;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid $gray_D9;
+  background: $white_FF;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
+}
+
+.liContainer {
+  display: flex;
+  width: max-content;
+  height: 2.2rem;
+  color: $violet_55;
+  @include text-xs(400);
+  padding: 0.4rem 0.8rem;
+  font-style: normal;
+  line-height: normal;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 11px;
+  background: $violet_F1;
+
+  &:hover {
+    background: $violet_55;
+    color: $violet_F1;
+  }
+}
+
+.circle {
+  @include text-xl(400);
+  text-align: center;
+  padding-bottom: 0.5rem;
+  margin-right: 0.6rem;
+  &:hover {
+    background: $violet_55;
+    color: $violet_F1;
+  }
+}

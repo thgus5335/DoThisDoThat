@@ -1,0 +1,48 @@
+.titleContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.label {
+  color: $black_33;
+  @include text-l(500);
+  font-style: normal;
+  line-height: normal;
+}
+
+.star {
+  color: $violet_55;
+  @include text-l(500);
+  font-style: normal;
+  line-height: normal;
+}
+
+.titleInput {
+  @include text-m(400);
+  font-style: normal;
+  line-height: normal;
+  display: flex;
+  width: 45rem;
+  height: 4.8rem;
+  padding: 1.4rem 1.6rem;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 6px;
+  border: 1px solid $gray_D9;
+  background: $white_FF;
+  resize: none;
+  overflow: hidden;
+
+  &::placeholder {
+    @include text-m(400);
+    font-style: normal;
+    line-height: normal;
+    color: $gray_9F;
+  }
+
+  &:focus {
+    border: 1px solid $violet_55;
+  }
+}
