@@ -40,11 +40,12 @@ export default function Mydashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
-  // 나의 대시보드 목록 GET
   useEffect(() => {
     loadDashboardData(currentPage);
+    loadInvitations();
   }, [currentPage]);
 
+  // 나의 대시보드 목록 GET
   const loadDashboardData = async (page: number) => {
     const params = {
       teamId: '4-16',
@@ -58,16 +59,17 @@ export default function Mydashboard() {
   };
 
   // 초대받은 목록 GET
-  useEffect;
-
-  const loadInvitationsData = async (page: number) => {
-    const params: {
-      teamId: '4-16';
-      dashboardId;
-      page: 1;
-      size: 10;
+  const loadInvitations = async () => {
+    const params = {
+      teamId: '4-16',
+      size: 10,
     };
-    const data = await fetchInvitations;
+    try {
+      const data = await fetchInvitations(params);
+      setInvitations(data.invitations);
+    } catch (error) {
+      console.error('Failed to load invitations', error);
+    }
   };
 
   // 페이지네이션
