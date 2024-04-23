@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import MainHeader from '../components/common/Header/MainHeader';
@@ -7,8 +9,19 @@ import { MAIN_ARTICLE_LIST, SUB_ARTICLE_LIST } from '../constants/constant';
 import coverImg from '@/src/assets/images/coverImg.png';
 import logo from '@/src/assets/icons/logoBig.svg';
 import styles from './index.module.scss';
+import { getTokenFromLocalStorage } from '../utils/authUtils';
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const accessToken = getTokenFromLocalStorage();
+
+    if (accessToken) {
+      router.push('/Mydashboard');
+    }
+  }, []);
+
   return (
     <>
       <MainHeader />
