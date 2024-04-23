@@ -1,0 +1,171 @@
+.header {
+  display: flex;
+  width: 100%;
+  height: 7rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8rem;
+  border-bottom: 1px solid $gray_D9;
+  background: $white_FF;
+}
+
+.title {
+  @include text-xl(700);
+
+  display: flex;
+  align-items: center;
+  color: $black_33;
+  gap: 0.8rem;
+  white-space: nowrap;
+}
+
+.operation {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.buttonGroup > button {
+  @include text-m(500);
+
+  display: flex;
+  width: 11.6rem;
+  height: 4rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $gray_D9;
+  border-radius: 8px;
+  background: $white_FF;
+  color: $gray_78;
+  gap: 0.8rem;
+}
+
+.buttonGroup > button:hover {
+  background: $gray_EE;
+}
+
+.line {
+  display: flex;
+  height: 3.5rem;
+  border-left: 1px solid $gray_D9;
+}
+
+.memberprofileGroup {
+  display: flex;
+  gap: -10rem;
+}
+
+.memberProfile {
+  @include text-m(600);
+
+  position: relative;
+  display: flex;
+  width: 3.8rem;
+  height: 3.8rem;
+  align-items: center;
+  justify-content: center;
+  border: 0.2rem solid $white_FF;
+  border-radius: 50%;
+  background-color: $blue_76;
+  color: $white_FF;
+}
+
+.plusProfile {
+  @include text-m(600);
+
+  display: flex;
+  width: 3.8rem;
+  height: 3.8rem;
+  align-items: center;
+  justify-content: center;
+  border: 0.2rem solid $white_FF;
+  border-radius: 99px;
+  background-color: $blue_76;
+  color: $white_FF;
+}
+
+.myprofileGroup {
+  display: flex;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  gap: 1.2rem;
+}
+
+.myprofileGroup:hover {
+  background-color: $gray_EE;
+}
+
+.myProfile {
+  @include text-m(600);
+
+  display: flex;
+  width: 3.8rem;
+  height: 3.8rem;
+  align-items: center;
+  justify-content: center;
+  border: 0.2rem solid $white_FF;
+  border-radius: 99px;
+  background-color: $blue_76;
+  color: $white_FF;
+}
+
+.myName {
+  @include text-m(500);
+
+  display: flex;
+  align-items: center;
+  color: $black_33;
+}
+
+.dropdown {
+  @include text-m(400);
+
+  position: absolute;
+  top: 6.4rem;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.6rem;
+  border: 0.1rem solid $gray_D9;
+  border-radius: 0.8rem;
+  background: $white_FF;
+}
+
+.memberList {
+  margin: 0 0.6rem;
+  gap: 0.2rem;
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.memberName {
+  @include text-m(400);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.myNav {
+  display: flex;
+  width: 10rem;
+  height: 3rem;
+  align-items: center;
+  padding: 0 0.6rem;
+  border-radius: 8px;
+}
+
+.myNav:hover {
+  background-color: $gray_EE;
+}

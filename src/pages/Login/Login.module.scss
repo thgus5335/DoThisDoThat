@@ -5,6 +5,7 @@
   justify-content: center;
   margin-top: 15rem;
 }
+
 .logoContainer {
   display: flex;
   flex-direction: column;
@@ -18,16 +19,15 @@
 }
 
 .logoName {
-  margin-top: 3rem;
   width: 19.8rem;
   height: 5.5rem;
+  margin-top: 3rem;
 }
 
 .welcomeMessage {
+  margin-top: 1.4rem;
   font-size: 2rem;
   font-weight: 500;
-  margin-top: 1.4rem;
-  font-family: Pretendard;
 }
 
 .inputContainer {
@@ -41,15 +41,15 @@
 .agreeContainer {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
   margin-bottom: 1rem;
+  gap: 0.8rem;
 }
 
 .agreeCheck {
   width: 2rem;
   height: 2rem;
-  border-radius: 0.4rem;
   border: 0.1rem solid $gray_D9;
+  border-radius: 0.4rem;
 }
 
 .agreeMessage {
@@ -59,34 +59,37 @@
 .button {
   width: 52rem;
   height: 5rem;
-  padding: 1.4rem 23.6rem;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 1.4rem 23.6rem;
   border-radius: 0.8rem;
-  background-color: $gray_D9;
-  @include text-l(500);
-  color: $white_FF;
   margin-bottom: 2.6rem;
+  background-color: $gray_D9;
+  color: $white_FF;
   cursor: not-allowed;
+
+  @include text-l(500);
 }
 
 .buttonEnabled {
   width: 52rem;
   height: 5rem;
-  padding: 1.4rem 23.6rem;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 1.4rem 23.6rem;
   border-radius: 0.8rem;
-  @include text-l(500);
-  color: $white_FF;
   margin-bottom: 2.6rem;
-  cursor: pointer;
   background-color: $purple_76;
+  color: $white_FF;
+  cursor: pointer;
+
+  @include text-l(500);
 }
 
 .question {
   margin-top: 2.4rem;
   text-align: center;
+
   @include text-m(400);
 }
 
