@@ -87,7 +87,7 @@ export default function Mydashboard() {
           <div className={styles.invitedDashboard}>
             <div className={styles.invitedTitle}>초대받은 대시보드</div>
             <div>
-              {invitations.length > 0 ? (
+              {/* {invitations.length > 0 ? (
                 <div>
                   {invitations.map(invitation => (
                     <div>{invitation.dashboard.title}</div>
@@ -98,7 +98,11 @@ export default function Mydashboard() {
                   <img src="./unsubscribe.svg" className={styles.noInvitedImage}></img>
                   <div className={styles.noInvited}>아직 초대받은 대시보드가 없어요</div>
                 </div>
-              )}
+              )} */}
+              <div className={styles.yesInvitedContainer}>
+                <input type="text" name="search" placeholder="검색" className={styles.invitedInput} />
+                <img src="./search.svg" className={styles.searchIcon} />
+              </div>
             </div>
           </div>
         </div>
