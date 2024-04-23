@@ -27,6 +27,7 @@ export const registerUser = async (userData: UserData) => {
   }
 };
 
+// 로그인
 export const login = async (credentials: Credentials) => {
   try {
     const response = await httpClient.post('/auth/login', credentials);
