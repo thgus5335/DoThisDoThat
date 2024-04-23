@@ -1,14 +1,15 @@
 .modalContainer {
-  margin: 3.2rem 2.8rem;
   position: relative;
+  margin: 3.2rem 2.8rem;
 }
 
 .modalName {
-  color: $black_33;
   @include text-2xl(700);
+
+  margin-bottom: 3rem;
+  color: $black_33;
   font-style: normal;
   line-height: normal;
-  margin-bottom: 3rem;
 }
 
 .modalButton {
