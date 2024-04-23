@@ -107,3 +107,39 @@
   width: 2.4rem;
   height: 2.4rem;
 }
+
+.invitedListContainer {
+  width: 100%; /* 컨테이너 전체 너비 */
+  display: flex;
+  flex-direction: column;
+}
+
+.invitedListHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 2.8rem;
+  @include text-m(400);
+  color: $gray_9F;
+  margin-top: 3rem;
+  margin-bottom: 0.6rem;
+}
+
+.invitedListColumn {
+  flex: 1; /* 모든 컬럼의 비율을 1:1:1로 설정 */
+}
+
+.invitedListItem {
+  display: flex;
+  padding-left: 2.8rem;
+  justify-content: space-between;
+  @include text-m(400);
+  align-items: center;
+  border-bottom: 1px solid $gray_EE; /* 항목 간 구분선 */
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.button {
+  display: flex;
+  gap: 1rem;
+}

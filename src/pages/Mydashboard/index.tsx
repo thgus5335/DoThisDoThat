@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import DashboardLinkButton, { dashboardData } from '@/src/components/common/Button/DashboardLinkButton';
 import { fetchDashboards } from '@/src/apis/myDashboardService';
 import PagenationButton from '@/src/components/common/Button/PagenationButton';
+import TaskButton from '@/src/components/common/Button/TaskButton';
 
 interface Invitation {
   id: number;
@@ -102,7 +103,48 @@ export default function Mydashboard() {
               <div className={styles.yesInvitedContainer}>
                 <input type="text" name="search" placeholder="검색" className={styles.invitedInput} />
                 <img src="./search.svg" className={styles.searchIcon} />
-                <div></div>
+                <div className={styles.invitedListContainer}>
+                  <div className={styles.invitedListHeader}>
+                    <div className={styles.invitedListColumn}>이름</div>
+                    <div className={styles.invitedListColumn}>초대자</div>
+                    <div className={styles.invitedListColumn}>수락여부</div>
+                  </div>
+                  {/* {invitations.map((invitation, index) => (
+                    <div key={index} className={styles.invitedListItem}>
+                      <div className={styles.invitedListColumn}>{invitation.dashboard.title}</div>
+                      <div className={styles.invitedListColumn}>{invitation.inviter.nickname}</div>
+                      <div className={styles.invitedListColumn}>
+                        <button className={styles.acceptButton}>수락</button>
+                        <button className={styles.rejectButton}>거절</button>
+                      </div>
+                    </div>
+                  ))} */}
+                  <div className={styles.invitedListItem}>
+                    <div className={styles.invitedListColumn}>제목1</div>
+                    <div className={styles.invitedListColumn}>백지원</div>
+                    <div className={`${styles.invitedListColumn} ${styles.button}`}>
+                      <TaskButton size="large" color="violet">
+                        수락
+                      </TaskButton>
+                      <TaskButton size="large" color="white">
+                        거절
+                      </TaskButton>
+                    </div>
+                  </div>
+                  <div className={styles.invitedListItem}>
+                    <div className={styles.invitedListColumn}>제목1</div>
+                    <div className={styles.invitedListColumn}>백지원</div>
+                    <div className={`${styles.invitedListColumn} ${styles.button}`}>
+                      <TaskButton size="large" color="violet">
+                        수락
+                      </TaskButton>
+                      <TaskButton size="large" color="white">
+                        거절
+                      </TaskButton>
+                    </div>
+                    <div className={styles.line}></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
