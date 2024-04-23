@@ -5,6 +5,7 @@ import DashboardLinkButton, { dashboardData } from '@/src/components/common/Butt
 import { fetchDashboards } from '@/src/apis/myDashboardService';
 import PagenationButton from '@/src/components/common/Button/PagenationButton';
 import TaskButton from '@/src/components/common/Button/TaskButton';
+import { fetchInvitations } from '@/src/apis/invitationService';
 
 interface Invitation {
   id: number;
@@ -39,7 +40,7 @@ export default function Mydashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
-  // // 나의 대시보드 목록 GET
+  // 나의 대시보드 목록 GET
   useEffect(() => {
     loadDashboardData(currentPage);
   }, [currentPage]);
@@ -56,11 +57,24 @@ export default function Mydashboard() {
     setTotalPages(Math.ceil(data.totalCount / params.size));
   };
 
+  // 초대받은 목록 GET
+  useEffect;
+
+  const loadInvitationsData = async (page: number) => {
+    const params: {
+      teamId: '4-16';
+      dashboardId;
+      page: 1;
+      size: 10;
+    };
+    const data = await fetchInvitations;
+  };
+
+  // 페이지네이션
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
   };
 
-  // 초대받은 목록 GET
   return (
     <>
       <div className={styles.container}>
