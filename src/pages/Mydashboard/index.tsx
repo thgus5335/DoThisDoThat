@@ -3,6 +3,7 @@ import styles from './Mydashboard.module.scss';
 import React, { useState, useEffect } from 'react';
 import DashboardLinkButton, { dashboardData } from '@/src/components/common/Button/DashboardLinkButton';
 import { fetchDashboards } from '@/src/apis/myDashboardService';
+import PagenationButton from '@/src/components/common/Button/PagenationButton';
 
 interface Invitation {
   id: number;
@@ -37,22 +38,26 @@ export default function Mydashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
-  // 나의 대시보드 목록 GET
+  // // 나의 대시보드 목록 GET
   useEffect(() => {
-    const loadDashboardData = async () => {
-      const params = {
-        teamId: '4-16',
-        navigationMethod: 'pagination' as 'pagination' | 'infiniteScroll',
-        page: 1,
-        size: 10,
-      };
-      const data = await fetchDashboards(params);
-      console.log(data);
-      setDashboards(data.dashboards);
-    };
+    loadDashboardData(currentPage);
+  }, [currentPage]);
 
-    loadDashboardData();
-  }, []);
+  const loadDashboardData = async (page: number) => {
+    const params = {
+      teamId: '4-16',
+      navigationMethod: 'pagination' as 'pagination' | 'infiniteScroll',
+      page: page,
+      size: 5,
+    };
+    const data = await fetchDashboards(params);
+    setDashboards(data.dashboards);
+    setTotalPages(Math.ceil(Math.ceil(data.totalCount) / params.size));
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
 
   // 초대받은 목록 GET
   return (
@@ -67,7 +72,18 @@ export default function Mydashboard() {
               <DashboardLinkButton key={dashboard.id} dashboardData={dashboard} size="large" />
             ))}
           </div>
-
+          <div className={styles.pagination}>
+            <div className={styles.whereAmI}>
+              {totalPages} 페이지 중 {currentPage}
+            </div>
+            <PagenationButton
+              size="large"
+              isDisabledLeft={currentPage <= 1}
+              isDisabledRight={currentPage >= totalPages}
+              onClickLeft={() => handlePageChange(currentPage - 1)}
+              onClickRight={() => handlePageChange(currentPage + 1)}
+            />
+          </div>
           <div className={styles.invitedDashboard}>
             <div className={styles.invitedTitle}>초대받은 대시보드</div>
             <div>
