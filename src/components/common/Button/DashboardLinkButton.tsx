@@ -23,7 +23,7 @@ const DashboardLinkButton = ({ dashboardData, size }: DashboardLinkButtonProps) 
   const { id, title, color, createdByMe } = dashboardData;
 
   return (
-    <Link href={`/dashboard/${id}`}>
+    <Link href={`/Dashboard/${id}`}>
       <button className={styles[size]}>
         <div className={styles.dashboardLinkBtnContent}>
           <div className={styles.dashboardDataBox}>

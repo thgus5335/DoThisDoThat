@@ -1,19 +1,19 @@
 .mainHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: 7rem;
   flex-shrink: 0;
-  background: $white_FF;
+  align-items: center;
+  justify-content: space-between;
   padding: 1.6rem 5rem 1.6rem 1.6rem;
+  background: $white_FF;
 }
 
 .headerLogo {
   display: inline-flex;
-  padding: 0.4rem 0.2rem 0px 0.4rem;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.2rem 0 0.4rem;
 }
 
 .linkBox {
@@ -23,6 +23,7 @@
 
 .signLink {
   @include text-m(400);
+
   color: $black_33;
   font-style: normal;
   line-height: normal;
