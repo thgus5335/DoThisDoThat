@@ -57,33 +57,29 @@ export default function Mydashboard() {
   // 초대받은 목록 GET
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.menu}></div>
-        <div className={styles.navbar}></div>
-        <div className={styles.contentContainer}>
-          <div className={styles.newDashboard}>
-            <DashboardButton type="dashboardLarge">새로운 대시보드</DashboardButton>
-            {dashboards.map(dashboard => (
-              <DashboardLinkButton key={dashboard.id} dashboardData={dashboard} size="large" />
-            ))}
-          </div>
+      <div className={styles.contentContainer}>
+        <div className={styles.newDashboard}>
+          <DashboardButton type="dashboardLarge">새로운 대시보드</DashboardButton>
+          {dashboards.map(dashboard => (
+            <DashboardLinkButton key={dashboard.id} dashboardData={dashboard} size="large" />
+          ))}
+        </div>
 
-          <div className={styles.invitedDashboard}>
-            <div className={styles.invitedTitle}>초대받은 대시보드</div>
-            <div>
-              {invitations.length > 0 ? (
-                <div>
-                  {invitations.map(invitation => (
-                    <div>{invitation.dashboard.title}</div>
-                  ))}
-                </div>
-              ) : (
-                <div className={styles.noInvitedContainer}>
-                  <img src="./unsubscribe.svg" className={styles.noInvitedImage}></img>
-                  <div className={styles.noInvited}>아직 초대받은 대시보드가 없어요</div>
-                </div>
-              )}
-            </div>
+        <div className={styles.invitedDashboard}>
+          <div className={styles.invitedTitle}>초대받은 대시보드</div>
+          <div>
+            {invitations.length > 0 ? (
+              <div>
+                {invitations.map(invitation => (
+                  <div>{invitation.dashboard.title}</div>
+                ))}
+              </div>
+            ) : (
+              <div className={styles.noInvitedContainer}>
+                <img src="./unsubscribe.svg" className={styles.noInvitedImage}></img>
+                <div className={styles.noInvited}>아직 초대받은 대시보드가 없어요</div>
+              </div>
+            )}
           </div>
         </div>
       </div>

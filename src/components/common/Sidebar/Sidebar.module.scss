@@ -1,0 +1,9 @@
+.sidebar {
+  position: sticky;
+  left: 0;
+  width: 30rem;
+  height: 100vh;
+  background-color: $gray_9F;
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
