@@ -39,10 +39,13 @@ export default function Mydashboard() {
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [loadingInvitations, setLoadingInvitations] = useState(false); // 초대받은 목록 무한스크롤 시 로딩 상태
+  const [hasMoreInvitations, setHasMoreInvitations] = useState(true); // 더 이상 가져올 데이터가 있는지지
+  const [nextCursorId, setNextCursorId] = useState<number | null>(null);
 
   useEffect(() => {
     loadDashboardData(currentPage);
-    loadInvitations();
+    loadInvitations(null);
   }, [currentPage]);
 
   // 나의 대시보드 목록 GET
@@ -59,16 +62,27 @@ export default function Mydashboard() {
   };
 
   // 초대받은 목록 GET
-  const loadInvitations = async () => {
+  const loadInvitations = async (cursor: number | null) => {
+    if (!hasMoreInvitations || loadingInvitations) return;
+
+    setLoadingInvitations(true);
     const params = {
       teamId: '4-16',
       size: 10,
+      cursorId: cursor, // 무한 스크롤 위해 다른 데이터 배치를 가져오는데 사용됨
     };
     try {
       const data = await fetchInvitations(params);
-      setInvitations(data.invitations);
+      const newInvitations = data.invitations;
+      // Set을 사용하여 id 기반으로 중복 제거
+      const uniqueInvitations = new Map(invitations.concat(newInvitations).map(inv => [inv.id, inv]));
+      setInvitations(Array.from(uniqueInvitations.values())); // Map의 values를 배열로 변환
+      setHasMoreInvitations(newInvitations.length === 10);
+      setNextCursorId(data.cursorId); // 서버로부터 반환된 새로운 cursorId 설정
+      setLoadingInvitations(false);
     } catch (error) {
       console.error('Failed to load invitations', error);
+      setLoadingInvitations(false);
     }
   };
 
@@ -77,6 +91,15 @@ export default function Mydashboard() {
     setCurrentPage(newPage);
   };
 
+  // 무한스크롤
+  const handleScroll = (e: React.UIEvent<HTMLElement>) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+    const isBottom = scrollHeight - scrollTop <= clientHeight * 1.5; // 스크롤이 하단 근처에 도달하면 로드
+
+    if (isBottom && !loadingInvitations && hasMoreInvitations && nextCursorId !== null) {
+      loadInvitations(nextCursorId);
+    }
+  };
   return (
     <>
       <div className={styles.container}>
@@ -112,7 +135,7 @@ export default function Mydashboard() {
                   <div className={styles.invitedListColumn}>초대자</div>
                   <div className={styles.invitedListColumn}>수락여부</div>
                 </div>
-                <div className={styles.scroll}>
+                <div className={styles.scroll} onScroll={handleScroll}>
                   {invitations.length > 0 ? (
                     invitations.map((invitation, index) => (
                       <div key={index} className={styles.invitedListItem}>

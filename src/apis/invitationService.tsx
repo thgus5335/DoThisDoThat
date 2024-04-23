@@ -3,7 +3,7 @@ import httpClient from './httpClient';
 interface FetchInvitationsParams {
   teamId: string;
   size?: number;
-  cursorId?: number;
+  cursorId?: number | null;
   title?: string;
 }
 
