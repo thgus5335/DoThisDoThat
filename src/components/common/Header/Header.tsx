@@ -5,7 +5,7 @@ import iconAdd from '@/src/assets/icons/addBox.svg';
 import iconSetting from '@/src/assets/icons/setting.svg';
 
 import { useRef, useState } from 'react';
-import useClickOutside from '@/src/utils/useClickOutside';
+import useClickOutside from '@/src/hooks/useClickOutside';
 
 const Header = () => {
   const [isMemberDropdown, setIsMemberDropdown] = useState(false);
