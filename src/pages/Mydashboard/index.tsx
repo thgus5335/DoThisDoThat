@@ -35,6 +35,7 @@ interface InvitationResponse {
 }
 
 export default function Mydashboard() {
+  const MAX_DASHBOARD_PER_PAGE = 5;
   const [dashboards, setDashboards] = useState<dashboardData[]>([]);
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -87,16 +88,29 @@ export default function Mydashboard() {
   };
 
   // 수락, 거절 버튼 클릭 시 PUT
+  // 초대 수락
   const acceptInvitation = async (invitationId: number) => {
     try {
       const response = await updateInvitation({ teamId: '4-16', invitationId, accept: true });
-      setDashboards(current => [...current, response.dashboard]);
       setInvitations(current => current.filter(inv => inv.id !== invitationId));
+
+      setDashboards(currentDashboards => {
+        const newDashboards = [response.dashboard, ...currentDashboards];
+        const newTotalPages = Math.ceil(newDashboards.length / MAX_DASHBOARD_PER_PAGE);
+
+        // 총 페이지 수 업데이트
+        setTotalPages(newTotalPages);
+
+        // 현재 페이지에 맞는 대시보드 배열 반환
+        const startIndex = (currentPage - 1) * MAX_DASHBOARD_PER_PAGE;
+        return newDashboards.slice(startIndex, startIndex + MAX_DASHBOARD_PER_PAGE);
+      });
     } catch (error) {
       console.error('Failed to accept invitation', error);
     }
   };
 
+  // 초대 거절
   const rejectInvitation = async (invitationId: number) => {
     try {
       const response = await updateInvitation({ teamId: '4-16', invitationId, accept: false });
@@ -109,6 +123,10 @@ export default function Mydashboard() {
   // 페이지네이션
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
+    setDashboards(currentDashboards => {
+      const startIndex = (newPage - 1) * MAX_DASHBOARD_PER_PAGE;
+      return currentDashboards.slice(startIndex, startIndex + MAX_DASHBOARD_PER_PAGE);
+    });
   };
 
   // 무한스크롤
