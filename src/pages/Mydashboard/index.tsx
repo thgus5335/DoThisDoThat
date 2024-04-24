@@ -1,8 +1,10 @@
 import DashboardButton from '@/src/components/common/Button/DashboardButton';
 import styles from './Mydashboard.module.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import DashboardLinkButton, { dashboardData } from '@/src/components/common/Button/DashboardLinkButton';
 import { fetchDashboards } from '@/src/apis/myDashboardService';
+import { NextPageWithLayout } from '../_app';
+import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
 
 interface Invitation {
   id: number;
@@ -31,7 +33,7 @@ interface InvitationResponse {
   invitations: Invitation[];
 }
 
-export default function Mydashboard() {
+const Mydashboard: NextPageWithLayout = () => {
   const [dashboards, setDashboards] = useState<dashboardData[]>([]);
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,4 +87,10 @@ export default function Mydashboard() {
       </div>
     </>
   );
-}
+};
+
+Mydashboard.getLayout = function getLayout(page: ReactElement) {
+  return <HeaderSidebarLayout>{page}</HeaderSidebarLayout>;
+};
+
+export default Mydashboard;
