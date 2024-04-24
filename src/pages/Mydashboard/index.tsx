@@ -5,7 +5,7 @@ import DashboardLinkButton, { dashboardData } from '@/src/components/common/Butt
 import { fetchDashboards } from '@/src/apis/myDashboardService';
 import PagenationButton from '@/src/components/common/Button/PagenationButton';
 import TaskButton from '@/src/components/common/Button/TaskButton';
-import { fetchInvitations } from '@/src/apis/invitationService';
+import { fetchInvitations, updateInvitation } from '@/src/apis/invitationService';
 
 interface Invitation {
   id: number;
@@ -86,6 +86,26 @@ export default function Mydashboard() {
     }
   };
 
+  // 수락, 거절 버튼 클릭 시 PUT
+  const acceptInvitation = async (invitationId: number) => {
+    try {
+      const response = await updateInvitation({ teamId: '4-16', invitationId, accept: true });
+      setDashboards(current => [...current, response.dashboard]);
+      setInvitations(current => current.filter(inv => inv.id !== invitationId));
+    } catch (error) {
+      console.error('Failed to accept invitation', error);
+    }
+  };
+
+  const rejectInvitation = async (invitationId: number) => {
+    try {
+      const response = await updateInvitation({ teamId: '4-16', invitationId, accept: false });
+      setInvitations(current => current.filter(inv => inv.id !== invitationId));
+    } catch (error) {
+      console.error('Failed to reject invitation', error);
+    }
+  };
+
   // 페이지네이션
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -137,15 +157,15 @@ export default function Mydashboard() {
                 </div>
                 <div className={styles.scroll} onScroll={handleScroll}>
                   {invitations.length > 0 ? (
-                    invitations.map((invitation, index) => (
-                      <div key={index} className={styles.invitedListItem}>
+                    invitations.map(invitation => (
+                      <div key={invitation.id} className={styles.invitedListItem}>
                         <div className={styles.invitedListColumn}>{invitation.dashboard.title}</div>
                         <div className={styles.invitedListColumn}>{invitation.inviter.nickname}</div>
                         <div className={`${styles.invitedListColumn} ${styles.button}`}>
-                          <TaskButton size="large" color="violet">
+                          <TaskButton size="large" color="violet" onClick={() => acceptInvitation(invitation.id)}>
                             수락
                           </TaskButton>
-                          <TaskButton size="large" color="white">
+                          <TaskButton size="large" color="white" onClick={() => rejectInvitation(invitation.id)}>
                             거절
                           </TaskButton>
                         </div>

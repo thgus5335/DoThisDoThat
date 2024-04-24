@@ -151,3 +151,13 @@
   max-height: 30rem; // 최대 높이 설정
   overflow-y: auto; // 내용이 넘칠 경우 스크롤 가능
 }
+
+.scroll::-webkit-scrollbar {
+  background-color: $white_FF;
+  width: 0.6rem;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: $violet_55;
+  border-radius: 0.7rem;
+}
