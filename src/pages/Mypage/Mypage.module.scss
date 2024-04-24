@@ -110,6 +110,14 @@
   @extend %inputStyle;
 
   width: 366px;
+
+  &:disabled {
+    @include text-m(400);
+
+    color: $gray_9F;
+    font-style: normal;
+    line-height: normal;
+  }
 }
 
 .taskBtn {
@@ -151,4 +159,34 @@
     font-style: normal;
     line-height: normal;
   }
+}
+
+.imageInputField {
+  display: none;
+  width: 182px;
+  height: 182px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.imagePreview {
+  object-fit: cover;
+}
+
+.imageInputButton {
+  // display: block;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  // width: 7.6rem;
+  // height: 7.6rem;
+  width: 182px;
+  height: 182px;
+
+  border-radius: 6px;
+  background: #f5f5f5;
+  cursor: pointer;
+  user-select: none;
 }
