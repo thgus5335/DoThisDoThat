@@ -7,22 +7,30 @@ import styles from './PagenationButton.module.scss';
 
 interface PagenationButtonProps {
   size: 'large' | 'small';
-  isDisabled?: boolean;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  isDisabledLeft?: boolean;
+  isDisabledRight?: boolean;
+  onClickLeft?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickRight?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const PagenationButton = ({ size, isDisabled, onClick }: PagenationButtonProps) => {
+const PagenationButton = ({
+  size,
+  isDisabledLeft,
+  isDisabledRight,
+  onClickLeft,
+  onClickRight,
+}: PagenationButtonProps) => {
   return (
     <div className={styles.pagenationButton}>
-      <button className={`${styles[size]} ${styles.left}`} onClick={onClick} disabled={isDisabled}>
-        {isDisabled ? (
+      <button className={`${styles[size]} ${styles.left}`} onClick={onClickLeft} disabled={isDisabledLeft}>
+        {isDisabledLeft ? (
           <Image src={disabledLeftArrowIcon} alt="disabledLeftArrowIcon" />
         ) : (
           <Image src={leftArrowIcon} alt="leftArrowIcon" />
         )}
       </button>
-      <button className={`${styles[size]} ${styles.right}`} onClick={onClick} disabled={isDisabled}>
-        {isDisabled ? (
+      <button className={`${styles[size]} ${styles.right}`} onClick={onClickRight} disabled={isDisabledRight}>
+        {isDisabledRight ? (
           <Image src={disabledRightArrowIcon} alt="disabledRightArrowIcon" />
         ) : (
           <Image src={rightArrowIcon} alt="rightArrowIcon" />

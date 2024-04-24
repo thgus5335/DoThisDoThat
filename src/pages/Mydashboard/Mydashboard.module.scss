@@ -1,5 +1,7 @@
 .contentContainer {
-  background-color: beige; // 예시 배경색
+  display: flex;
+  height: 100%;
+  flex-direction: column;
   background-color: $gray_FA;
 }
 
@@ -50,4 +52,77 @@
 
   margin-top: 2.4rem;
   color: $gray_9F;
+}
+
+.pagination {
+  display: flex;
+  width: calc(3 * 33.5rem + 4 * 1.3rem); /* 마지막 대시보드의 너비에 맞춤 */
+  align-items: center;
+  justify-content: flex-end; /* 페이지네이션 버튼을 오른쪽에 정렬 */
+  margin-bottom: 5.5rem;
+  gap: 1.5rem;
+}
+
+.whereAmI {
+  @include text-s(400);
+}
+
+.invitedInput {
+  width: 96.6rem;
+  height: 4rem;
+  padding-left: 5.5rem;
+  border: 0.1rem solid $gray_D9;
+  border-radius: 0.6rem;
+  margin-top: 2rem;
+  margin-left: 2.8rem;
+}
+
+.yesInvitedContainer {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 2.8rem;
+  left: 5rem;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.invitedListContainer {
+  display: flex;
+  width: 100%; /* 컨테이너 전체 너비 */
+  flex-direction: column;
+}
+
+.invitedListHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  margin-bottom: 0.6rem;
+  margin-left: 2.8rem;
+  color: $gray_9F;
+
+  @include text-m(400);
+}
+
+.invitedListColumn {
+  flex: 1; /* 모든 컬럼의 비율을 1:1:1로 설정 */
+}
+
+.invitedListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+  padding-left: 2.8rem;
+  border-bottom: 1px solid $gray_EE; /* 항목 간 구분선 */
+  margin-top: 2rem;
+
+  @include text-m(400);
+}
+
+.button {
+  display: flex;
+  gap: 1rem;
 }

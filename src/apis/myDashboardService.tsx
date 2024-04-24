@@ -9,6 +9,7 @@ interface fetchDashboardsParams {
   size?: number;
 }
 
+// 대시보드 목록 불러오기
 export const fetchDashboards = async (params: fetchDashboardsParams) => {
   try {
     const { teamId, navigationMethod, cursorId, page, size } = params;
