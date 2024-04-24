@@ -43,6 +43,7 @@ export default function Mydashboard() {
   const [loadingInvitations, setLoadingInvitations] = useState(false); // 초대받은 목록 무한스크롤 시 로딩 상태
   const [hasMoreInvitations, setHasMoreInvitations] = useState(true); // 더 이상 가져올 데이터가 있는지지
   const [nextCursorId, setNextCursorId] = useState<number | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     loadDashboardData(currentPage);
@@ -120,6 +121,11 @@ export default function Mydashboard() {
     }
   };
 
+  // 키워드로 검색
+  const filteredInvitations = invitations.filter(inv =>
+    inv.dashboard.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // 페이지네이션
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -165,7 +171,13 @@ export default function Mydashboard() {
           <div className={styles.invitedDashboard}>
             <div className={styles.invitedTitle}>초대받은 대시보드</div>
             <div className={styles.yesInvitedContainer}>
-              <input type="text" name="search" placeholder="검색" className={styles.invitedInput} />
+              <input
+                type="text"
+                name="search"
+                placeholder="검색"
+                className={styles.invitedInput}
+                onChange={e => setSearchTerm(e.target.value)}
+              />
               <img src="./search.svg" className={styles.searchIcon} />
               <div className={styles.invitedListContainer}>
                 <div className={styles.invitedListHeader}>
@@ -175,7 +187,7 @@ export default function Mydashboard() {
                 </div>
                 <div className={styles.scroll} onScroll={handleScroll}>
                   {invitations.length > 0 ? (
-                    invitations.map(invitation => (
+                    filteredInvitations.map(invitation => (
                       <div key={invitation.id} className={styles.invitedListItem}>
                         <div className={styles.invitedListColumn}>{invitation.dashboard.title}</div>
                         <div className={styles.invitedListColumn}>{invitation.inviter.nickname}</div>
