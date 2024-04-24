@@ -100,7 +100,7 @@ export default function Mydashboard() {
 
         // 총 페이지 수 업데이트
         setTotalPages(newTotalPages);
-
+        setCurrentPage(1);
         // 현재 페이지에 맞는 대시보드 배열 반환
         const startIndex = (currentPage - 1) * MAX_DASHBOARD_PER_PAGE;
         return newDashboards.slice(startIndex, startIndex + MAX_DASHBOARD_PER_PAGE);
