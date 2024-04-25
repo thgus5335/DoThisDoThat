@@ -1,8 +1,9 @@
 .footer {
   @include text-m(400);
+
   display: flex;
-  justify-content: space-between;
   width: 100%;
+  justify-content: space-between;
   padding: 4.1rem 10.4rem;
   background: $gray_9F;
   color: $white_FF;
