@@ -33,6 +33,16 @@
   gap: 0.6rem;
 }
 
+.tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  background-color: $pink_F7;
+  color: $pink_E8;
+}
+
 .dateContainer {
   @include text-xs(500);
 
@@ -58,4 +68,11 @@
   border-radius: 50%;
   background-color: $blue_76;
   color: $white_FF;
+}
+
+.profileImage {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  object-fit: cover;
 }
