@@ -1,0 +1,13 @@
+.dashboard {
+  display: flex;
+  background-color: $gray_FA;
+}
+
+.column {
+  width: 35.4rem;
+  border-right: 1px solid $gray_D9;
+}
+
+.addColumn {
+  padding: 6.8rem 2rem;
+}
