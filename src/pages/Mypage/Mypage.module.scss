@@ -175,12 +175,8 @@
 }
 
 .imageInputButton {
-  // display: block;
   display: flex;
   overflow: hidden;
-
-  // width: 7.6rem;
-  // height: 7.6rem;
   width: 182px;
   height: 182px;
   align-items: center;
@@ -194,3 +190,13 @@
 .isError {
   border-color: $red_D6;
 }
+
+.inputErrorMessage {
+  @include text-s(400);
+
+  color: $red_D6;
+  font-style: normal;
+  line-height: normal;
+}
+
+// section box 유동적 움직임

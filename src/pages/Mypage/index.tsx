@@ -8,62 +8,41 @@ import addIcon from '@/src/assets/icons/addIcon.svg';
 import backIcon from '@/src/assets/icons/leftArrowIcon.svg';
 import styles from './Mypage.module.scss';
 
+interface UserInfo {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+const initialUserInfo: UserInfo = {
+  id: 0,
+  email: '',
+  nickname: '',
+  profileImageUrl: '',
+  createdAt: '',
+  updatedAt: '',
+};
+
 const Mypage = () => {
-  const [userInfo, setUserInfo] = useState({});
-  const [nickname, setNickname] = useState('');
-  const [profileImage, setProfileImage] = useState('');
-  const [updateTrigger, setUpdateTrigger] = useState(false);
-  const [password, setPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalErrorMessage, setModalErrorMessage] = useState('');
+  const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
+  const [nickname, setNickname] = useState<string>('');
+  const [profileImage, setProfileImage] = useState<string>('');
+  const [isUpdateTrigger, setIsUpdateTrigger] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
+  const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
+  const [isSaveButtonEnabled, setIsSaveButtonEnabled] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>('');
 
   const router = useRouter();
 
-  const handleUserInfoChange = () => {
-    const modifiedUserInfo = {
-      nickname: nickname,
-      profileImageUrl: profileImage,
-    };
-
-    httpClient
-      .put('/users/me', modifiedUserInfo)
-      .then(response => {
-        console.log('사용자 정보 수정 성공:', response.data);
-        setUpdateTrigger(prevState => !prevState);
-        setNickname('');
-      })
-      .catch(error => {
-        console.error('사용자 정보 수정 오류:', error);
-      });
-  };
-
-  const handleImageChangeTest = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-
-      const formData = new FormData();
-      formData.append('image', file);
-
-      httpClient
-        .post('/users/me/image', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then(response => {
-          console.log('이미지 업로드 성공:', response.data);
-          setProfileImage(response.data.profileImageUrl);
-        })
-        .catch(error => {
-          console.error('이미지 업로드 오류:', error);
-        });
-    }
-  };
-
+  // userInfo 가져오기
   async function getUserInfo() {
     try {
       const response = await httpClient.get('/users/me');
@@ -84,31 +63,61 @@ const Mypage = () => {
       .catch(error => {
         console.error('유저 정보를 가져오는 중 오류 발생:', error);
       });
-  }, [updateTrigger]);
+  }, [isUpdateTrigger]);
 
-  // 비밀번호
-  const handlePasswordInfoChange = () => {
-    const modifiedPasswordInfo = {
-      password: password,
-      newPassword: newPassword,
+  // profile 이미지 업로드
+  const handleImageChangeTest = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      httpClient
+        .post('/users/me/image', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then(response => {
+          setProfileImage(response.data.profileImageUrl);
+        })
+        .catch(error => {
+          console.error('이미지 업로드 오류:', error);
+        });
+    }
+  };
+
+  // profile 변경 버튼 활성화 관련
+  useEffect(() => {
+    if ((nickname.length > 0 && userInfo.nickname !== nickname) || userInfo.profileImageUrl !== profileImage) {
+      setIsSaveButtonEnabled(true);
+    } else {
+      setIsSaveButtonEnabled(false);
+    }
+  }, [nickname, profileImage]);
+
+  // profile 변경
+  const handleUserInfoChange = () => {
+    const modifiedUserInfo = {
+      nickname: nickname || userInfo.nickname,
+      profileImageUrl: profileImage,
     };
 
     httpClient
-      .put('/auth/password', modifiedPasswordInfo)
+      .put('/users/me', modifiedUserInfo)
       .then(response => {
-        console.log('사용자 정보 수정 성공:', response.data);
-        setUpdateTrigger(prevState => !prevState);
-        setPassword('');
-        setNewPassword('');
-        setConfirmPassword('');
+        setIsUpdateTrigger(prevState => !prevState);
+        setNickname('');
+        setModalMessage('🥸 프로필이 변경됐어요 🥸');
+        setIsModalOpen(true);
       })
       .catch(error => {
         console.error('사용자 정보 수정 오류:', error);
-        setModalErrorMessage(error.response.data.message);
-        setModalOpen(true);
       });
   };
 
+  // 새 비밀번호 확인 error 관련
   const handleConfirmPasswordBlur = () => {
     if (newPassword !== confirmPassword) {
       setPasswordError('비밀번호가 일치하지 않습니다.');
@@ -117,6 +126,7 @@ const Mypage = () => {
     }
   };
 
+  // 비밀번호 변경 버튼 활성화 관련
   useEffect(() => {
     if (
       password.length >= 8 &&
@@ -130,17 +140,44 @@ const Mypage = () => {
     }
   }, [password, newPassword, confirmPassword]);
 
+  // 비밀번호 변경
+  const handlePasswordInfoChange = () => {
+    const modifiedPasswordInfo = {
+      password: password,
+      newPassword: newPassword,
+    };
+
+    httpClient
+      .put('/auth/password', modifiedPasswordInfo)
+      .then(response => {
+        console.log('사용자 정보 수정 성공:', response.data);
+        setIsUpdateTrigger(prevState => !prevState);
+        setPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
+        setModalMessage('🤓 비밀번호가 변경됐어요 🤓');
+        setIsModalOpen(true);
+      })
+      .catch(error => {
+        console.error('사용자 정보 수정 오류:', error);
+        setModalMessage(error.response.data.message);
+        setIsModalOpen(true);
+      });
+  };
+
+  // modal 닫기
   const handleModalClose = () => {
-    setModalOpen(false);
+    setModalMessage('');
+    setIsModalOpen(false);
   };
 
   return (
     <>
       <div className={styles.container}>
-        {modalOpen && (
+        {isModalOpen && (
           <div>
             <SingleButtonModal isOpen onClose={handleModalClose}>
-              {modalErrorMessage}
+              {modalMessage}
             </SingleButtonModal>
           </div>
         )}
@@ -162,7 +199,6 @@ const Mypage = () => {
                     layout="responsive"
                     width={30}
                     height={30}
-                    // fill
                     alt="추가한 이미지"
                   />
                 </label>
@@ -192,7 +228,11 @@ const Mypage = () => {
               </div>
             </div>
             <div className={styles.taskBtn}>
-              <TaskButton size={'large'} color={'violet'} onClick={handleUserInfoChange}>
+              <TaskButton
+                size={'large'}
+                color={'violet'}
+                onClick={handleUserInfoChange}
+                isDisabled={!isSaveButtonEnabled}>
                 저장
               </TaskButton>
             </div>
@@ -230,7 +270,7 @@ const Mypage = () => {
                   onChange={e => setConfirmPassword(e.target.value)}
                   onBlur={handleConfirmPasswordBlur}
                 />
-                {passwordError.length > 0 && <p>{passwordError}</p>}
+                {passwordError.length > 0 && <p className={styles.inputErrorMessage}>{passwordError}</p>}
               </div>
             </div>
             <div className={styles.taskBtn}>
