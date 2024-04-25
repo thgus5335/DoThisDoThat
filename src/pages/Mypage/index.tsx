@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState, ChangeEvent, ReactElement } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import httpClient from '@/src/apis/httpClient';
@@ -7,6 +7,8 @@ import TaskButton from '@/src/components/common/Button/TaskButton';
 import addIcon from '@/src/assets/icons/addIcon.svg';
 import backIcon from '@/src/assets/icons/leftArrowIcon.svg';
 import styles from './Mypage.module.scss';
+import { NextPageWithLayout } from '../_app';
+import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
 
 interface UserInfo {
   id: number;
@@ -26,7 +28,7 @@ const initialUserInfo: UserInfo = {
   updatedAt: '',
 };
 
-const Mypage = () => {
+const Mypage: NextPageWithLayout = () => {
   const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
   const [nickname, setNickname] = useState<string>('');
   const [profileImage, setProfileImage] = useState<string>('');
@@ -112,6 +114,7 @@ const Mypage = () => {
         setIsSaveButtonEnabled(false);
         setNickname('');
         setIsUpdateTrigger(prevState => !prevState);
+        setUserInfo(response.data);
       })
       .catch(error => {
         console.error('사용자 정보 수정 오류:', error);
@@ -172,120 +175,120 @@ const Mypage = () => {
 
   return (
     <>
-      <div className={styles.container}>
-        {isModalOpen && (
-          <div>
-            <SingleButtonModal isOpen onClose={handleModalClose}>
-              {modalMessage}
-            </SingleButtonModal>
-          </div>
-        )}
-        <div className={styles.menu}></div>
-        <div className={styles.navbar}></div>
-        <div className={styles.mypageContent}>
-          <button className={styles.backBtn} onClick={() => router.back()}>
-            <Image src={backIcon} alt="돌아가기" />
-            <p>돌아가기</p>
-          </button>
-          <section className={styles.mypageSection}>
-            <h3 className={styles.title}>프로필</h3>
-            <div className={styles.profileContent}>
-              <div className={styles.imageUpload}>
-                <label htmlFor="imageInputField" className={styles.imageInputButton}>
-                  <Image
-                    className={styles.imagePreview}
-                    src={profileImage ? profileImage : addIcon}
-                    layout="responsive"
-                    width={30}
-                    height={30}
-                    alt="추가한 이미지"
-                  />
-                </label>
-                <input
-                  id="imageInputField"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChangeTest}
-                  className={styles.imageInputField}
-                />
-              </div>
-              <div className={styles.profileInputBox}>
-                <div className={styles.labelAndInput}>
-                  <label className={styles.inputLabel}>이메일</label>
-                  <input className={styles.profileInput} value={userInfo.email} disabled />
-                </div>
-                <div className={styles.labelAndInput}>
-                  <label className={styles.inputLabel}>닉네임</label>
-                  <input
-                    className={styles.profileInput}
-                    placeholder={userInfo.nickname}
-                    value={nickname}
-                    maxLength={10}
-                    onChange={e => setNickname(e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className={styles.taskBtn}>
-              <TaskButton
-                size={'large'}
-                color={'violet'}
-                onClick={handleUserInfoChange}
-                isDisabled={!isSaveButtonEnabled}>
-                저장
-              </TaskButton>
-            </div>
-          </section>
-          <section className={styles.mypageSection}>
-            <h3 className={styles.title}>비밀번호 변경</h3>
-            <div className={styles.passwordChangeContent}>
-              <div className={styles.labelAndInput}>
-                <label className={styles.inputLabel}>현재 비밀번호</label>
-                <input
-                  className={styles.passwordChangeInput}
-                  type="password"
-                  placeholder="현재 비밀번호 입력"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                />
-              </div>
-              <div className={styles.labelAndInput}>
-                <label className={styles.inputLabel}>새 비밀번호</label>
-                <input
-                  className={styles.passwordChangeInput}
-                  type="password"
-                  placeholder="새 비밀번호 입력"
-                  value={newPassword}
-                  onChange={e => setNewPassword(e.target.value)}
-                />
-              </div>
-              <div className={styles.labelAndInput}>
-                <label className={styles.inputLabel}>새 비밀번호 확인</label>
-                <input
-                  className={`${passwordError && styles.isInputError} ${styles.passwordChangeInput}`}
-                  type="password"
-                  placeholder="새 비밀번호 확인"
-                  value={confirmPassword}
-                  onChange={e => setConfirmPassword(e.target.value)}
-                  onBlur={handleConfirmPasswordBlur}
-                />
-                {passwordError && <p className={styles.inputErrorMessage}>{passwordError}</p>}
-              </div>
-            </div>
-            <div className={styles.taskBtn}>
-              <TaskButton
-                size={'large'}
-                color={'violet'}
-                onClick={handlePasswordInfoChange}
-                isDisabled={!isButtonEnabled}>
-                변경
-              </TaskButton>
-            </div>
-          </section>
+      {isModalOpen && (
+        <div>
+          <SingleButtonModal isOpen onClose={handleModalClose}>
+            {modalMessage}
+          </SingleButtonModal>
         </div>
+      )}
+      <div className={styles.mypageContent}>
+        <button className={styles.backBtn} onClick={() => router.back()}>
+          <Image src={backIcon} alt="돌아가기" />
+          <p>돌아가기</p>
+        </button>
+        <section className={styles.mypageSection}>
+          <h3 className={styles.title}>프로필</h3>
+          <div className={styles.profileContent}>
+            <div className={styles.imageUpload}>
+              <label htmlFor="imageInputField" className={styles.imageInputButton}>
+                <Image
+                  className={styles.imagePreview}
+                  src={profileImage ? profileImage : addIcon}
+                  layout="responsive"
+                  width={30}
+                  height={30}
+                  alt="추가한 이미지"
+                />
+              </label>
+              <input
+                id="imageInputField"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChangeTest}
+                className={styles.imageInputField}
+              />
+            </div>
+            <div className={styles.profileInputBox}>
+              <div className={styles.labelAndInput}>
+                <label className={styles.inputLabel}>이메일</label>
+                <input className={styles.profileInput} value={userInfo.email} disabled />
+              </div>
+              <div className={styles.labelAndInput}>
+                <label className={styles.inputLabel}>닉네임</label>
+                <input
+                  className={styles.profileInput}
+                  placeholder={userInfo.nickname}
+                  value={nickname}
+                  maxLength={10}
+                  onChange={e => setNickname(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={styles.taskBtn}>
+            <TaskButton
+              size={'large'}
+              color={'violet'}
+              onClick={handleUserInfoChange}
+              isDisabled={!isSaveButtonEnabled}>
+              저장
+            </TaskButton>
+          </div>
+        </section>
+        <section className={styles.mypageSection}>
+          <h3 className={styles.title}>비밀번호 변경</h3>
+          <div className={styles.passwordChangeContent}>
+            <div className={styles.labelAndInput}>
+              <label className={styles.inputLabel}>현재 비밀번호</label>
+              <input
+                className={styles.passwordChangeInput}
+                type="password"
+                placeholder="현재 비밀번호 입력"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
+            </div>
+            <div className={styles.labelAndInput}>
+              <label className={styles.inputLabel}>새 비밀번호</label>
+              <input
+                className={styles.passwordChangeInput}
+                type="password"
+                placeholder="새 비밀번호 입력"
+                value={newPassword}
+                onChange={e => setNewPassword(e.target.value)}
+              />
+            </div>
+            <div className={styles.labelAndInput}>
+              <label className={styles.inputLabel}>새 비밀번호 확인</label>
+              <input
+                className={`${passwordError && styles.isInputError} ${styles.passwordChangeInput}`}
+                type="password"
+                placeholder="새 비밀번호 확인"
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+                onBlur={handleConfirmPasswordBlur}
+              />
+              {passwordError && <p className={styles.inputErrorMessage}>{passwordError}</p>}
+            </div>
+          </div>
+          <div className={styles.taskBtn}>
+            <TaskButton
+              size={'large'}
+              color={'violet'}
+              onClick={handlePasswordInfoChange}
+              isDisabled={!isButtonEnabled}>
+              변경
+            </TaskButton>
+          </div>
+        </section>
       </div>
     </>
   );
+};
+
+Mypage.getLayout = function getLayout(page: ReactElement) {
+  return <HeaderSidebarLayout>{page}</HeaderSidebarLayout>;
 };
 
 export default Mypage;
