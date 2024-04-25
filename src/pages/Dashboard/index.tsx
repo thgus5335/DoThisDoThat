@@ -21,7 +21,7 @@ const Dashboard: NextPageWithLayout = () => {
           <Image src={iconSetting} alt="컬럼 환경설정." />
         </div>
         <DashboardButton type={'taskLarge'} />
-        <CardList></CardList>
+        <CardList>111111</CardList>
       </div>
       <div className={styles.column}>
         <div className={styles.columnInfo}>
@@ -33,7 +33,7 @@ const Dashboard: NextPageWithLayout = () => {
           <Image src={iconSetting} alt="컬럼 환경설정." />
         </div>
         <DashboardButton type={'taskLarge'} />
-        <CardList></CardList>
+        <CardList>2222222</CardList>
       </div>
       <div className={styles.column}>
         <div className={styles.columnInfo}>
@@ -45,7 +45,7 @@ const Dashboard: NextPageWithLayout = () => {
           <Image src={iconSetting} alt="컬럼 환경설정." />
         </div>
         <DashboardButton type={'taskLarge'} />
-        <CardList></CardList>
+        <CardList>33333333</CardList>
       </div>
       <div className={styles.addColumn}>
         <DashboardButton type={'columnLarge'}>새로운 컬럼 추가하기</DashboardButton>

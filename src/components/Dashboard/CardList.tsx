@@ -1,9 +1,15 @@
+import { ReactNode } from 'react';
+import Card from './Card';
 import styles from './CardList.module.scss';
 
-const CardList = () => {
+interface Props {
+  children: ReactNode;
+}
+
+const CardList = ({ children }: Props) => {
   return (
     <div className={styles.cardList}>
-      <p>하잉</p>
+      <Card>{children}</Card>
     </div>
   );
 };
