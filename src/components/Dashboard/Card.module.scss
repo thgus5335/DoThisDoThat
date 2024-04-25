@@ -64,15 +64,8 @@
   height: 2.4rem;
   align-items: center;
   justify-content: center;
-  border: 0.2rem solid $white_FF;
   border-radius: 50%;
   background-color: $blue_76;
   color: $white_FF;
-}
-
-.profileImage {
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 50%;
   object-fit: cover;
 }

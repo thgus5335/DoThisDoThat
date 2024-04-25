@@ -13,8 +13,6 @@ interface Props {
 const CardList = ({ columnId }: Props) => {
   const [cardList, setCardList] = useState<Cards[]>([]);
 
-  console.log(columnId);
-
   const loadCardList = async () => {
     const data = await getCardList(columnId);
     setCardList(data.cards);
