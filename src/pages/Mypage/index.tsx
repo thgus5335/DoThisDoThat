@@ -1,17 +1,25 @@
+import { useEffect, useState, ChangeEvent } from 'react';
 import Image from 'next/image';
-import styles from './Mypage.module.scss';
-import backIcon from '@/src/assets/icons/leftArrowIcon.svg';
 import { useRouter } from 'next/router';
+import httpClient from '@/src/apis/httpClient';
+import SingleButtonModal from '@/src/components/Modal/SingleButtonModal';
 import TaskButton from '@/src/components/common/Button/TaskButton';
 import addIcon from '@/src/assets/icons/addIcon.svg';
-import { useEffect, useState, ChangeEvent } from 'react';
-import httpClient from '@/src/apis/httpClient';
+import backIcon from '@/src/assets/icons/leftArrowIcon.svg';
+import styles from './Mypage.module.scss';
 
 const Mypage = () => {
   const [userInfo, setUserInfo] = useState({});
   const [nickname, setNickname] = useState('');
   const [profileImage, setProfileImage] = useState('');
   const [updateTrigger, setUpdateTrigger] = useState(false);
+  const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalErrorMessage, setModalErrorMessage] = useState('');
 
   const router = useRouter();
 
@@ -20,7 +28,6 @@ const Mypage = () => {
       nickname: nickname,
       profileImageUrl: profileImage,
     };
-    console.log(modifiedUserInfo);
 
     httpClient
       .put('/users/me', modifiedUserInfo)
@@ -60,15 +67,12 @@ const Mypage = () => {
   async function getUserInfo() {
     try {
       const response = await httpClient.get('/users/me');
-      const { nickname, profileImageUrl } = response.data;
-      // setProfileInfo({ nickname, profileImageUrl });
-      // console.log(profileInfo);
       setUserInfo(response.data);
       setProfileImage(response.data.profileImageUrl);
-      return response.data; // 서버에서 반환한 유저 정보를 반환
+      return response.data;
     } catch (error) {
       console.error('유저 정보를 가져오는 중 오류 발생:', error);
-      throw error; // 오류를 호출자에게 전파
+      throw error;
     }
   }
 
@@ -82,9 +86,64 @@ const Mypage = () => {
       });
   }, [updateTrigger]);
 
+  // 비밀번호
+  const handlePasswordInfoChange = () => {
+    const modifiedPasswordInfo = {
+      password: password,
+      newPassword: newPassword,
+    };
+
+    httpClient
+      .put('/auth/password', modifiedPasswordInfo)
+      .then(response => {
+        console.log('사용자 정보 수정 성공:', response.data);
+        setUpdateTrigger(prevState => !prevState);
+        setPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
+      })
+      .catch(error => {
+        console.error('사용자 정보 수정 오류:', error);
+        setModalErrorMessage(error.response.data.message);
+        setModalOpen(true);
+      });
+  };
+
+  const handleConfirmPasswordBlur = () => {
+    if (newPassword !== confirmPassword) {
+      setPasswordError('비밀번호가 일치하지 않습니다.');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  useEffect(() => {
+    if (
+      password.length >= 8 &&
+      newPassword.length >= 8 &&
+      confirmPassword.length >= 8 &&
+      newPassword === confirmPassword
+    ) {
+      setIsButtonEnabled(true);
+    } else {
+      setIsButtonEnabled(false);
+    }
+  }, [password, newPassword, confirmPassword]);
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
       <div className={styles.container}>
+        {modalOpen && (
+          <div>
+            <SingleButtonModal isOpen onClose={handleModalClose}>
+              {modalErrorMessage}
+            </SingleButtonModal>
+          </div>
+        )}
         <div className={styles.menu}></div>
         <div className={styles.navbar}></div>
         <div className={styles.mypageContent}>
@@ -143,19 +202,43 @@ const Mypage = () => {
             <div className={styles.passwordChangeContent}>
               <div className={styles.labelAndInput}>
                 <label className={styles.inputLabel}>현재 비밀번호</label>
-                <input className={styles.passwordChangeInput} placeholder="현재 비밀번호 입력" />
+                <input
+                  className={styles.passwordChangeInput}
+                  type="password"
+                  placeholder="현재 비밀번호 입력"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
               </div>
               <div className={styles.labelAndInput}>
                 <label className={styles.inputLabel}>새 비밀번호</label>
-                <input className={styles.passwordChangeInput} placeholder="새 비밀번호 입력" />
+                <input
+                  className={styles.passwordChangeInput}
+                  type="password"
+                  placeholder="새 비밀번호 입력"
+                  value={newPassword}
+                  onChange={e => setNewPassword(e.target.value)}
+                />
               </div>
               <div className={styles.labelAndInput}>
-                <label className={styles.inputLabel}>새 비밀번호 확인</label>
-                <input className={styles.passwordChangeInput} placeholder="새 비밀번호 확인" />
+                <label className={`${passwordError && styles.isError} ${styles.inputLabel}`}>새 비밀번호 확인</label>
+                <input
+                  className={styles.passwordChangeInput}
+                  type="password"
+                  placeholder="새 비밀번호 확인"
+                  value={confirmPassword}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                  onBlur={handleConfirmPasswordBlur}
+                />
+                {passwordError.length > 0 && <p>{passwordError}</p>}
               </div>
             </div>
             <div className={styles.taskBtn}>
-              <TaskButton size={'large'} color={'violet'}>
+              <TaskButton
+                size={'large'}
+                color={'violet'}
+                onClick={handlePasswordInfoChange}
+                isDisabled={!isButtonEnabled}>
                 변경
               </TaskButton>
             </div>

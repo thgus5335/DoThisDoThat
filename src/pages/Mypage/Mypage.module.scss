@@ -1,10 +1,10 @@
 %sectionStyle {
   width: 620px;
   flex-shrink: 0;
-  border-radius: 8px;
-  background: $white_FF;
   padding: 32px 28px 28px;
+  border-radius: 8px;
   margin-bottom: 12px;
+  background: $white_FF;
 }
 
 %contentStyle {
@@ -15,10 +15,10 @@
 %inputStyle {
   height: 48px;
   flex-shrink: 0;
-  border-radius: 6px;
-  border: 1px solid $gray_D9;
-  background: $white_FF;
   padding: 15px 0 14px 16px;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background: $white_FF;
 }
 
 .container {
@@ -43,10 +43,10 @@
 }
 
 .mypageContent {
+  padding: 20px;
   background-color: $gray_FA;
   grid-column: 2; // 두 번째 열
   grid-row: 2; // 두 번째 행
-  padding: 20px;
 }
 
 .backBtn {
@@ -55,11 +55,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $black_33;
-  gap: 6px;
-  font-style: normal;
-  line-height: normal;
   margin-bottom: 25px;
+  color: $black_33;
+  font-style: normal;
+  gap: 6px;
+  line-height: normal;
 }
 
 .profile {
@@ -79,9 +79,9 @@
   display: flex;
   width: 182px;
   height: 182px;
-  justify-content: center;
-  align-items: center;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
   border-radius: 6px;
   background: #f5f5f5;
 }
@@ -165,9 +165,9 @@
   display: none;
   width: 182px;
   height: 182px;
-  justify-content: center;
-  align-items: center;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
 }
 
 .imagePreview {
@@ -178,15 +178,19 @@
   // display: block;
   display: flex;
   overflow: hidden;
-  justify-content: center;
-  align-items: center;
+
   // width: 7.6rem;
   // height: 7.6rem;
   width: 182px;
   height: 182px;
-
+  align-items: center;
+  justify-content: center;
   border-radius: 6px;
   background: #f5f5f5;
   cursor: pointer;
   user-select: none;
+}
+
+.isError {
+  border-color: $red_D6;
 }

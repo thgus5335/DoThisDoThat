@@ -7,6 +7,11 @@
   font-style: normal;
   line-height: normal;
   text-align: center;
+
+  &:disabled {
+    background-color: $gray_D9;
+    cursor: default;
+  }
 }
 
 .large {
