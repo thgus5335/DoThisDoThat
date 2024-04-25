@@ -1,15 +1,10 @@
 import Image from 'next/image';
-import { ReactNode } from 'react';
 
 import styles from './Card.module.scss';
 import calendarIcon from '@/src/assets/icons/calendar.svg';
 import noneDataImage from '@/src/assets/images/noneData.png';
 
-interface Props {
-  children: ReactNode;
-}
-
-const Card = ({ children }: Props) => {
+const Card = () => {
   return (
     <div className={styles.card}>
       <Image className={styles.cardImage} src={noneDataImage} alt="카드 이미지." />

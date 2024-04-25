@@ -1,15 +1,16 @@
-import { ReactNode } from 'react';
 import Card from './Card';
 import styles from './CardList.module.scss';
 
 interface Props {
-  children: ReactNode;
+  columnId: number;
 }
 
-const CardList = ({ children }: Props) => {
+const CardList = ({ columnId }: Props) => {
+  console.log(columnId);
+
   return (
     <div className={styles.cardList}>
-      <Card>{children}</Card>
+      <Card></Card>
     </div>
   );
 };
