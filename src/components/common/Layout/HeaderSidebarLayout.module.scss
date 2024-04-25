@@ -1,0 +1,6 @@
+.headerSidebarLayout {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 30rem 1fr;
+  grid-template-rows: 7rem 1fr;
+}

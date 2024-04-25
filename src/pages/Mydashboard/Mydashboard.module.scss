@@ -1,77 +1,147 @@
-.container {
-  display: grid;
-  height: 100vh; // 전체 화면 높이
-  grid-template-columns: 30rem 1fr; // 첫 번째 열은 300px, 두 번째 열은 나머지 공간
-  grid-template-rows: 7rem 1fr; // 첫 번째 행은 70px, 두 번째 행은 나머지 공간
-}
-
-.navbar {
-  grid-column: 2; // 두 번째 열
-  grid-row: 1; // 첫 번째 행
-  background-color: bisque;
-  width: 100%;
-  height: 7rem;
-  background-color: bisque; // 예시 배경색
-  grid-column: 2; // 두 번째 열
-  grid-row: 1; // 첫 번째 행
-}
-
-.menu {
-  background-color: lightblue; // 예시 배경색
-  grid-column: 1; // 첫 번째 열
-  grid-row: 1 / 3; // 첫 번째 행에서 두 번째 행까지
-  background-color: lightblue;
-}
-
 .contentContainer {
-  background-color: beige; // 예시 배경색
-  grid-column: 2; // 두 번째 열
-  grid-row: 2; // 두 번째 행
+  display: flex;
+  height: 100%;
+  flex-direction: column;
   background-color: $gray_FA;
 }
 
 .newDashboard {
   display: grid;
-  grid-template-columns: repeat(3, 33.5rem);
-  grid-gap: 1.3rem 1.2rem;
+  align-items: flex-start;
   justify-content: start;
   margin: 4rem 3.5rem;
-  align-items: flex-start;
+  grid-gap: 1.3rem 1.2rem;
+  grid-template-columns: repeat(3, 33.5rem);
 }
 
 .invitedDashboard {
-  background-color: $white_FF;
-  width: 102.2rem;
-  height: 60rem;
-  border-radius: 0.8rem;
   display: flex;
+  overflow: hidden;
+  width: 102.2rem;
+  height: 50rem;
   flex-direction: column;
+  border-radius: 0.8rem;
   margin-left: 3.5rem;
+  background-color: $white_FF;
 }
 
 .invitedTitle {
   @include text-2xl(700);
-  padding-left: 2.8rem;
+
   padding-top: 3.2rem;
+  padding-left: 2.8rem;
 }
 
 .noInvitedContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 }
+
 .noInvitedImage {
-  margin-top: 14rem;
   width: 10rem;
   height: 10rem;
+  margin-top: 14rem;
 }
 
 .noInvited {
+  @include text-l(400);
+
   margin-top: 2.4rem;
   color: $gray_9F;
-  @include text-l(400);
+}
+
+.pagination {
+  display: flex;
+  width: calc(3 * 33.5rem + 4 * 1.3rem); /* 마지막 대시보드의 너비에 맞춤 */
+  align-items: center;
+  justify-content: flex-end; /* 페이지네이션 버튼을 오른쪽에 정렬 */
+  margin-bottom: 5.5rem;
+  gap: 1.5rem;
+}
+
+.whereAmI {
+  @include text-s(400);
+}
+
+.invitedInput {
+  width: 96.6rem;
+  height: 4rem;
+  padding-left: 5.5rem;
+  border: 0.1rem solid $gray_D9;
+  border-radius: 0.6rem;
+  margin-top: 2rem;
+  margin-left: 2.8rem;
+}
+
+.yesInvitedContainer {
+  position: relative;
+
+  // flex-grow: 1; // 나머지 공간을 모두 채움
+  // overflow-y: auto; // 세로 스크롤 가능
+}
+
+.searchIcon {
+  position: absolute;
+  top: 2.8rem;
+  left: 5rem;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.invitedListContainer {
+  display: flex;
+  width: 100%; /* 컨테이너 전체 너비 */
+  flex-direction: column;
+}
+
+.invitedListHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  margin-bottom: 0.6rem;
+  margin-left: 2.8rem;
+  color: $gray_9F;
+
+  @include text-m(400);
+}
+
+.invitedListColumn {
+  flex: 1; /* 모든 컬럼의 비율을 1:1:1로 설정 */
+}
+
+.invitedListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+  padding-left: 2.8rem;
+  border-bottom: 1px solid $gray_EE; /* 항목 간 구분선 */
+  margin-top: 2rem;
+
+  @include text-m(400);
+}
+
+.button {
+  display: flex;
+  gap: 1rem;
+}
+
+.scroll {
+  max-height: 30rem; // 최대 높이 설정
+  overflow-y: auto; // 내용이 넘칠 경우 스크롤 가능
+}
+
+.scroll::-webkit-scrollbar {
+  width: 0.6rem;
+  background-color: $white_FF;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 0.7rem;
+  background-color: $violet_55;
 }

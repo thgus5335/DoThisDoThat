@@ -1,15 +1,15 @@
 .homePageLayout {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .mainSection {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   margin: 9.4rem 0;
 }
 
@@ -23,55 +23,73 @@
 .mainTextBox {
   display: flex;
   align-items: center;
+  margin: 4rem 0 8rem;
   gap: 2.8rem;
-  margin: 4rem 0 8rem 0;
 }
 
 .mainTitle {
   color: $black_00;
-  text-align: center;
   font-size: 76px;
   font-style: normal;
   font-weight: 700;
-  line-height: 10rem;
   letter-spacing: -2px;
+  line-height: 10rem;
+  text-align: center;
+}
+
+%mainArticleBox {
+  display: flex;
+  width: 120rem;
+  height: 60rem;
+  flex-shrink: 0;
+  align-items: center;
+  border-radius: 8px;
+  background: $violet-F1;
+}
+
+%mainArticleImg {
+  display: flex;
+  width: 59.4rem;
+  height: 49.8rem;
+  flex-shrink: 0;
+  align-items: center;
+  align-self: flex-end;
+  justify-content: center;
 }
 
 .mainArticleSection {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  gap: 10rem;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 10rem;
+  gap: 10rem;
 
   .mainArticleBox:nth-child(odd) {
+    @extend %mainArticleBox;
+
     flex-direction: row;
     padding-left: 10rem;
 
     .mainArticleImg {
+      @extend %mainArticleImg;
+
       margin-left: auto;
     }
   }
 
   .mainArticleBox:nth-child(even) {
+    @extend %mainArticleBox;
+
     flex-direction: row-reverse;
     padding-right: 10rem;
 
     .mainArticleImg {
+      @extend %mainArticleImg;
+
       margin-right: auto;
     }
   }
-}
-
-.mainArticleBox {
-  display: flex;
-  align-items: center;
-  width: 120rem;
-  height: 60rem;
-  flex-shrink: 0;
-  border-radius: 8px;
-  background: $violet-F1;
 }
 
 .mainArticleTextBox {
@@ -100,63 +118,53 @@
   line-height: 6.4rem;
 }
 
-.mainArticleImg {
-  display: flex;
-  width: 59.4rem;
-  height: 49.8rem;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-  align-self: flex-end;
-}
-
 .subArticleSection {
   display: flex;
-  flex-direction: column;
   width: 120rem;
+  flex-direction: column;
   margin-bottom: 10rem;
 }
 
 .subArticleMainTitle {
+  margin-bottom: 3.6rem;
   color: $black_00;
   font-feature-settings: 'clig' off, 'liga' off;
   font-size: 28px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  margin-bottom: 3.6rem;
 }
 
 .subArticle {
   display: flex;
+  width: 100%;
   align-items: center;
   gap: 3.5rem;
-  width: 100%;
 }
 
 .subArticleImgBox {
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 37.8rem;
   height: 26rem;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
   border-radius: 0.8rem 0.8rem 0 0;
   background: $violet-F1;
 }
 
 .subDescriptionBox {
   display: flex;
-  flex-direction: column;
-  padding: 3.3rem;
   width: 37.8rem;
   height: 12.4rem;
+  flex-direction: column;
   flex-shrink: 0;
+  padding: 3.3rem;
   border-radius: 0 0 0.8rem 0.8rem;
   background: $violet_55;
-  gap: 1.8rem;
   color: $white_FF;
   font-style: normal;
+  gap: 1.8rem;
   line-height: normal;
 }
 
