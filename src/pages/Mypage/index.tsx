@@ -107,10 +107,11 @@ const Mypage = () => {
     httpClient
       .put('/users/me', modifiedUserInfo)
       .then(response => {
-        setIsUpdateTrigger(prevState => !prevState);
-        setNickname('');
         setModalMessage('🥸 프로필이 변경됐어요 🥸');
         setIsModalOpen(true);
+        setIsSaveButtonEnabled(false);
+        setNickname('');
+        setIsUpdateTrigger(prevState => !prevState);
       })
       .catch(error => {
         console.error('사용자 정보 수정 오류:', error);
@@ -150,7 +151,6 @@ const Mypage = () => {
     httpClient
       .put('/auth/password', modifiedPasswordInfo)
       .then(response => {
-        console.log('사용자 정보 수정 성공:', response.data);
         setIsUpdateTrigger(prevState => !prevState);
         setPassword('');
         setNewPassword('');
@@ -159,7 +159,6 @@ const Mypage = () => {
         setIsModalOpen(true);
       })
       .catch(error => {
-        console.error('사용자 정보 수정 오류:', error);
         setModalMessage(error.response.data.message);
         setIsModalOpen(true);
       });
@@ -188,7 +187,7 @@ const Mypage = () => {
             <Image src={backIcon} alt="돌아가기" />
             <p>돌아가기</p>
           </button>
-          <section className={styles.profile}>
+          <section className={styles.mypageSection}>
             <h3 className={styles.title}>프로필</h3>
             <div className={styles.profileContent}>
               <div className={styles.imageUpload}>
@@ -237,7 +236,7 @@ const Mypage = () => {
               </TaskButton>
             </div>
           </section>
-          <section className={styles.passwordChange}>
+          <section className={styles.mypageSection}>
             <h3 className={styles.title}>비밀번호 변경</h3>
             <div className={styles.passwordChangeContent}>
               <div className={styles.labelAndInput}>
@@ -261,16 +260,16 @@ const Mypage = () => {
                 />
               </div>
               <div className={styles.labelAndInput}>
-                <label className={`${passwordError && styles.isError} ${styles.inputLabel}`}>새 비밀번호 확인</label>
+                <label className={styles.inputLabel}>새 비밀번호 확인</label>
                 <input
-                  className={styles.passwordChangeInput}
+                  className={`${passwordError && styles.isInputError} ${styles.passwordChangeInput}`}
                   type="password"
                   placeholder="새 비밀번호 확인"
                   value={confirmPassword}
                   onChange={e => setConfirmPassword(e.target.value)}
                   onBlur={handleConfirmPasswordBlur}
                 />
-                {passwordError.length > 0 && <p className={styles.inputErrorMessage}>{passwordError}</p>}
+                {passwordError && <p className={styles.inputErrorMessage}>{passwordError}</p>}
               </div>
             </div>
             <div className={styles.taskBtn}>
