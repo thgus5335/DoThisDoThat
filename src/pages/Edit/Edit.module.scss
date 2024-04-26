@@ -219,3 +219,18 @@
   align-items: center;
   gap: 16px;
 }
+
+.noInvitations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 66px 0;
+  color: $gray_9F;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  gap: 20px;
+  line-height: normal;
+  text-align: center;
+}

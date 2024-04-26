@@ -13,8 +13,8 @@ import addBoxIcon from '@/src/assets/icons/addBoxWhite.svg';
 import checkIcon from '@/src/assets/icons/checkIcon.svg';
 import createHttpClient from '@/src/apis/createHttpClient';
 import SingleButtonModal from '@/src/components/Modal/SingleButtonModal';
-
-const DASHBOARD_COLOR_LIST = ['#7ac555', '#760dde', '#ffa500', '#76a5ea', '#e876ea'];
+import { DASHBOARD_COLOR_LIST } from '@/src/constants/constant';
+import noInvitationsIcon from '@/src/assets/icons/unsubscribe.svg';
 
 interface DashboardInfo {
   id: number;
@@ -37,7 +37,7 @@ const initialDashboardInfo: DashboardInfo = {
 };
 
 const Edit: NextPageWithLayout = () => {
-  const dashboardId = 5910;
+  const dashboardId = 5916;
 
   const [dashboardInfo, setDashboardInfo] = useState<DashboardInfo>(initialDashboardInfo);
   const [isUpdateTrigger, setIsUpdateTrigger] = useState<boolean>(false);
@@ -147,6 +147,7 @@ const Edit: NextPageWithLayout = () => {
         invitee: invitation.invitee,
       }));
       setInvitationList(invitees);
+      console.log(invitees.length);
     } catch (error) {
       console.error('대시보드 정보를 불러오는 동안 오류가 발생했습니다:', error);
     }
@@ -173,6 +174,16 @@ const Edit: NextPageWithLayout = () => {
       loadInvitationList();
     } catch (error) {
       console.error('초대 삭제 실패:', error);
+    }
+  };
+
+  // 대시보드 삭제
+  const handleDashboardDelete = async () => {
+    try {
+      await httpClient.delete(`dashboards/${dashboardId}`);
+      router.push('/Mydashboard');
+    } catch (error) {
+      console.error('대시보드 삭제 실패:', error);
     }
   };
 
@@ -303,20 +314,29 @@ const Edit: NextPageWithLayout = () => {
               </button>
             </div>
           </div>
-          <p className={styles.infoCategory}>이메일</p>
-          <div className={styles.members}>
-            {invitationList.map(({ id, invitee }) => (
-              <div key={id} className={styles.memberInfo}>
-                <p className={styles.nickname}>{invitee.email}</p>
-                <TaskButton color={'white'} size={'large'} onClick={() => handleinvitationDelete(id)}>
-                  취소
-                </TaskButton>
+          {invitationList.length > 0 ? (
+            <>
+              <p className={styles.infoCategory}>이메일</p>
+              <div className={styles.members}>
+                {invitationList.map(({ id, invitee }) => (
+                  <div key={id} className={styles.memberInfo}>
+                    <p className={styles.nickname}>{invitee.email}</p>
+                    <TaskButton color={'white'} size={'large'} onClick={() => handleinvitationDelete(id)}>
+                      취소
+                    </TaskButton>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : (
+            <div className={styles.noInvitations}>
+              <Image src={noInvitationsIcon} alt="초대 내역이 없어요." width={100} height={100} />
+              초대 내역이 없어요.
+            </div>
+          )}
         </section>
         <div className={styles.dashboardDeleteButton}>
-          <DashboardDeleteButton size={'large'} />
+          <DashboardDeleteButton size={'large'} onClick={handleDashboardDelete} />
         </div>
       </div>
     </>
