@@ -16,44 +16,6 @@ import SingleButtonModal from '@/src/components/Modal/SingleButtonModal';
 
 const DASHBOARD_COLOR_LIST = ['#7ac555', '#760dde', '#ffa500', '#76a5ea', '#e876ea'];
 
-const memberTest = {
-  members: [
-    {
-      id: 8063,
-      email: 'testtest@test.com',
-      nickname: '되냐',
-      profileImageUrl:
-        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/profile_image/1-7_1652_1714039866686.jpeg',
-      createdAt: '2024-04-16T15:19:35.854Z',
-      updatedAt: '2024-04-26T02:55:52.090Z',
-      isOwner: true,
-      userId: 1652,
-    },
-    {
-      id: 8073,
-      email: 'linason7889@gmail.com',
-      nickname: '승이버섯',
-      profileImageUrl:
-        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/profile_image/1-7_1657_1713444915949.jpeg',
-      createdAt: '2024-04-16T16:13:21.653Z',
-      updatedAt: '2024-04-18T21:55:16.117Z',
-      isOwner: false,
-      userId: 1657,
-    },
-    {
-      id: 8071,
-      email: 'test123@codeit123.com',
-      nickname: '🥲이상한 부분 발견',
-      profileImageUrl: null,
-      createdAt: '2024-04-16T15:19:35.258Z',
-      updatedAt: '2024-04-25T11:11:15.091Z',
-      isOwner: false,
-      userId: 1651,
-    },
-  ],
-  totalCount: 3,
-};
-
 interface DashboardInfo {
   id: number;
   title: string;
@@ -83,7 +45,9 @@ const Edit: NextPageWithLayout = () => {
   const [dashboardTitle, setDashboardTitle] = useState<string>('');
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
+  const [memberList, setMemberList] = useState([]);
   const [invitationList, setInvitationList] = useState([]);
+  const [email, setEmail] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -150,6 +114,30 @@ const Edit: NextPageWithLayout = () => {
     setIsSuccessModalOpen(false);
   };
 
+  // 대시보드 멤버 불러오기
+  const loadMemberList = async () => {
+    try {
+      const data = await httpClient.get(`members?page=1&size=20&dashboardId=${dashboardId}`);
+      setMemberList(data.members);
+    } catch (error) {
+      console.error('대시보드 멤버 목록 조회 실패:', error);
+    }
+  };
+
+  useEffect(() => {
+    loadMemberList();
+  }, []);
+
+  // 대시보드 멤버 삭제
+  const handleMemberDelete = async memberId => {
+    try {
+      await httpClient.delete(`members/${memberId}`);
+      loadMemberList();
+    } catch (error) {
+      console.error('대시보드 멤버 삭제 실패:', error);
+    }
+  };
+
   // 초대목록 불러오기
   const loadInvitationList = async () => {
     try {
@@ -168,13 +156,23 @@ const Edit: NextPageWithLayout = () => {
     loadInvitationList();
   }, []);
 
+  // 초대하기
+  const handleInvitation = async () => {
+    try {
+      await httpClient.post(`dashboards/${dashboardId}/invitations`, { email: email });
+      loadInvitationList();
+    } catch (error) {
+      console.error('초대 실패:', error);
+    }
+  };
+
   // 초대 삭제
   const handleinvitationDelete = async invitationId => {
     try {
       await httpClient.delete(`dashboards/${dashboardId}/invitations/${invitationId}`);
       loadInvitationList();
     } catch (error) {
-      console.error('대시보드 정보를 불러오는 동안 오류가 발생했습니다:', error);
+      console.error('초대 삭제 실패:', error);
     }
   };
 
@@ -252,8 +250,8 @@ const Edit: NextPageWithLayout = () => {
           </div>
           <p className={styles.infoCategory}>이름</p>
           <div className={styles.members}>
-            {memberTest.members.map(member => (
-              <div key={member.email} className={styles.memberInfo}>
+            {memberList.map(member => (
+              <div key={member.id} className={styles.memberInfo}>
                 <div className={styles.imgAndNickname}>
                   <div className={styles.profileImg}>
                     {member.profileImageUrl && (
@@ -274,7 +272,7 @@ const Edit: NextPageWithLayout = () => {
                   </div>
                 ) : (
                   <div>
-                    <TaskButton size={'large'} color={'white'}>
+                    <TaskButton size={'large'} color={'white'} onClick={() => handleMemberDelete(member.id)}>
                       삭제
                     </TaskButton>
                   </div>
