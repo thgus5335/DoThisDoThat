@@ -1,0 +1,71 @@
+.card {
+  position: relative;
+  display: flex;
+  width: 31.4rem;
+  height: fit-content;
+  flex-direction: column;
+  padding: 2rem;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background-color: $white_FF;
+}
+
+.cardImage {
+  display: flex;
+  width: 27.4rem;
+  height: 16rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  margin-bottom: 1.2rem;
+  object-fit: cover;
+}
+
+.cardTitle {
+  @include text-m(500);
+
+  color: $black_33;
+}
+
+.tagContainer {
+  display: flex;
+  margin-top: 1rem;
+  gap: 0.6rem;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  background-color: $pink_F7;
+  color: $pink_E8;
+}
+
+.dateContainer {
+  @include text-xs(500);
+
+  display: flex;
+  align-items: center;
+  margin-top: 1.2rem;
+  color: $gray_78;
+  gap: 0.6rem;
+}
+
+.profile {
+  @include text-xs(600);
+
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  display: flex;
+  width: 2.4rem;
+  height: 2.4rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: $blue_76;
+  color: $white_FF;
+  object-fit: cover;
+}
