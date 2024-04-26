@@ -1,0 +1,222 @@
+.editpageLayout {
+  padding: 25px;
+  background: #fafafa;
+}
+
+.backBtn {
+  @include text-m(500);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  color: $black_33;
+  font-style: normal;
+  gap: 0.6rem;
+  line-height: normal;
+}
+
+.editpageSection {
+  width: 620px;
+  flex-shrink: 0;
+  padding: 35px 30px;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  background: $white_FF;
+}
+
+.dashboardNameAndColor {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboardName {
+  color: $black_33;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.colorBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.colorSelectContainer {
+  position: relative;
+}
+
+.colorSelect {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  margin: 0;
+  appearance: none;
+
+  &:checked + .checkIcon {
+    display: block; /* 체크된 경우에만 표시 */
+  }
+}
+
+.checkIcon {
+  position: absolute;
+  top: 50%;
+  left: 3.5px; /* 원하는 위치로 조정 */
+  display: none; /* 기본적으로는 숨김 */
+  transform: translateY(-50%);
+}
+
+.nameChangeInputBox {
+  display: flex;
+  flex-direction: column;
+  margin: 37px 0 30px;
+  gap: 10px;
+}
+
+.inputLabel {
+  color: $black_33;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.dashboardNameInput {
+  width: 564px;
+  height: 48px;
+  flex-shrink: 0;
+  padding: 15px;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background: $white_FF;
+  color: $black_33;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.taskBtn {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.dashboardDeleteButton {
+  margin-top: 40px;
+}
+
+.titleAndPagenation {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionTitle {
+  color: var(--black-black_333236, #333236);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.pagenation {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.whereAmI {
+  color: var(--black-black_333236, #333236);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.infoCategory {
+  margin-top: 27px;
+  margin-bottom: 8px;
+  color: var(--gray-gray_9FA6B2, #9fa6b2);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.profileImg {
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  background-color: #9dd7ed;
+}
+
+.members {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.members > :not(:last-child) {
+  border-bottom: 1px solid $gray_EE;
+}
+
+.imgAndNickname {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.isOwner {
+  display: flex;
+  width: 84px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.memberInfo {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.nickname {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--black-black_333236, #333236);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.invitationBtn {
+  display: flex;
+  width: 105px;
+  height: 32px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: var(--violet-violet_5534DA, #5534da);
+  color: var(--white-white_FFFFFF, #ffffff);
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  gap: 6px;
+  line-height: normal;
+}
+
+.btnBox {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
