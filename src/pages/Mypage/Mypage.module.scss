@@ -1,0 +1,165 @@
+%contentStyle {
+  display: flex;
+  margin: 3.2rem 0 2.4rem;
+}
+
+%inputStyle {
+  height: 4.8rem;
+  flex-shrink: 0;
+  padding: 1.5rem 0 1.4rem 1.6rem;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background: $white_FF;
+}
+
+.mypageContent {
+  padding: 2rem;
+  background-color: $gray_FA;
+}
+
+.backBtn {
+  @include text-m(500);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  color: $black_33;
+  font-style: normal;
+  gap: 0.6rem;
+  line-height: normal;
+}
+
+.mypageSection {
+  width: 62rem;
+  flex-shrink: 0;
+  padding: 3.2rem 2.8rem 2.8rem;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  background: $white_FF;
+}
+
+.profileContent {
+  @extend %contentStyle;
+
+  align-items: center;
+  gap: 1rem;
+}
+
+.imageUpload {
+  display: flex;
+  width: 18.2rem;
+  height: 18.2rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #f5f5f5;
+}
+
+.profileInputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.labelAndInput {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inputLabel {
+  @include text-l(500);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.profileInput {
+  @extend %inputStyle;
+
+  width: 36.6rem;
+
+  &:disabled {
+    @include text-m(400);
+
+    color: $gray_9F;
+    font-style: normal;
+    line-height: normal;
+  }
+}
+
+.taskBtn {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.title {
+  @include text-2xl(700);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.passwordChangeContent {
+  @extend %contentStyle;
+
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.passwordChangeInput {
+  @extend %inputStyle;
+
+  width: 56.4rem;
+
+  .passwordChangeInput::placeholder {
+    @include text-m(400);
+
+    color: $gray_9F;
+    font-style: normal;
+    line-height: normal;
+  }
+}
+
+.imageInputField {
+  display: none;
+  width: 18.2rem;
+  height: 18.2rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagePreview {
+  object-fit: cover;
+}
+
+.imageInputButton {
+  display: flex;
+  overflow: hidden;
+  width: 18.2rem;
+  height: 18.2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #f5f5f5;
+  cursor: pointer;
+  user-select: none;
+}
+
+.inputErrorMessage {
+  @include text-s(400);
+
+  color: $red_D6;
+  font-style: normal;
+  line-height: normal;
+}
+
+.isInputError {
+  border-color: $red_D6;
+}
