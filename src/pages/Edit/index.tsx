@@ -2,9 +2,7 @@ import DashboardDeleteButton from '@/src/components/common/Button/DashboardDelet
 import { NextPageWithLayout } from '../_app';
 import { ReactElement, useEffect, useState } from 'react';
 import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
-import styles from './Edit.module.scss';
 import Image from 'next/image';
-import backIcon from '@/src/assets/icons/leftArrowIcon.svg';
 import { useRouter } from 'next/router';
 import TaskButton from '@/src/components/common/Button/TaskButton';
 import PagenationButton from '@/src/components/common/Button/PagenationButton';
@@ -16,70 +14,22 @@ import SingleButtonModal from '@/src/components/Modal/SingleButtonModal';
 import { DASHBOARD_COLOR_LIST } from '@/src/constants/constant';
 import noInvitationsIcon from '@/src/assets/icons/unsubscribe.svg';
 import { editDashboardHttp, editInvitationHttp, editMemberHttp } from '@/src/apis/editPage';
-
-interface DashboardInfo {
-  id: number;
-  title: string;
-  color: string;
-  createdAt: string;
-  updatedAt: string;
-  userId: number;
-  createdByMe: boolean;
-}
-
-const initialDashboardInfo: DashboardInfo = {
-  id: 0,
-  title: '',
-  color: '',
-  createdAt: '',
-  updatedAt: '',
-  userId: 0,
-  createdByMe: true,
-};
-
-interface Member {
-  id: number;
-  email: string;
-  nickname: string;
-  profileImageUrl: string | null;
-  createdAt: string;
-  updatedAt: string;
-  isOwner: boolean;
-  userId: number;
-}
-
-interface MemberData {
-  members: Member[];
-  totalCount: number;
-}
-
-interface Invitee {
-  id: number;
-  email: string;
-  nickname: string;
-}
-
-interface Invitation {
-  id: number;
-  invitee: Invitee;
-}
-
-interface InvitationData {
-  totalCount: number;
-  invitations: Invitation[];
-}
+import { InvitationList, InvitationResponse, MemberList, initialDashboardInfo } from '@/src/types/editResponse';
+import styles from './Edit.module.scss';
 
 const Edit: NextPageWithLayout = () => {
+  const router = useRouter();
+  // const dashboardId = router.query.dashboardId
   const dashboardId = 5916;
 
-  const [dashboardInfo, setDashboardInfo] = useState<DashboardInfo>(initialDashboardInfo);
+  const [dashboardInfo, setDashboardInfo] = useState(initialDashboardInfo);
   const [isUpdateTrigger, setIsUpdateTrigger] = useState<boolean>(false);
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [dashboardTitle, setDashboardTitle] = useState<string>('');
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
-  const [memberList, setMemberList] = useState<MemberData[]>([]);
-  const [invitationList, setInvitationList] = useState<InvitationData[]>([]);
+  const [memberList, setMemberList] = useState<MemberList[]>([]);
+  const [invitationList, setInvitationList] = useState<InvitationList[]>([]);
   const [email, setEmail] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -88,12 +38,15 @@ const Edit: NextPageWithLayout = () => {
 
   const httpClient = createHttpClient();
 
-  const router = useRouter();
-  const { dashboardid } = router.query;
+  const MAX_DATA_COUNT = 5;
+
+  const handleColorChange = (color: string) => {
+    setSelectedColor(color);
+  };
 
   // 대시보드 정보 가져오기
   const loadDashboardInfo = async () => {
-    const data = await editDashboardHttp.getDashboardInfo(dashboardId);
+    const data: any = await editDashboardHttp.getDashboardInfo(dashboardId);
     setDashboardInfo(data);
     setSelectedColor(data.color);
   };
@@ -109,7 +62,7 @@ const Edit: NextPageWithLayout = () => {
       color: selectedColor,
     };
 
-    const response = await editDashboardHttp.putDashboardInfo(dashboardId, modifiedDashboardInfo);
+    const response: any = await editDashboardHttp.putDashboardInfo(dashboardId, modifiedDashboardInfo);
     setDashboardInfo(response);
     setIsSuccessModalOpen(true);
     setDashboardTitle('');
@@ -128,10 +81,6 @@ const Edit: NextPageWithLayout = () => {
     }
   }, [dashboardTitle, selectedColor, isUpdateTrigger]);
 
-  const handleColorChange = (color: string) => {
-    setSelectedColor(color);
-  };
-
   // modal 닫기
   const handleModalClose = () => {
     setIsSuccessModalOpen(false);
@@ -139,7 +88,7 @@ const Edit: NextPageWithLayout = () => {
 
   // 대시보드 멤버 불러오기
   const loadMemberList = async (page: number) => {
-    const data = await editMemberHttp.getMemberList(page, dashboardId);
+    const data: any = await editMemberHttp.getMemberList(page, dashboardId);
     setMemberList(data.members);
     setTotalPages(Math.ceil(data.totalCount / 5));
   };
@@ -149,14 +98,12 @@ const Edit: NextPageWithLayout = () => {
   }, [currentPage]);
 
   // 구성원 페이지네이션
-  const MAX_TEST_PAGE = 5;
-
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
 
     setMemberList(currentMembers => {
-      const startIndex = (newPage - 1) * MAX_TEST_PAGE;
-      return currentMembers.slice(startIndex, startIndex + MAX_TEST_PAGE);
+      const startIndex = (newPage - 1) * MAX_DATA_COUNT;
+      return currentMembers.slice(startIndex, startIndex + MAX_DATA_COUNT);
     });
   };
 
@@ -168,11 +115,12 @@ const Edit: NextPageWithLayout = () => {
 
   // 초대목록 불러오기
   const loadInvitationList = async (page: number) => {
-    const data = await editInvitationHttp.getInvitationList(page, dashboardId);
-    const invitees = data.invitations.map(invitation => ({
+    const data: any = await editInvitationHttp.getInvitationList(page, dashboardId);
+    const invitees = data.invitations.map((invitation: InvitationResponse) => ({
       id: invitation.id,
       invitee: invitation.invitee,
     }));
+    console.log(data);
     setInvitationList(invitees);
     setInvitationTotalPages(Math.ceil(data.totalCount / 5));
   };
@@ -182,14 +130,12 @@ const Edit: NextPageWithLayout = () => {
   }, [invitationCurrentPage]);
 
   // 초대목록 페이지네이션
-  const MAX_INVITATION_TEST_PAGE = 5;
-
   const handleInvitationPageChange = (newPage: number) => {
     setInvitationCurrentPage(newPage);
 
     setInvitationList(currentInvitees => {
-      const startIndex = (newPage - 1) * MAX_INVITATION_TEST_PAGE;
-      return currentInvitees.slice(startIndex, startIndex + MAX_INVITATION_TEST_PAGE);
+      const startIndex = (newPage - 1) * MAX_DATA_COUNT;
+      return currentInvitees.slice(startIndex, startIndex + MAX_DATA_COUNT);
     });
   };
 
@@ -225,10 +171,6 @@ const Edit: NextPageWithLayout = () => {
         </div>
       )}
       <div className={styles.editpageLayout}>
-        <button className={styles.backBtn} onClick={() => router.back()}>
-          <Image src={backIcon} alt="돌아가기" />
-          <p>돌아가기</p>
-        </button>
         <section className={styles.editpageSection}>
           <div className={styles.dashboardNameAndColor}>
             <h3 className={styles.dashboardName}>{dashboardInfo.title}</h3>
