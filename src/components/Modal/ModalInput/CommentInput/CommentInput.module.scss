@@ -6,8 +6,9 @@
 }
 
 .label {
-  color: $black_33;
   @include text-m(500);
+
+  color: $black_33;
   font-style: normal;
   line-height: normal;
 }
@@ -21,23 +22,25 @@
 
 .commentInput {
   @include text-s(400);
-  font-style: normal;
-  line-height: normal;
-  resize: none;
+
   width: 45rem;
   height: 11rem;
   padding: 1.6rem;
-  border-radius: 6px;
   border: 1px solid $gray_D9;
+  border-radius: 6px;
   background: $white_FF;
+  font-style: normal;
+  line-height: normal;
+  resize: none;
 
   &:focus {
     border: 1px solid $violet_55;
   }
 
   &::placeholder {
-    color: $gray_9F;
     @include text-s(400);
+
+    color: $gray_9F;
     font-style: normal;
     line-height: normal;
   }

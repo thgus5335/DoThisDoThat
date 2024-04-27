@@ -6,14 +6,15 @@ interface NormalInputProps {
   placeholder: string;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  isExist?: boolean;
 }
 
-const NormalInput = ({ inputName, placeholder, value, onChange }: NormalInputProps) => {
+const NormalInput = ({ inputName, placeholder, value, onChange, isExist }: NormalInputProps) => {
   return (
     <div className={styles.normalContainer}>
       <label className={styles.label}>{inputName}</label>
       <input
-        className={styles.normalInput}
+        className={isExist ? styles.errorInput : styles.normalInput}
         type="text"
         placeholder={placeholder}
         value={value}

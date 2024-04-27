@@ -4,15 +4,16 @@
 }
 
 .deleteText {
-  text-align: center;
-  color: $black_33;
   @include text-l(500);
+
+  color: $black_33;
   font-style: normal;
   line-height: normal;
+  text-align: center;
 }
 
 .modalButton {
   position: absolute;
-  right: 2.8rem;
   top: 10.3rem;
+  right: 2.8rem;
 }

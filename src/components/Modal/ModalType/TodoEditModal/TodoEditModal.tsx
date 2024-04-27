@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, KeyboardEvent } from 'react';
 import { format } from 'date-fns';
 import httpClient from '@/src/apis/httpClient';
-import styles from './TodoPostModal.module.scss';
+import styles from './TodoEditModal.module.scss';
 import ModalButton from '../../ModalButton/ModalButton';
 import AssigneeDropdown from '../../ModalInput/Dropdown/AssigneeDropdown/AssigneeDropdown';
 import TitleInput from '../../ModalInput/NormalInput/TitleInput';
@@ -10,12 +10,13 @@ import DateInput from '../../ModalInput/DateInput/DateInput';
 import TagInput from '../../ModalInput/TagInput/TagInput';
 import ImageInput from '../../ModalInput/ImageInput/ImageInput';
 import TagChip from '../../ModalInput/TagInput/TagChip';
+import useModal from '@/src/hooks/useModal';
+import ColumnDropdown from '../../ModalInput/Dropdown/ColumnDropdown/ColumnDropdown';
 
-//4-16/cards로 post 요청 보내는 모달
+//4-16/cards/cardId로 put 요청 보내는 모달
 /*request body 형태 예시 {
-  "assigneeUserId": 0,
-  "dashboardId": 0,
   "columnId": 0,
+  "assigneeUserId": 0,
   "title": "string",
   "description": "string",
   "dueDate": "string",
@@ -25,21 +26,49 @@ import TagChip from '../../ModalInput/TagInput/TagChip';
   "imageUrl": "string"
 }*/
 
-//props로 dashboardID, columnID 받아야함
-const TodoPostModal = () => {
-  const [selectedNickname, setSelectedNickname] = useState('');
-  const [selectedUserId, setSelectedUserId] = useState(0);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [tags, setTags] = useState<string[]>([]);
+type Card = {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  dueDate: string;
+  assignee?: {
+    id: number;
+    nickname: string;
+    profileImageUrl?: string;
+  };
+  imageUrl?: string;
+  teamId: string;
+  dashboardId: number;
+  columnId: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+interface TodoEditModalProps {
+  data: Card;
+}
+
+const TodoEditModal = ({ data }: TodoEditModalProps) => {
+  const [selectedNickname, setSelectedNickname] = useState(data.assignee?.nickname);
+  const [selectedUserId, setSelectedUserId] = useState(data.assignee?.id);
+  const [selectedColumnId, setSelectedColumnId] = useState(data.columnId);
+  const [title, setTitle] = useState(data.title);
+  const [description, setDescription] = useState(data.description);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date(data.dueDate));
+  const [tags, setTags] = useState<string[]>(data.tags);
   const [tagName, setTagName] = useState('');
-  const [image, setImage] = useState<string>('');
+  const [image, setImage] = useState<string>(data.imageUrl || '');
 
   // AssigneeDropdown에서 선택된 닉네임을 업데이트하는 함수
   const handleNicknameChange = (nickname: string, userId: number) => {
     setSelectedNickname(nickname);
     setSelectedUserId(userId);
+  };
+
+  //ColumnDropdown에서 선택된 컬럼을 업데이트하는 함수
+  const handleColumnChange = (columnId: number) => {
+    setSelectedColumnId(columnId);
   };
 
   //제목 입력값 업데이트 함수
@@ -78,6 +107,11 @@ const TodoPostModal = () => {
     }
   };
 
+  //태그 삭제 함수
+  const deleteTags = (tag: string) => {
+    setTags(prevTags => prevTags.filter(item => item !== tag));
+  };
+
   //이미지 선택 시, 선택된 이미지를 처리하는 함수
   const handleImageSelected = (file: File) => {
     //이미지 서버로 전송하는 로직
@@ -104,10 +138,9 @@ const TodoPostModal = () => {
     e.preventDefault(); //전체 폼 제출 시, 엔터키 눌렀을때 제출 방지
     //서버로 전송
     await httpClient
-      .post('/cards', {
+      .put('/cards/4990', {
+        columnId: selectedColumnId,
         assigneeUserId: selectedUserId,
-        dashboardId: 5911,
-        columnId: 20334, //아이디들은 추후 변경 예정
         title: title,
         description: description,
         dueDate: formatDate(selectedDate),
@@ -115,18 +148,24 @@ const TodoPostModal = () => {
         imageUrl: image,
       })
       .then(response => {
-        console.log('할 일 생성 성공:', response.data);
+        console.log('할 일 수정 성공:', response.data);
+        window.alert('할 일 수정이 완료되었습니다.');
+        //페이지 새로고침
+        window.location.reload(); //다른 방식으로 새로고침 로직 수정 필요
       })
       .catch(error => {
-        console.error('할 일 생성 오류:', error);
+        console.error('할 일 수정 오류:', error);
       });
   };
 
   return (
     <div className={styles.modalContainer}>
-      <div className={styles.modalName}>할 일 생성</div>
+      <div className={styles.modalName}>할 일 수정</div>
       <form className={styles.todoForm} onSubmit={handleSubmit}>
-        <AssigneeDropdown onNicknameSelect={handleNicknameChange} />
+        <div className={styles.dropDownContainer}>
+          <AssigneeDropdown onNicknameSelect={handleNicknameChange} />
+          <ColumnDropdown onColumnSelect={handleColumnChange} />
+        </div>
         <TitleInput value={title} onChange={handleTitle} />
         <DescriptionInput value={description} onChange={handleDescription} />
         <DateInput onDateSelect={handleDateChange} />
@@ -134,14 +173,14 @@ const TodoPostModal = () => {
           <TagInput value={tagName} onChange={handleTagName} onKeyDown={createTags} />
           <div className={styles.tagList}>
             {tags.map((name, index) => (
-              <TagChip key={index} name={name} /> //태그 위치 수정 필요
+              <TagChip key={index} name={name} onClick={() => deleteTags(name)} /> //태그 위치 수정 필요
             ))}
           </div>
         </div>
         <ImageInput onImageChange={handleImageSelected} />
         <div className={styles.submitButton}>
           <ModalButton type="submit" size={'large'} color={'violet'}>
-            생성
+            수정
           </ModalButton>
         </div>
       </form>
@@ -149,4 +188,4 @@ const TodoPostModal = () => {
   );
 };
 
-export default TodoPostModal;
+export default TodoEditModal;

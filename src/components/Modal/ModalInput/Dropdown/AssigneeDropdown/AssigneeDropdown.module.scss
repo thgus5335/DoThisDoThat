@@ -6,8 +6,9 @@
 }
 
 .label {
-  color: $black_33;
   @include text-l(500);
+
+  color: $black_33;
   font-style: normal;
   line-height: normal;
 }
@@ -20,23 +21,25 @@
 }
 
 .input {
+  @include text-m(400);
+
   display: flex;
   width: 21.7rem;
   height: 4.8rem;
-  padding: 1.4rem 1.6rem;
   align-items: center;
-  gap: 1rem;
-  border-radius: 6px;
+  padding: 1.4rem 1.6rem;
   border: 1px solid $gray_D9;
+  border-radius: 6px;
   background: $white_FF;
   color: $black_33;
-  @include text-m(400);
   font-style: normal;
+  gap: 1rem;
   line-height: normal;
 
   &::placeholder {
-    color: $gray_9F;
     @include text-m(400);
+
+    color: $gray_9F;
     font-style: normal;
     line-height: normal;
   }
@@ -47,26 +50,29 @@
 }
 
 .ulContainer {
+  z-index: 10;
   width: 21.7rem;
   height: auto;
-  list-style: none;
   padding: 0;
-  border-radius: 6px;
   border: 1px solid $gray_D9;
+  border-radius: 6px;
   background: $white_FF;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 8%);
+  list-style: none;
 }
 
 .liContainer {
-  color: $black_33;
-  @include text-m(400);
-  font-style: normal;
-  line-height: normal;
+  z-index: 10;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
   padding: 1rem;
+  color: $black_33;
   cursor: pointer;
+  font-style: normal;
+  gap: 0.6rem;
+  line-height: normal;
+
+  @include text-m(400);
 }
 
 .profileImage {
