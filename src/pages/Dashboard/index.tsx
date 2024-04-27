@@ -11,19 +11,22 @@ import Column from '@/src/components/Dashboard/Column';
 import DoubleButtonModal from '@/src/components/Modal/DoubleButtonModal';
 import NewColumnModal from '@/src/components/Modal/ModalType/NewColumnModal/NewColumnModal';
 import useModal from '@/src/hooks/useModal';
+import { useRouter } from 'next/router';
 
 const Dashboard: NextPageWithLayout = () => {
+  const router = useRouter();
+  const dashboardId = Number(router.query.dashboardId);
   const { modalState, openModal, closeModal } = useModal();
   const [columnList, setColumnList] = useState<ColumnList[]>([]);
 
   const loadColumnList = async () => {
-    const response = await dashboardHttp.getColumnList(5911);
+    const response = await dashboardHttp.getColumnList(dashboardId);
     setColumnList(response.data);
   };
 
   useEffect(() => {
     loadColumnList();
-  }, []);
+  }, [dashboardId]);
 
   return (
     <>

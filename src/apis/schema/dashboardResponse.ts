@@ -36,3 +36,19 @@ export interface CardListResponse {
   totalCount: number;
   cursorId: number;
 }
+
+export interface DashboardListResponse {
+  dashboards: [
+    {
+      id: number;
+      title: string;
+      color: string;
+      userId: number;
+      createdAt: string;
+      updatedAt: string;
+      createdByMe: boolean;
+    }
+  ];
+  totalCount: number;
+  cursorId: any;
+}
