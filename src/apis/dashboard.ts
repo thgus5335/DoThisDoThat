@@ -1,5 +1,5 @@
 import createHttpClient from './createHttpClient';
-import { ColumnListResponse, CardListResponse } from '@/src/types/dashboardResponse';
+import { ColumnListResponse, CardListResponse } from '@/src/apis/schema/dashboardResponse';
 
 const httpClient = createHttpClient();
 
