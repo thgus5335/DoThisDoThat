@@ -6,37 +6,38 @@
 }
 
 .label {
-  color: $black_33;
   @include text-l(500);
+
+  color: $black_33;
   font-style: normal;
   line-height: normal;
 }
 
 .imageInput {
-  display: flex;
   position: relative;
+  display: flex;
   width: 7.6rem;
   height: 7.6rem;
-  padding: 2.4rem;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 2.4rem;
   border-radius: 6px;
   background: #f5f5f5;
 }
 
 .imagePreview {
-  /*width: 7.6rem;
-  height: 7.6rem;*/
+  /* width: 7.6rem;
+  height: 7.6rem; */
   object-fit: cover;
 }
 
 .imageInputButton {
   display: block;
   overflow: hidden;
-  justify-content: center;
-  align-items: center;
   width: 7.6rem;
   height: 7.6rem;
+  align-items: center;
+  justify-content: center;
   border-radius: 6px;
   background: #f5f5f5;
   cursor: pointer;

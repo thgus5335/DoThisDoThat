@@ -1,7 +1,8 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
 import styles from './TagInput.module.scss';
+import { on } from 'events';
 
-type Tag = {
+/*type Tag = {
   text: string;
   color: string;
   backgroundColor: string;
@@ -34,16 +35,22 @@ const randomColor = () => {
   const color = `hsl(${baseColor}, 70%, 40%)`; // 밝은 색상
   const backgroundColor = `hsl(${baseColor}, 70%, 90%)`; // 어두운 배경
   return { color, backgroundColor };
-};
+};*/
+
+interface TagInputProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
+}
 
 // 태그 입력 컴포넌트
-export default function TagInput() {
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [input, setInput] = useState('');
-  const { color, backgroundColor } = randomColor();
+export default function TagInput({ value, onChange, onKeyDown }: TagInputProps) {
+  //const [tags, setTags] = useState<Tag[]>([]);
+  //const [input, setInput] = useState('');
+  //const { color, backgroundColor } = randomColor();
 
   // 서버로부터 태그 데이터를 로드
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchData = () => {
       const loadedTags = demoData.tags.map((tagText: string) => ({
         text: tagText,
@@ -54,30 +61,31 @@ export default function TagInput() {
     };
 
     fetchData();
-  }, []);
+  }, []);*/
 
   // 태그 입력 처리
-  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+  /*const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && input.trim()) {
+      event.preventDefault();
       const newTag: Tag = {
         text: input,
         color: color,
         backgroundColor: backgroundColor,
       };
       setTags(prevTags => [...prevTags, newTag]);
-      setInput('');
+      setInput(newTag.text);
     }
-  };
+  };*/
 
   // 입력 값 변경 처리
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  /*const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
-  };
+  };*/
 
   return (
     <div className={styles.tagContainer}>
       <label className={styles.label}>태그</label>
-      <div className={styles.tagBox}>
+      {/*<div className={styles.tagBox}>
         {tags &&
           tags.map((tag, index) => (
             <span
@@ -93,15 +101,15 @@ export default function TagInput() {
               }}>
               {tag.text}
             </span>
-          ))}
-        <input
-          type="text"
-          value={input}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder="입력 후 Enter"
-        />
-      </div>
+          ))}*/}
+      <input
+        type="text"
+        value={value}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        placeholder="입력 후 Enter"
+        className={styles.input}
+      />
     </div>
   );
 }

@@ -1,0 +1,201 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 3.2rem 2.8rem;
+  gap: 2.4rem;
+}
+
+.kebab {
+  position: absolute;
+  top: 0.2rem;
+  left: 65rem;
+  cursor: pointer;
+}
+
+.kebabBox {
+  position: relative;
+  display: inline-block;
+}
+
+.popOver {
+  position: absolute;
+  z-index: 1;
+  top: 3.2rem;
+  left: 58rem;
+  display: flex;
+  width: 9.3rem;
+  height: 8.3rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background: $white_FF;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 8%);
+}
+
+.option {
+  @include text-s(400);
+
+  padding: 0.8rem;
+  border-radius: 4px;
+  color: $black_33;
+  cursor: pointer;
+  font-style: normal;
+
+  &:hover {
+    background: $violet_F1;
+    color: $violet_55;
+  }
+}
+
+.contentBox {
+  display: flex;
+  width: 45rem;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.title {
+  @include text-2xl(700);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.chipBox {
+  display: flex;
+  gap: 1rem;
+}
+
+.columnChip {
+  @include text-xs(400);
+
+  display: flex;
+  width: fit-content;
+  height: 2.2rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.8rem;
+  border-radius: 11px;
+  background: $violet_F1;
+  color: $violet_55;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+}
+
+.circle {
+  @include text-xl(400);
+
+  padding-bottom: 0.5rem;
+  margin-right: 0.6rem;
+  text-align: center;
+}
+
+.line {
+  @include text-xl(400);
+
+  color: $gray_D9;
+}
+
+.tagChip {
+  width: 25rem;
+}
+
+.description {
+  @include text-s(400);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: 2.4rem;
+  word-break: break-all;
+}
+
+.todoImage {
+  width: 45rem;
+  height: 26rem;
+  border-radius: 6px;
+}
+
+.commentBox {
+  display: flex;
+  overflow: hidden scroll;
+  width: 45rem;
+  height: 15rem;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.infoBox {
+  display: flex;
+  width: 20rem;
+  height: 18rem;
+  flex-direction: column;
+  border: 1px solid $gray_D9;
+  border-radius: 8px;
+  margin-top: 5rem;
+  margin-right: 2.8rem;
+  background: $white_FF;
+  gap: 0.2rem;
+}
+
+.assigneeBox {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem;
+  gap: 1rem;
+}
+
+.assigneeTitle {
+  @include text-xs(600);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: 20px;
+}
+
+.assigneeProfile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profileImage {
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+}
+
+.assigneeNickname {
+  @include text-s(400);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.dueDateBox {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem;
+  gap: 1rem;
+}
+
+.dueDateTitle {
+  @include text-xs(600);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: 20px;
+}
+
+.dueDate {
+  @include text-s(400);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}

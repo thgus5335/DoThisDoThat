@@ -12,17 +12,19 @@
   line-height: normal;
 }
 
-.modalButton {
-  position: relative;
-  top: 4.8rem;
-  left: 36rem;
-}
-
-.errorText {
+.columnDelete {
   @include text-s(400);
 
-  margin-top: 0.5rem;
-  color: $red_D6;
+  position: relative;
+  top: 7rem;
+  color: $gray_9F;
   font-style: normal;
   line-height: normal;
+  text-decoration-line: underline;
+}
+
+.modalButton {
+  position: relative;
+  top: 3rem;
+  left: 36rem;
 }

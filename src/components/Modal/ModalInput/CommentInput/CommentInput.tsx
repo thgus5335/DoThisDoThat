@@ -5,9 +5,10 @@ import CommentSubmitButton from '../../ModalButton/CommentButton/CommentSubmitBu
 interface CommentInputProps {
   value?: string;
   onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onClick?: () => void;
 }
 
-const CommentInput = ({ value, onChange }: CommentInputProps) => {
+const CommentInput = ({ value, onChange, onClick }: CommentInputProps) => {
   return (
     <div className={styles.commentContainer}>
       <label className={styles.label}>댓글</label>
@@ -18,7 +19,9 @@ const CommentInput = ({ value, onChange }: CommentInputProps) => {
           value={value}
           onChange={onChange}></textarea>
         <div className={styles.submitButton}>
-          <CommentSubmitButton size={'large'}>입력</CommentSubmitButton>
+          <CommentSubmitButton onClick={onClick} size={'large'}>
+            입력
+          </CommentSubmitButton>
         </div>
       </div>
     </div>
