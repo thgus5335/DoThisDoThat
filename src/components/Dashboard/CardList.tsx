@@ -4,7 +4,7 @@ import Card from './Card';
 
 import { useEffect, useState } from 'react';
 import type { CardList, Cards } from '@/src/types/dashboard';
-import { getCardList } from '@/src/apis/dashboard';
+import { dashboardHttp } from '@/src/apis/dashboard';
 
 interface Props {
   columnId: number;
@@ -14,7 +14,7 @@ const CardList = ({ columnId }: Props) => {
   const [cardList, setCardList] = useState<Cards[]>([]);
 
   const loadCardList = async () => {
-    const data = await getCardList(columnId);
+    const data = await dashboardHttp.getCardList(columnId);
     setCardList(data.cards);
   };
 
