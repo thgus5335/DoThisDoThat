@@ -1,0 +1,21 @@
+.colorContainer {
+  position: relative;
+  display: flex;
+  width: 20rem;
+  height: 2.5rem;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.colorBox {
+  display: flex;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.checkIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

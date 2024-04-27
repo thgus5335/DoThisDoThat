@@ -1,0 +1,31 @@
+.modalContainer {
+  margin: 3.2rem 2.8rem;
+}
+
+.modalName {
+  @include text-2xl(700);
+
+  margin-bottom: 3rem;
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.todoForm {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.dropDownContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.submitButton {
+  position: absolute;
+  right: 0.2rem;
+  bottom: -6.8rem;
+}

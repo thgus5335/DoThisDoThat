@@ -5,8 +5,18 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styles from './DateInput.module.scss';
 import calendar from '@/src/assets/icons/calendar.svg';
 
-const DateInput = () => {
+interface DateInputProps {
+  onDateSelect: (date: Date | null) => void;
+}
+
+const DateInput = ({ onDateSelect = () => {} }: DateInputProps) => {
   const [selectedDateTime, setSelectedDateTime] = useState<Date | null>();
+
+  const handleSelectDate = (date: Date | null) => {
+    setSelectedDateTime(date);
+    onDateSelect(date);
+    console.log(date);
+  };
 
   return (
     <div className={styles.dateContainer}>
@@ -15,7 +25,7 @@ const DateInput = () => {
         <Image src={calendar} width={20} height={20} alt="달력" />
         <DatePicker
           selected={selectedDateTime}
-          onChange={(date: Date) => setSelectedDateTime(date)}
+          onChange={handleSelectDate}
           dateFormat="yyyy.MM.dd HH:mm"
           showTimeSelect
           timeFormat="HH:mm"
