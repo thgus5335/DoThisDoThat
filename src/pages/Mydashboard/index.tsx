@@ -216,7 +216,11 @@ const Mydashboard: NextPageWithLayout = () => {
 };
 
 Mydashboard.getLayout = function getLayout(page: ReactElement) {
-  return <HeaderSidebarLayout>{page}</HeaderSidebarLayout>;
+  return (
+    <HeaderSidebarLayout type="simple" title="내 대시보드" hasBackward={false}>
+      {page}
+    </HeaderSidebarLayout>
+  );
 };
 
 export default Mydashboard;

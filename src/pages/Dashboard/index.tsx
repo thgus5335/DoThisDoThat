@@ -34,7 +34,7 @@ const Dashboard: NextPageWithLayout = () => {
 };
 
 Dashboard.getLayout = function getLayout(page: ReactElement) {
-  return <HeaderSidebarLayout>{page}</HeaderSidebarLayout>;
+  return <HeaderSidebarLayout type="complex">{page}</HeaderSidebarLayout>;
 };
 
 export default Dashboard;
