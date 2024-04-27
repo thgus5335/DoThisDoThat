@@ -34,6 +34,7 @@ const Card = ({ card }: Props) => {
           width={274}
           height={16}
           src={card.imageUrl}
+          layout="intrinsic"
           onError={handleImageError}
           alt="카드 이미지."
         />
