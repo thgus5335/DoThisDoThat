@@ -15,6 +15,7 @@ import createHttpClient from '@/src/apis/createHttpClient';
 import SingleButtonModal from '@/src/components/Modal/SingleButtonModal';
 import { DASHBOARD_COLOR_LIST } from '@/src/constants/constant';
 import noInvitationsIcon from '@/src/assets/icons/unsubscribe.svg';
+import { editDashboardHttp } from '@/src/apis/editPage';
 
 interface DashboardInfo {
   id: number;
@@ -36,6 +37,38 @@ const initialDashboardInfo: DashboardInfo = {
   createdByMe: true,
 };
 
+interface Member {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImageUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+  isOwner: boolean;
+  userId: number;
+}
+
+interface MemberData {
+  members: Member[];
+  totalCount: number;
+}
+
+interface Invitee {
+  id: number;
+  email: string;
+  nickname: string;
+}
+
+interface Invitation {
+  id: number;
+  invitee: Invitee;
+}
+
+interface InvitationData {
+  totalCount: number;
+  invitations: Invitation[];
+}
+
 const Edit: NextPageWithLayout = () => {
   const dashboardId = 5916;
 
@@ -45,23 +78,21 @@ const Edit: NextPageWithLayout = () => {
   const [dashboardTitle, setDashboardTitle] = useState<string>('');
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
-  const [memberList, setMemberList] = useState([]);
-  const [invitationList, setInvitationList] = useState([]);
+  const [memberList, setMemberList] = useState<MemberData[]>([]);
+  const [invitationList, setInvitationList] = useState<InvitationData[]>([]);
   const [email, setEmail] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [invitationCurrentPage, setInvitationCurrentPage] = useState(1);
+  const [invitationTotalPages, setInvitationTotalPages] = useState(0);
 
   const httpClient = createHttpClient();
 
   // 대시보드 정보 가져오기
   const loadDashboardInfo = async () => {
-    try {
-      const data = await httpClient.get(`/dashboards/${dashboardId}`);
-      setDashboardInfo(data);
-      setSelectedColor(data.color);
-    } catch (error) {
-      console.error('대시보드 정보를 불러오는 동안 오류가 발생했습니다:', error);
-    }
+    const data = await editDashboardHttp.getDashboardInfo(dashboardId);
+    setDashboardInfo(data);
+    setSelectedColor(data.color);
   };
 
   useEffect(() => {
@@ -105,28 +136,37 @@ const Edit: NextPageWithLayout = () => {
   const router = useRouter();
   // const { dashboardid } = router.query;
 
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-  };
-
   // modal 닫기
   const handleModalClose = () => {
     setIsSuccessModalOpen(false);
   };
 
   // 대시보드 멤버 불러오기
-  const loadMemberList = async () => {
+  const loadMemberList = async (page: number) => {
     try {
-      const data = await httpClient.get(`members?page=1&size=20&dashboardId=${dashboardId}`);
+      const data = await httpClient.get(`members?page=${page}&size=5&dashboardId=${dashboardId}`);
       setMemberList(data.members);
+      setTotalPages(Math.ceil(data.totalCount / 5));
     } catch (error) {
       console.error('대시보드 멤버 목록 조회 실패:', error);
     }
   };
 
   useEffect(() => {
-    loadMemberList();
-  }, []);
+    loadMemberList(currentPage);
+  }, [currentPage]);
+
+  // 페이지네이션
+  const MAX_TEST_PAGE = 5;
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+
+    setMemberList(currentMembers => {
+      const startIndex = (newPage - 1) * MAX_TEST_PAGE;
+      return currentMembers.slice(startIndex, startIndex + MAX_TEST_PAGE);
+    });
+  };
 
   // 대시보드 멤버 삭제
   const handleMemberDelete = async memberId => {
@@ -139,23 +179,36 @@ const Edit: NextPageWithLayout = () => {
   };
 
   // 초대목록 불러오기
-  const loadInvitationList = async () => {
+  const loadInvitationList = async (page: number) => {
     try {
-      const data = await httpClient.get(`dashboards/${dashboardId}/invitations?page=1&size=10`);
+      const data = await httpClient.get(`dashboards/${dashboardId}/invitations?page=${page}&size=5`);
       const invitees = data.invitations.map(invitation => ({
         id: invitation.id,
         invitee: invitation.invitee,
       }));
+      console.log(invitees);
       setInvitationList(invitees);
-      console.log(invitees.length);
+      setInvitationTotalPages(Math.ceil(data.totalCount / 5));
     } catch (error) {
-      console.error('대시보드 정보를 불러오는 동안 오류가 발생했습니다:', error);
+      console.error('초대목록 불러오기 실패:', error);
     }
   };
 
   useEffect(() => {
-    loadInvitationList();
-  }, []);
+    loadInvitationList(invitationCurrentPage);
+  }, [invitationCurrentPage]);
+
+  // 초대목록 페이지네이션
+  const MAX_INVITATION_TEST_PAGE = 5;
+
+  const handleInvitationPageChange = (newPage: number) => {
+    setInvitationCurrentPage(newPage);
+
+    setInvitationList(currentInvitees => {
+      const startIndex = (newPage - 1) * MAX_INVITATION_TEST_PAGE;
+      return currentInvitees.slice(startIndex, startIndex + MAX_INVITATION_TEST_PAGE);
+    });
+  };
 
   // 초대하기
   const handleInvitation = async () => {
@@ -298,14 +351,14 @@ const Edit: NextPageWithLayout = () => {
             <div className={styles.btnBox}>
               <div className={styles.pagenation}>
                 <div className={styles.whereAmI}>
-                  {totalPages} 페이지 중 {currentPage}
+                  {invitationTotalPages} 페이지 중 {invitationCurrentPage}
                 </div>
                 <PagenationButton
                   size="large"
-                  isDisabledLeft={currentPage <= 1}
-                  isDisabledRight={currentPage >= totalPages}
-                  onClickLeft={() => handlePageChange(currentPage - 1)}
-                  onClickRight={() => handlePageChange(currentPage + 1)}
+                  isDisabledLeft={invitationCurrentPage <= 1}
+                  isDisabledRight={invitationCurrentPage >= invitationTotalPages}
+                  onClickLeft={() => handleInvitationPageChange(invitationCurrentPage - 1)}
+                  onClickRight={() => handleInvitationPageChange(invitationCurrentPage + 1)}
                 />
               </div>
               <button className={styles.invitationBtn}>
