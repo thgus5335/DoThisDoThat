@@ -16,7 +16,8 @@ const DescriptionInput = ({ value, onChange }: DescriptionInputProps) => {
         className={styles.descInput}
         placeholder="설명을 입력해주세요"
         value={value}
-        onChange={onChange}></textarea>
+        onChange={onChange}
+        required></textarea>
     </div>
   );
 };

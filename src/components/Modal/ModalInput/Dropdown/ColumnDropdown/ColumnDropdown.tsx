@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './ColumnDropdown.module.scss';
+import httpClient from '@/src/apis/httpClient';
 
 type ColumnData = {
   id: number;
@@ -10,48 +11,33 @@ type ColumnData = {
   updatedAt: string;
 };
 
-const data: ColumnData[] = [
-  {
-    id: 19874,
-    title: '주의) 컬럼명 길게하면 안됩니다',
-    teamId: '1-7',
-    dashboardId: 5911,
-    createdAt: '2024-04-16T06:20:41.330Z',
-    updatedAt: '2024-04-16T16:16:56.186Z',
-  },
-  {
-    id: 19877,
-    title: '떡잎방범대🌱',
-    teamId: '1-7',
-    dashboardId: 5911,
-    createdAt: '2024-04-16T15:23:51.837Z',
-    updatedAt: '2024-04-16T16:01:27.691Z',
-  },
-  {
-    id: 19886,
-    title: '겸둥이들',
-    teamId: '1-7',
-    dashboardId: 5911,
-    createdAt: '2024-04-16T15:59:38.507Z',
-    updatedAt: '2024-04-16T15:59:38.507Z',
-  },
-  {
-    id: 20334,
-    title: '안녕안녕 나는 승이버섯',
-    teamId: '1-7',
-    dashboardId: 5911,
-    createdAt: '2024-04-18T21:48:13.344Z',
-    updatedAt: '2024-04-18T21:48:13.344Z',
-  },
-];
+interface ColumnDropdownProps {
+  onColumnSelect: (columnId: number) => void;
+}
 
-const ColumnDropdown = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedColumn, setSelectedColumn] = useState('');
+const ColumnDropdown = ({ onColumnSelect = () => {} }: ColumnDropdownProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedColumn, setSelectedColumn] = useState<string>('');
+  const [columns, setColumns] = useState<ColumnData[]>([]);
 
-  const handleSelectColumn = (title: string) => {
+  useEffect(() => {
+    const fetchColumns = async () => {
+      try {
+        const response = await httpClient.get('/columns?dashboardId=5911');
+        const columns = response.data.data;
+        setColumns(columns);
+      } catch (error) {
+        console.error('담당자 목록을 불러오는데 실패했습니다:', error);
+      }
+    };
+
+    fetchColumns();
+  }, []);
+
+  const handleSelectColumn = (title: string, columnId: number) => {
     setSelectedColumn(title);
     setIsOpen(false);
+    onColumnSelect(columnId);
   };
 
   return (
@@ -68,13 +54,13 @@ const ColumnDropdown = () => {
         />
         {isOpen && (
           <ul className={styles.ulContainer}>
-            {data.map(item => (
+            {columns.map(item => (
               <li
                 key={item.id}
                 className={styles.liContainer}
                 //onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'lavender')}
                 //onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'white')}
-                onClick={() => handleSelectColumn(item.title)}>
+                onClick={() => handleSelectColumn(item.title, item.id)}>
                 <span className={styles.circle}>•</span>
                 {item.title}
               </li>

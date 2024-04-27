@@ -6,8 +6,9 @@
 }
 
 .label {
-  color: $black_33;
   @include text-l(500);
+
+  color: $black_33;
   font-style: normal;
   line-height: normal;
 }
@@ -16,20 +17,34 @@
   display: flex;
   width: 45rem;
   height: 4.8rem;
-  padding: 1.4rem 1.6rem;
   align-items: center;
-  gap: 0.08rem;
-  border-radius: 6px;
+  padding: 1.4rem 1.6rem;
   border: 1px solid $gray_D9;
+  border-radius: 6px;
   background: $white_FF;
+  gap: 0.08rem;
 }
 
 .input {
   @include text-m(400);
+
+  display: flex;
   width: 45rem;
+  height: 4.8rem;
+  align-items: center;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background: $white_FF;
+  gap: 0.08rem;
 
   &::placeholder {
-    color: $gray_9F;
     @include text-m(400);
+
+    color: $gray_9F;
+  }
+
+  &:focus {
+    border: 1px solid $violet_55;
   }
 }

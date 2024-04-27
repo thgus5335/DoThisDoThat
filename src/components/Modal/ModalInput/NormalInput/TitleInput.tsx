@@ -17,7 +17,8 @@ const TitleInput = ({ value, onChange }: TitleInputProps) => {
         type="text"
         placeholder="제목을 입력해주세요"
         value={value}
-        onChange={onChange}></input>
+        onChange={onChange}
+        required></input>
     </div>
   );
 };

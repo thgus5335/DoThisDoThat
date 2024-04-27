@@ -1,4 +1,5 @@
 .modalContainer {
+  position: relative;
   margin: 3.2rem 2.8rem;
 }
 
@@ -11,15 +12,8 @@
   line-height: normal;
 }
 
-.todoForm {
+.modalButton {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-.submitButton {
-  position: absolute;
-  right: 0.2rem;
-  bottom: -9.2rem;
+  top: 0.2rem;
+  left: 36rem;
 }

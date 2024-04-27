@@ -18,8 +18,14 @@
   gap: 2.5rem;
 }
 
+.dropDownContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
 .submitButton {
   position: absolute;
   right: 0.2rem;
-  bottom: -9.2rem;
+  bottom: -6.8rem;
 }

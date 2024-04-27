@@ -6,40 +6,44 @@
 }
 
 .label {
-  color: $black_33;
   @include text-l(500);
+
+  color: $black_33;
   font-style: normal;
   line-height: normal;
 }
 
 .star {
-  color: $violet_55;
   @include text-l(500);
+
+  color: $violet_55;
   font-style: normal;
   line-height: normal;
 }
 
 .titleInput {
   @include text-m(400);
-  font-style: normal;
-  line-height: normal;
+
   display: flex;
+  overflow: hidden;
   width: 45rem;
   height: 4.8rem;
-  padding: 1.4rem 1.6rem;
   align-items: center;
-  gap: 1rem;
-  border-radius: 6px;
+  padding: 1.4rem 1.6rem;
   border: 1px solid $gray_D9;
+  border-radius: 6px;
   background: $white_FF;
+  font-style: normal;
+  gap: 1rem;
+  line-height: normal;
   resize: none;
-  overflow: hidden;
 
   &::placeholder {
     @include text-m(400);
+
+    color: $gray_9F;
     font-style: normal;
     line-height: normal;
-    color: $gray_9F;
   }
 
   &:focus {

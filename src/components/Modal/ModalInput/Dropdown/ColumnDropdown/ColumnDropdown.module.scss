@@ -6,8 +6,9 @@
 }
 
 .label {
-  color: $black_33;
   @include text-l(500);
+
+  color: $black_33;
   font-style: normal;
   line-height: normal;
 }
@@ -20,23 +21,25 @@
 }
 
 .input {
+  @include text-xs(400);
+
   display: flex;
   width: 21.7rem;
   height: 4.8rem;
-  padding: 1.4rem 1.6rem;
   align-items: center;
-  gap: 1rem;
-  border-radius: 6px;
+  padding: 1.4rem 1.6rem;
   border: 1px solid $gray_D9;
+  border-radius: 6px;
   background: $white_FF;
   color: $violet_55;
-  @include text-xs(400);
   font-style: normal;
+  gap: 1rem;
   line-height: normal;
 
   &::placeholder {
-    color: $gray_9F;
     @include text-m(400);
+
+    color: $gray_9F;
     font-style: normal;
     line-height: normal;
   }
@@ -48,32 +51,33 @@
 
 .ulContainer {
   display: flex;
-  flex-direction: column;
-  gap: 1.3rem;
   width: 21.7rem;
   height: auto;
-  list-style: none;
+  flex-direction: column;
   padding: 1rem;
-  border-radius: 6px;
   border: 1px solid $gray_D9;
+  border-radius: 6px;
   background: $white_FF;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 8%);
+  gap: 1.3rem;
+  list-style: none;
 }
 
 .liContainer {
+  @include text-xs(400);
+
   display: flex;
   width: max-content;
   height: 2.2rem;
-  color: $violet_55;
-  @include text-xs(400);
-  padding: 0.4rem 0.8rem;
-  font-style: normal;
-  line-height: normal;
-  justify-content: center;
   align-items: center;
-  cursor: pointer;
+  justify-content: center;
+  padding: 0.4rem 0.8rem;
   border-radius: 11px;
   background: $violet_F1;
+  color: $violet_55;
+  cursor: pointer;
+  font-style: normal;
+  line-height: normal;
 
   &:hover {
     background: $violet_55;
@@ -83,9 +87,11 @@
 
 .circle {
   @include text-xl(400);
-  text-align: center;
+
   padding-bottom: 0.5rem;
   margin-right: 0.6rem;
+  text-align: center;
+
   &:hover {
     background: $violet_55;
     color: $violet_F1;
