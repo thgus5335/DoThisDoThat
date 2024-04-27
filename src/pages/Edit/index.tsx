@@ -15,7 +15,7 @@ import createHttpClient from '@/src/apis/createHttpClient';
 import SingleButtonModal from '@/src/components/Modal/SingleButtonModal';
 import { DASHBOARD_COLOR_LIST } from '@/src/constants/constant';
 import noInvitationsIcon from '@/src/assets/icons/unsubscribe.svg';
-import { editDashboardHttp } from '@/src/apis/editPage';
+import { editDashboardHttp, editInvitationHttp, editMemberHttp } from '@/src/apis/editPage';
 
 interface DashboardInfo {
   id: number;
@@ -88,6 +88,9 @@ const Edit: NextPageWithLayout = () => {
 
   const httpClient = createHttpClient();
 
+  const router = useRouter();
+  const { dashboardid } = router.query;
+
   // 대시보드 정보 가져오기
   const loadDashboardInfo = async () => {
     const data = await editDashboardHttp.getDashboardInfo(dashboardId);
@@ -106,15 +109,11 @@ const Edit: NextPageWithLayout = () => {
       color: selectedColor,
     };
 
-    try {
-      const response = await httpClient.put(`/dashboards/${dashboardId}`, modifiedDashboardInfo);
-      setDashboardInfo(response);
-      setIsSuccessModalOpen(true);
-      setDashboardTitle('');
-      setIsUpdateTrigger(prevState => !prevState);
-    } catch (error) {
-      console.error('대시보드 수정 오류:', error);
-    }
+    const response = await editDashboardHttp.putDashboardInfo(dashboardId, modifiedDashboardInfo);
+    setDashboardInfo(response);
+    setIsSuccessModalOpen(true);
+    setDashboardTitle('');
+    setIsUpdateTrigger(prevState => !prevState);
   };
 
   // 대시보드 수정 버튼 활성화 관련
@@ -133,9 +132,6 @@ const Edit: NextPageWithLayout = () => {
     setSelectedColor(color);
   };
 
-  const router = useRouter();
-  // const { dashboardid } = router.query;
-
   // modal 닫기
   const handleModalClose = () => {
     setIsSuccessModalOpen(false);
@@ -143,20 +139,16 @@ const Edit: NextPageWithLayout = () => {
 
   // 대시보드 멤버 불러오기
   const loadMemberList = async (page: number) => {
-    try {
-      const data = await httpClient.get(`members?page=${page}&size=5&dashboardId=${dashboardId}`);
-      setMemberList(data.members);
-      setTotalPages(Math.ceil(data.totalCount / 5));
-    } catch (error) {
-      console.error('대시보드 멤버 목록 조회 실패:', error);
-    }
+    const data = await editMemberHttp.getMemberList(page, dashboardId);
+    setMemberList(data.members);
+    setTotalPages(Math.ceil(data.totalCount / 5));
   };
 
   useEffect(() => {
     loadMemberList(currentPage);
   }, [currentPage]);
 
-  // 페이지네이션
+  // 구성원 페이지네이션
   const MAX_TEST_PAGE = 5;
 
   const handlePageChange = (newPage: number) => {
@@ -169,29 +161,20 @@ const Edit: NextPageWithLayout = () => {
   };
 
   // 대시보드 멤버 삭제
-  const handleMemberDelete = async memberId => {
-    try {
-      await httpClient.delete(`members/${memberId}`);
-      loadMemberList();
-    } catch (error) {
-      console.error('대시보드 멤버 삭제 실패:', error);
-    }
+  const handleMemberDelete = async (memberId: number) => {
+    await editMemberHttp.deleteMember(memberId);
+    loadMemberList(currentPage);
   };
 
   // 초대목록 불러오기
   const loadInvitationList = async (page: number) => {
-    try {
-      const data = await httpClient.get(`dashboards/${dashboardId}/invitations?page=${page}&size=5`);
-      const invitees = data.invitations.map(invitation => ({
-        id: invitation.id,
-        invitee: invitation.invitee,
-      }));
-      console.log(invitees);
-      setInvitationList(invitees);
-      setInvitationTotalPages(Math.ceil(data.totalCount / 5));
-    } catch (error) {
-      console.error('초대목록 불러오기 실패:', error);
-    }
+    const data = await editInvitationHttp.getInvitationList(page, dashboardId);
+    const invitees = data.invitations.map(invitation => ({
+      id: invitation.id,
+      invitee: invitation.invitee,
+    }));
+    setInvitationList(invitees);
+    setInvitationTotalPages(Math.ceil(data.totalCount / 5));
   };
 
   useEffect(() => {
@@ -214,30 +197,22 @@ const Edit: NextPageWithLayout = () => {
   const handleInvitation = async () => {
     try {
       await httpClient.post(`dashboards/${dashboardId}/invitations`, { email: email });
-      loadInvitationList();
+      loadInvitationList(invitationCurrentPage);
     } catch (error) {
       console.error('초대 실패:', error);
     }
   };
 
   // 초대 삭제
-  const handleinvitationDelete = async invitationId => {
-    try {
-      await httpClient.delete(`dashboards/${dashboardId}/invitations/${invitationId}`);
-      loadInvitationList();
-    } catch (error) {
-      console.error('초대 삭제 실패:', error);
-    }
+  const handleinvitationDelete = async (invitationId: number) => {
+    await editInvitationHttp.deleteInvitation(dashboardId, invitationId);
+    loadInvitationList(invitationCurrentPage);
   };
 
   // 대시보드 삭제
   const handleDashboardDelete = async () => {
-    try {
-      await httpClient.delete(`dashboards/${dashboardId}`);
-      router.push('/Mydashboard');
-    } catch (error) {
-      console.error('대시보드 삭제 실패:', error);
-    }
+    await editDashboardHttp.deleteDashboard(dashboardId);
+    router.push('/Mydashboard');
   };
 
   return (
