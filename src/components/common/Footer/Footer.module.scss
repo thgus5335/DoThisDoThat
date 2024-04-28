@@ -9,6 +9,14 @@
   color: $white_FF;
   font-style: normal;
   line-height: normal;
+
+  @include media(mobile) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10rem;
+    gap: 1.2rem;
+  }
 }
 
 .centerContent {
@@ -20,4 +28,8 @@
 .social {
   display: flex;
   gap: 1.4rem;
+
+  @include media(mobile) {
+    margin: 6rem 0;
+  }
 }

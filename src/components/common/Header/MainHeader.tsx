@@ -10,7 +10,14 @@ const MainHeader = () => {
       <header className={styles.mainHeader}>
         <Link href={'/'} className={styles.headerLogo}>
           <Image src={headerIcon} alt="logo image" width={50} height={40} layout="intrinsic" />
-          <Image src={headerTitle} alt="logo title" width={120} height={40} layout="intrinsic" />
+          <Image
+            className={styles.headerTitle}
+            src={headerTitle}
+            alt="logo title"
+            width={120}
+            height={40}
+            layout="intrinsic"
+          />
         </Link>
         <div className={styles.linkBox}>
           <Link href={'/Login'} className={styles.signLink}>
