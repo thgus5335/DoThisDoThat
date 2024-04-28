@@ -3,8 +3,7 @@ import styles from './Dashboard.module.scss';
 import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
 import DashboardButton from '@/src/components/common/Button/DashboardButton';
 
-import { NextPageWithLayout } from '../_app';
-import { ReactElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { dashboardHttp } from '@/src/apis/dashboard';
 import { ColumnList } from '@/src/types/dashboard';
 import Column from '@/src/components/Dashboard/Column';
@@ -37,13 +36,20 @@ const Dashboard = () => {
           </DoubleButtonModal>
         )}
         <div className={styles.dashboard}>
-          {columnList &&
-            columnList.map(column => <Column columnId={column.id} columnTitle={column.title} key={column.id} />)}
+          <div className={styles.columnContainer}>
+            {columnList &&
+              columnList.map(column => (
+                <>
+                  <Column columnId={column.id} columnTitle={column.title} key={column.id} />
+                  <div className={styles.line} />
+                </>
+              ))}
 
-          <div className={styles.addColumn}>
-            <DashboardButton type={'columnLarge'} onClick={() => openModal()}>
-              새로운 컬럼 추가하기
-            </DashboardButton>
+            <div className={styles.addColumn}>
+              <DashboardButton type={'columnLarge'} onClick={() => openModal()}>
+                새로운 컬럼 추가하기
+              </DashboardButton>
+            </div>
           </div>
         </div>
       </HeaderSidebarLayout>

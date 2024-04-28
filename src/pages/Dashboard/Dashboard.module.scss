@@ -1,6 +1,21 @@
 .dashboard {
+  left: 30rem;
   display: flex;
+  overflow: scroll;
+  width: fit-content;
+  height: 100vh;
   background-color: $gray_FA;
+}
+
+.line {
+  display: flex;
+  height: inherit;
+  flex-direction: column;
+  border-right: 1px solid $gray_D9;
+}
+
+.columnContainer {
+  display: flex;
 }
 
 .addColumn {

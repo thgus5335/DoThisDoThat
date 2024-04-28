@@ -12,9 +12,11 @@ interface Props {
 const HeaderSidebarLayout = ({ dashboardId, title, hasBackward = true, children }: Props) => {
   return (
     <div className={styles.headerSidebarLayout}>
-      <Header title={title} dashboardId={dashboardId} hasBackward={hasBackward} />
       <Sidebar />
-      {children}
+      <div className={styles.headerContentLayout}>
+        <Header title={title} dashboardId={dashboardId} hasBackward={hasBackward} />
+        {children}
+      </div>
     </div>
   );
 };
