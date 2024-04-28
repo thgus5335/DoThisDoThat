@@ -1,5 +1,6 @@
 %dashboardButtonStyle {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   border: 1px solid $gray_D9;

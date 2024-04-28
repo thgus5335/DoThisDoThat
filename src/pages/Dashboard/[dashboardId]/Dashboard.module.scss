@@ -1,0 +1,25 @@
+.dashboard {
+  left: 30rem;
+  display: flex;
+  overflow: scroll;
+  width: fit-content;
+  height: 100%;
+  background-color: $gray_FA;
+}
+
+.line {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: inherit;
+  flex-direction: column;
+  border-right: 1px solid $gray_D9;
+}
+
+.columnContainer {
+  display: flex;
+}
+
+.addColumn {
+  padding: 6rem 2rem;
+}
