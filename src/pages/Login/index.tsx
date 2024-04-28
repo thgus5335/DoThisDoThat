@@ -4,6 +4,10 @@ import BaseButton from '@/src/components/common/Button/BaseButton';
 import React, { useState, useEffect } from 'react';
 import { login } from '@/src/apis/authService';
 import { saveTokenToLocalStorage } from '@/src/utils/authUtils';
+import Logo from '@/src/assets/images/Logo.png';
+import Title from '@/src/assets/images/Title.png';
+import Image from 'next/image';
+
 export default function Login() {
   const [formData, setFormData] = useState({
     email: '',
@@ -88,8 +92,8 @@ export default function Login() {
     <>
       <div className={styles.bigContainer}>
         <div className={styles.logoContainer}>
-          <img src="./Logo.svg" alt="로고그림" className={styles.logoImage} onClick={goToHome} />
-          <img src="./Taskify.svg" alt="로고명" className={styles.logoName} onClick={goToHome} />
+          <Image src={Logo} alt="로고그림" className={styles.logoImage} onClick={goToHome} />
+          <Image src={Title} alt="로고명" className={styles.logoName} onClick={goToHome} />
         </div>
         <div className={styles.welcomeMessage}>오늘도 만나서 반가워요!</div>
         <form className={styles.inputContainer} onSubmit={handleFormSubmit}>
