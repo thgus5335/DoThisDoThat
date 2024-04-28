@@ -4,7 +4,7 @@ import ModalButton from '../../ModalButton/ModalButton';
 import NormalInput from '../../ModalInput/NormalInput/NormalInput';
 import httpClient from '@/src/apis/httpClient';
 
-const NewInviteModal = () => {
+const NewInviteModal = ({ dashboardId, onClose }: any) => {
   const [input, setInput] = useState('');
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +13,7 @@ const NewInviteModal = () => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const handleNewInvite = () => {
+  const handleNewInvite = async () => {
     if (!input) {
       window.alert('이메일을 입력해주세요.');
       return;
@@ -23,13 +23,15 @@ const NewInviteModal = () => {
     }
     //서버로 생성 요청 보내는 로직 추가
     try {
-      httpClient.post('/dashboards/5911/invitations', {
+      await httpClient.post(`/dashboards/${dashboardId}/invitations`, {
         email: input,
       });
       window.alert('성공적으로 초대되었습니다.');
       console.log('성공적으로 초대되었습니다.');
+      onClose();
     } catch (error) {
       console.error('초대에 실패했습니다:', error);
+      window.alert(error.response.data.message);
     }
   };
 
