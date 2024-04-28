@@ -209,7 +209,7 @@ const Mydashboard: NextPageWithLayout = () => {
               className={styles.invitedInput}
               onChange={e => setSearchTerm(e.target.value)}
             />
-            <Image src={search} className={styles.searchIcon} />
+            <Image src={search} className={styles.searchIcon} alt="검색아이콘" />
             <div className={styles.invitedListContainer}>
               <div className={styles.invitedListHeader}>
                 <div className={styles.invitedListColumn}>이름</div>
@@ -234,7 +234,7 @@ const Mydashboard: NextPageWithLayout = () => {
                   ))
                 ) : (
                   <div className={styles.noInvitedContainer}>
-                    <Image src={unsubscribe} className={styles.noInvitedImage}></Image>
+                    <Image src={unsubscribe} className={styles.noInvitedImage} alt="초대목록없음"></Image>
                     <div className={styles.noInvited}>아직 초대받은 대시보드가 없어요</div>
                   </div>
                 )}
