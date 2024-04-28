@@ -11,6 +11,9 @@ import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLay
 import { useRouter } from 'next/router';
 import NewDashboardModal from '@/src/components/Modal/ModalType/NewDashboardModal/NewDashboardModal';
 import DoubleButtonModal from '@/src/components/Modal/DoubleButtonModal';
+import Image from 'next/image';
+import search from '@/src/assets/icons/search.svg';
+import unsubscribe from '@/src/assets/icons/unsubscribe.svg';
 
 interface Invitation {
   id: number;
@@ -206,7 +209,7 @@ const Mydashboard: NextPageWithLayout = () => {
               className={styles.invitedInput}
               onChange={e => setSearchTerm(e.target.value)}
             />
-            <img src="./search.svg" className={styles.searchIcon} />
+            <Image src={search} className={styles.searchIcon} />
             <div className={styles.invitedListContainer}>
               <div className={styles.invitedListHeader}>
                 <div className={styles.invitedListColumn}>이름</div>
@@ -231,7 +234,7 @@ const Mydashboard: NextPageWithLayout = () => {
                   ))
                 ) : (
                   <div className={styles.noInvitedContainer}>
-                    <img src="./unsubscribe.svg" className={styles.noInvitedImage}></img>
+                    <Image src={unsubscribe} className={styles.noInvitedImage}></Image>
                     <div className={styles.noInvited}>아직 초대받은 대시보드가 없어요</div>
                   </div>
                 )}
