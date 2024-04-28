@@ -75,7 +75,7 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
   };
 
   //댓글 데이터 가져오기
-  const fetchCommentData = async (params: fetchCommentsParams) => {
+  const fetchCommentData = async () => {
     try {
       const response = await httpClient.get('/comments?size=10&cardId=${cardId}');
       setCommentData(response.data.comments);
