@@ -4,6 +4,9 @@ import React, { useState, useEffect, FormEvent } from 'react';
 import { registerUser } from '@/src/apis/authService';
 import BaseButton from '@/src/components/common/Button/BaseButton';
 import { faL } from '@fortawesome/free-solid-svg-icons';
+import Logo from '@/src/assets/images/Logo.png';
+import Title from '@/src/assets/images/Title.png';
+import Image from 'next/image';
 import SingleButtonModal from '@/src/components/Modal/SingleButtonModal';
 
 interface FormData {
@@ -133,8 +136,8 @@ export default function SignUp() {
     <>
       <div className={styles.bigContainer}>
         <div className={styles.logoContainer}>
-          <img src="./Logo.svg" alt="로고그림" className={styles.logoImage} onClick={goToHome} />
-          <img src="./Taskify.svg" alt="로고명" className={styles.logoName} onClick={goToHome} />
+          <Image src={Logo} alt="로고그림" className={styles.logoImage} onClick={goToHome} />
+          <Image src={Title} alt="로고명" className={styles.logoName} onClick={goToHome} />
         </div>
         <div className={styles.welcomeMessage}>첫 방문을 환영합니다!</div>
         <form className={styles.inputContainer} onSubmit={handleFormSubmit}>
