@@ -40,9 +40,9 @@ const ColumnEditDeleteModal = () => {
     setInput(e.target.value);
   };
 
-  const handleEditColumn = () => {
+  const handleEditColumn = async () => {
     try {
-      httpClient.put('/columns/20334', {
+      await httpClient.put('/columns/20334', {
         title: input,
       });
       window.alert('컬럼이 수정되었습니다.');
@@ -52,9 +52,9 @@ const ColumnEditDeleteModal = () => {
     }
   };
 
-  const handleDeleteColumn = () => {
+  const handleDeleteColumn = async () => {
     try {
-      httpClient.delete('/columns/20334');
+      await httpClient.delete('/columns/20334');
       window.alert('컬럼이 삭제되었습니다.');
       console.log('컬럼 삭제에 성공했습니다.');
     } catch (error) {

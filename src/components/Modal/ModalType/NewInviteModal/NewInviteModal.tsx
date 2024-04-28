@@ -14,7 +14,7 @@ const NewInviteModal = () => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const handleNewInvite = () => {
+  const handleNewInvite = async () => {
     if (!input) {
       window.alert('이메일을 입력해주세요.');
       return;
@@ -24,7 +24,7 @@ const NewInviteModal = () => {
     }
     //서버로 생성 요청 보내는 로직 추가
     try {
-      httpClient.post('/dashboards/5911/invitations', {
+      await httpClient.post('/dashboards/5911/invitations', {
         email: input,
       });
       window.alert('성공적으로 초대되었습니다.');

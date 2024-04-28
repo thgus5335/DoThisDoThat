@@ -37,7 +37,7 @@ const NewColumnModal = () => {
     setInput(e.target.value);
   };
 
-  const handleCreateColumn = () => {
+  const handleCreateColumn = async () => {
     //이름 중복 확인 로직 추가
     if (columns.some(column => column.title === input)) {
       setIsExist(true);
@@ -45,7 +45,7 @@ const NewColumnModal = () => {
     }
     //서버로 생성 요청 보내는 로직 추가
     try {
-      httpClient.post('/columns', {
+      await httpClient.post('/columns', {
         title: input,
         dashboardId: 5911,
       });
