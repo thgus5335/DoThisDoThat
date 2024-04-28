@@ -3,6 +3,8 @@ import styles from './SignUp.module.scss';
 import React, { useState, useEffect, FormEvent } from 'react';
 import { registerUser } from '@/src/apis/authService';
 import BaseButton from '@/src/components/common/Button/BaseButton';
+import { faL } from '@fortawesome/free-solid-svg-icons';
+import SingleButtonModal from '@/src/components/Modal/SingleButtonModal';
 
 interface FormData {
   email: string;
@@ -33,6 +35,8 @@ export default function SignUp() {
   });
   const [checkboxAgreed, setCheckboxAgreed] = useState(false); // 이용 약관 동의 여부
   const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -106,7 +110,8 @@ export default function SignUp() {
         alert('가입이 완료되었습니다');
         window.location.href = '/Login';
       } catch (error) {
-        console.error('Registration failed', error);
+        setErrorMessage('이미 사용중인 이메일입니다.');
+        setIsModalOpen(true);
       }
     }
   };
@@ -180,6 +185,11 @@ export default function SignUp() {
           <BaseButton size="large" isDisabled={!isSubmitEnabled} onClick={handleButtonClick}>
             회원가입
           </BaseButton>
+          {isModalOpen && (
+            <SingleButtonModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+              {errorMessage}
+            </SingleButtonModal>
+          )}
           <div className={styles.goToLogin}>
             <div className={styles.question}>
               이미 가입하셨나요?

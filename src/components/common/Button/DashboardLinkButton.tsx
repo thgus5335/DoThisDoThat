@@ -17,6 +17,7 @@ export interface dashboardData {
 interface DashboardLinkButtonProps {
   dashboardData: dashboardData;
   size: 'large' | 'medium' | 'small';
+  onClick?: () => void;
 }
 
 const DashboardLinkButton = ({ dashboardData, size }: DashboardLinkButtonProps) => {

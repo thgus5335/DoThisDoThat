@@ -8,6 +8,7 @@ import TaskButton from '@/src/components/common/Button/TaskButton';
 import { fetchInvitations, updateInvitation } from '@/src/apis/invitationService';
 import { NextPageWithLayout } from '../_app';
 import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
+import { useRouter } from 'next/router';
 
 interface Invitation {
   id: number;
@@ -37,6 +38,7 @@ interface InvitationResponse {
 }
 
 const Mydashboard: NextPageWithLayout = () => {
+  const router = useRouter();
   const MAX_DASHBOARD_PER_PAGE = 5;
   const [dashboards, setDashboards] = useState<dashboardData[]>([]);
   const [invitations, setInvitations] = useState<Invitation[]>([]);
@@ -152,7 +154,12 @@ const Mydashboard: NextPageWithLayout = () => {
         <div className={styles.newDashboard}>
           <DashboardButton type="dashboardLarge">새로운 대시보드</DashboardButton>
           {dashboards.map(dashboard => (
-            <DashboardLinkButton key={dashboard.id} dashboardData={dashboard} size="large" />
+            <DashboardLinkButton
+              key={dashboard.id}
+              dashboardData={dashboard}
+              size="large"
+              onClick={() => router.push({ pathname: `/Dashboard`, query: { dashboardId: dashboard.id } })}
+            />
           ))}
         </div>
         <div className={styles.pagination}>

@@ -53,3 +53,5 @@ export const FOOTER_SOCIAL_LIST = [
     image: facebookIcon,
   },
 ];
+
+export const DASHBOARD_COLOR_LIST = ['#7ac555', '#760dde', '#ffa500', '#76a5ea', '#e876ea'];
