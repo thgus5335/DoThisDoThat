@@ -2,11 +2,10 @@ import styles from './Dashboard.module.scss';
 
 import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
 import DashboardButton from '@/src/components/common/Button/DashboardButton';
-import CardList from '@/src/components/Dashboard/CardList';
 
 import { NextPageWithLayout } from '../_app';
 import { ReactElement, useEffect, useState } from 'react';
-import { getColumnList } from '@/src/apis/dashboard';
+import { dashboardHttp } from '@/src/apis/dashboard';
 import { ColumnList } from '@/src/types/dashboard';
 import Column from '@/src/components/Dashboard/Column';
 
@@ -14,8 +13,8 @@ const Dashboard: NextPageWithLayout = () => {
   const [columnList, setColumnList] = useState<ColumnList[]>([]);
 
   const loadColumnList = async () => {
-    const data = await getColumnList(5911);
-    setColumnList(data);
+    const response = await dashboardHttp.getColumnList(5911);
+    setColumnList(response.data);
   };
 
   useEffect(() => {

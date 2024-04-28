@@ -3,7 +3,7 @@ import * as dashboard from '@/src/types/dashboard';
 import iconSetting from '@/src/assets/icons/setting.svg';
 import styles from './Column.module.scss';
 import { useEffect, useState } from 'react';
-import { getCardList } from '@/src/apis/dashboard';
+import { dashboardHttp } from '@/src/apis/dashboard';
 import CardList from './CardList';
 import DashboardButton from '../common/Button/DashboardButton';
 
@@ -17,7 +17,7 @@ const Column = ({ columnId, columnTitle }: Props) => {
   const [cardTotal, setCardTotal] = useState<dashboard.CardList['totalCount']>(0);
 
   const loadCardList = async () => {
-    const data = await getCardList(columnId);
+    const data = await dashboardHttp.getCardList(columnId);
     setCardList(data.cards);
     setCardTotal(data.totalCount);
   };
