@@ -1,5 +1,5 @@
 .editpageLayout {
-  padding: 25px;
+  padding: 2.5rem;
   background: #fafafa;
 }
 
@@ -17,9 +17,9 @@
 }
 
 .editpageSection {
-  width: 620px;
+  width: 62rem;
   flex-shrink: 0;
-  padding: 35px 30px;
+  padding: 3.5rem 3rem;
   border-radius: 8px;
   margin-bottom: 1.2rem;
   background: $white_FF;
@@ -31,10 +31,10 @@
 }
 
 .dashboardName {
+  @include text-xl(700);
+
   color: $black_33;
-  font-size: 20px;
   font-style: normal;
-  font-weight: 700;
   line-height: normal;
 }
 
@@ -42,16 +42,23 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 1rem;
 }
 
 .colorSelectContainer {
   position: relative;
 }
 
+.checkIcon {
+  position: absolute;
+  top: 50%;
+  left: 3.5px;
+  transform: translateY(-50%);
+}
+
 .colorSelect {
-  width: 30px;
-  height: 30px;
+  width: 3rem;
+  height: 3rem;
   flex-shrink: 0;
   border-radius: 9999px;
   margin: 0;
@@ -63,40 +70,33 @@
   }
 }
 
-.checkIcon {
-  position: absolute;
-  top: 50%;
-  left: 3.5px;
-  transform: translateY(-50%);
-}
-
 .nameChangeInputBox {
   display: flex;
   flex-direction: column;
-  margin: 37px 0 30px;
-  gap: 10px;
+  margin: 3.7rem 0 3rem;
+  gap: 1rem;
 }
 
 .inputLabel {
+  @include text-l(500);
+
   color: $black_33;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
 }
 
 .dashboardNameInput {
-  width: 564px;
-  height: 48px;
+  @include text-m(400);
+
+  width: 56.4rem;
+  height: 4.8rem;
   flex-shrink: 0;
-  padding: 15px;
+  padding: 1.5rem;
   border: 1px solid $gray_D9;
   border-radius: 6px;
   background: $white_FF;
   color: $black_33;
-  font-size: 16px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
 }
 
@@ -107,7 +107,7 @@
 }
 
 .dashboardDeleteButton {
-  margin-top: 40px;
+  margin-top: 4rem;
 }
 
 .titleAndPagenation {
@@ -118,40 +118,40 @@
 }
 
 .sectionTitle {
+  @include text-2xl(700);
+
   color: $black_33;
-  font-size: 24px;
   font-style: normal;
-  font-weight: 700;
   line-height: normal;
 }
 
 .pagenation {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1.6rem;
 }
 
 .whereAmI {
+  @include text-s(400);
+
   color: $black_33;
-  font-size: 14px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
 }
 
 .infoCategory {
-  margin-top: 27px;
-  margin-bottom: 8px;
+  @include text-m(400);
+
+  margin-top: 2.7rem;
+  margin-bottom: 0.8rem;
   color: $gray_9F;
-  font-size: 16px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
 }
 
 .profileImg {
-  width: 38px;
-  height: 38px;
+  width: 3.8rem;
+  height: 3.8rem;
   border-radius: 9999px;
   background-color: #9dd7ed;
 }
@@ -169,13 +169,13 @@
 .imgAndNickname {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 1.2rem;
 }
 
 .isOwner {
   display: flex;
-  width: 84px;
-  height: 30px;
+  width: 8.4rem;
+  height: 3rem;
   align-items: center;
   justify-content: center;
 }
@@ -183,54 +183,54 @@
 .memberInfo {
   display: flex;
   justify-content: space-between;
-  padding: 16px 0;
+  padding: 1.6rem 0;
 }
 
 .nickname {
+  @include text-m(400);
+
   display: flex;
   align-items: center;
   justify-content: center;
   color: $black_33;
-  font-size: 16px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
 }
 
 .invitationBtn {
+  @include text-s(500);
+
   display: flex;
-  width: 105px;
-  height: 32px;
+  width: 10.5rem;
+  height: 3.2rem;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
   background: $violet_55;
   color: $white_FF;
-  font-size: 14px;
   font-style: normal;
-  font-weight: 500;
-  gap: 6px;
+  gap: 0.6rem;
   line-height: normal;
 }
 
 .btnBox {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1.6rem;
 }
 
 .noInvitations {
+  @include text-l(400);
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 66px 0;
+  margin: 6.6rem 0;
   color: $gray_9F;
-  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
-  gap: 20px;
+  gap: 2rem;
   line-height: normal;
   text-align: center;
 }
