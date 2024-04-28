@@ -13,6 +13,7 @@ type ColumnData = {
   updatedAt: string;
 };
 
+//dashboardId를 props로 받아와야함
 const NewColumnModal = () => {
   const [input, setInput] = useState('');
   const [isExist, setIsExist] = useState(false); //이름 중복 여부 확인하는 state

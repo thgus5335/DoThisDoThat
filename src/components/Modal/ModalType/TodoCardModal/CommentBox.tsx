@@ -21,6 +21,7 @@ interface CommentBoxProps {
   onEditComment?: (commentId: number, content: string) => Promise<void>;
 }
 
+//댓글 수정 기능 추가해야함
 const CommentBox = ({ data, assigneeId, onDeleteComment, onEditComment }: CommentBoxProps) => {
   const formatDate = (date: string) => {
     return format(date, 'yyyy.MM.dd HH:mm');

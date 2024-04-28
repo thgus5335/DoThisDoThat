@@ -51,6 +51,7 @@ type ColumnData = {
   updatedAt: string;
 };
 
+//cardId, columnId, dashboardId를 props로 받아와야함
 const TodoCardModal = () => {
   const [cardData, setCardData] = useState<Card>();
   const [commentData, setCommentData] = useState<Comment[]>([]);
@@ -62,7 +63,7 @@ const TodoCardModal = () => {
   //카드 데이터 가져오기
   const fetchCardData = async () => {
     try {
-      const response = await httpClient.get('/cards/4990');
+      const response = await httpClient.get('/cards/5941');
       setCardData(response.data);
     } catch (error) {
       console.error('카드 데이터 가져오기 실패:', error);
@@ -72,7 +73,7 @@ const TodoCardModal = () => {
   //댓글 데이터 가져오기
   const fetchCommentData = async () => {
     try {
-      const response = await httpClient.get('/comments?size=10&cardId=4990');
+      const response = await httpClient.get('/comments?size=10&cardId=5941');
       setCommentData(response.data.comments);
     } catch (error) {
       console.error('댓글 데이터 가져오기 실패:', error);
@@ -147,7 +148,7 @@ const TodoCardModal = () => {
   //카드 삭제 핸들러
   const handleCardDelete = async () => {
     try {
-      const response = await httpClient.delete(`/cards/4990`);
+      const response = await httpClient.delete(`/cards/5941`);
       console.log('카드 삭제 성공', response.data);
       closeModal();
     } catch (error) {

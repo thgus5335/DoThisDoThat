@@ -4,6 +4,7 @@ import ModalButton from '../../ModalButton/ModalButton';
 import NormalInput from '../../ModalInput/NormalInput/NormalInput';
 import httpClient from '@/src/apis/httpClient';
 
+//dashboardId를 props로 받아와야함
 const NewInviteModal = () => {
   const [input, setInput] = useState('');
 

@@ -47,13 +47,13 @@ export default function ModalTestPage() {
 
       {/* 모달 쓰는 방법!!
 
-         할일 카드 모달 (TodoCardModal)
+         할일 카드 모달 (TodoCardModal)*/}
       <button onClick={openModal}>Open TodoCardModal</button>
       {modalState && (
         <NormalModal isOpen={modalState} onClose={closeModal}>
           <TodoCardModal />
         </NormalModal>
-      )}*/}
+      )}
       {/* 할일 생성 모달 (TodoPostModal)
       <button onClick={openModal}>Open TodoPostModal</button>
       {modalState && (
