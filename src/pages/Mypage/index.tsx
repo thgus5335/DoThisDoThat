@@ -288,7 +288,7 @@ const Mypage: NextPageWithLayout = () => {
 };
 
 Mypage.getLayout = function getLayout(page: ReactElement) {
-  return <HeaderSidebarLayout>{page}</HeaderSidebarLayout>;
+  return <HeaderSidebarLayout title="계정 관리">{page}</HeaderSidebarLayout>;
 };
 
 export default Mypage;

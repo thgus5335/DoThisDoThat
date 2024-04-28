@@ -8,6 +8,12 @@ import TaskButton from '@/src/components/common/Button/TaskButton';
 import { fetchInvitations, updateInvitation } from '@/src/apis/invitationService';
 import { NextPageWithLayout } from '../_app';
 import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
+import { useRouter } from 'next/router';
+import NewDashboardModal from '@/src/components/Modal/ModalType/NewDashboardModal/NewDashboardModal';
+import DoubleButtonModal from '@/src/components/Modal/DoubleButtonModal';
+import Image from 'next/image';
+import search from '@/src/assets/icons/search.svg';
+import unsubscribe from '@/src/assets/icons/unsubscribe.svg';
 
 interface Invitation {
   id: number;
@@ -37,6 +43,7 @@ interface InvitationResponse {
 }
 
 const Mydashboard: NextPageWithLayout = () => {
+  const router = useRouter();
   const MAX_DASHBOARD_PER_PAGE = 5;
   const [dashboards, setDashboards] = useState<dashboardData[]>([]);
   const [invitations, setInvitations] = useState<Invitation[]>([]);
@@ -46,6 +53,7 @@ const Mydashboard: NextPageWithLayout = () => {
   const [hasMoreInvitations, setHasMoreInvitations] = useState(true); // 더 이상 가져올 데이터가 있는지지
   const [nextCursorId, setNextCursorId] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     loadDashboardData(currentPage);
@@ -146,15 +154,39 @@ const Mydashboard: NextPageWithLayout = () => {
       loadInvitations(nextCursorId);
     }
   };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <div className={styles.contentContainer}>
         <div className={styles.newDashboard}>
-          <DashboardButton type="dashboardLarge">새로운 대시보드</DashboardButton>
+          <div>
+            <div>
+              <DashboardButton type="dashboardLarge" onClick={handleOpenModal}>
+                새로운 대시보드
+              </DashboardButton>
+              {isModalOpen && (
+                <DoubleButtonModal isOpen={true} onClose={handleCloseModal} size="small">
+                  <NewDashboardModal />
+                </DoubleButtonModal>
+              )}
+            </div>
+          </div>
           {dashboards.map(dashboard => (
-            <DashboardLinkButton key={dashboard.id} dashboardData={dashboard} size="large" />
+            <DashboardLinkButton
+              key={dashboard.id}
+              dashboardData={dashboard}
+              size="large"
+              onClick={() => router.push({ pathname: `/Dashboard`, query: { dashboardId: dashboard.id } })}
+            />
           ))}
         </div>
+
         <div className={styles.pagination}>
           <div className={styles.whereAmI}>
             {totalPages} 페이지 중 {currentPage}
@@ -177,7 +209,7 @@ const Mydashboard: NextPageWithLayout = () => {
               className={styles.invitedInput}
               onChange={e => setSearchTerm(e.target.value)}
             />
-            <img src="./search.svg" className={styles.searchIcon} />
+            <Image src={search} className={styles.searchIcon} alt="검색아이콘" />
             <div className={styles.invitedListContainer}>
               <div className={styles.invitedListHeader}>
                 <div className={styles.invitedListColumn}>이름</div>
@@ -202,7 +234,7 @@ const Mydashboard: NextPageWithLayout = () => {
                   ))
                 ) : (
                   <div className={styles.noInvitedContainer}>
-                    <img src="./unsubscribe.svg" className={styles.noInvitedImage}></img>
+                    <Image src={unsubscribe} className={styles.noInvitedImage} alt="초대목록없음"></Image>
                     <div className={styles.noInvited}>아직 초대받은 대시보드가 없어요</div>
                   </div>
                 )}
@@ -216,7 +248,11 @@ const Mydashboard: NextPageWithLayout = () => {
 };
 
 Mydashboard.getLayout = function getLayout(page: ReactElement) {
-  return <HeaderSidebarLayout>{page}</HeaderSidebarLayout>;
+  return (
+    <HeaderSidebarLayout title="내 대시보드" hasBackward={false}>
+      {page}
+    </HeaderSidebarLayout>
+  );
 };
 
 export default Mydashboard;

@@ -1,6 +1,13 @@
 .headerSidebarLayout {
-  display: grid;
+  top: 0;
+  display: flex;
+  width: 100vw;
   height: 100vh;
-  grid-template-columns: 30rem 1fr;
-  grid-template-rows: 7rem 1fr;
+}
+
+.headerContentLayout {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow-x: scroll;
 }

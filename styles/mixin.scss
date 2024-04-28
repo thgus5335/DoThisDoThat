@@ -1,3 +1,15 @@
+$breakpoints: (
+  mobile: 'screen and (max-width: 768px)',
+  tablet: 'screen and (max-width: 1200px)',
+  pc: 'screen and (min-width: 1201px)',
+);
+
+@mixin media($breakpoint) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
 @mixin text-xs($weight) {
   font-size: 12px;
   font-weight: $weight;

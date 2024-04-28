@@ -1,26 +1,31 @@
 .header {
   position: sticky;
+  z-index: 1;
   top: 0;
+  left: 0;
   display: flex;
   width: 100%;
   height: 7rem;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  padding: 0 8rem;
+  padding: 0 4rem;
   border-bottom: 1px solid $gray_D9;
   background: $white_FF;
-  grid-column: 2;
-  grid-row: 1;
 }
 
-.title {
+.titleContainer {
   @include text-xl(700);
 
   display: flex;
   align-items: center;
   color: $black_33;
-  gap: 0.8rem;
+  gap: 1rem;
   white-space: nowrap;
+}
+
+.title {
+  margin: 0 1rem;
 }
 
 .operation {
@@ -95,13 +100,13 @@
 
 .myprofileGroup {
   display: flex;
+  align-items: center;
   padding: 0.4rem 1rem;
   border-radius: 8px;
-  gap: 1.2rem;
-}
 
-.myprofileGroup:hover {
-  background-color: $gray_EE;
+  &:hover {
+    background-color: $gray_EE;
+  }
 }
 
 .myProfile {
@@ -114,6 +119,7 @@
   justify-content: center;
   border: 0.2rem solid $white_FF;
   border-radius: 99px;
+  margin-right: 1rem;
   background-color: $blue_76;
   color: $white_FF;
 }
@@ -123,6 +129,7 @@
 
   display: flex;
   align-items: center;
+  margin-right: 0.6rem;
   color: $black_33;
 }
 

@@ -51,30 +51,23 @@ type ColumnData = {
   updatedAt: string;
 };
 
-type fetchCommentsParams = {
-  teamId: string;
-  size?: number;
-  cursorId?: number | null;
+interface Props {
   cardId: number;
-};
+  dashboardId: number;
+}
 
-//cardId, columnId, dashboardId를 props로 받아와야함
-const TodoCardModal = () => {
+const TodoCardModal = ({ cardId, dashboardId }: Props) => {
   const [cardData, setCardData] = useState<Card>();
   const [commentData, setCommentData] = useState<Comment[]>([]);
   const [columnTitle, setColumnTitle] = useState<string | undefined>('');
   const [commentInput, setCommentInput] = useState<string>('');
   const [isKebabOpen, setIsKebabOpen] = useState<boolean>(false);
-
-  const [loading, setLoading] = useState<boolean>(false);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const [nextCursor, setNextCursor] = useState<number | null>(null);
   const { modalState, openModal, closeModal } = useModal();
 
   //카드 데이터 가져오기
   const fetchCardData = async () => {
     try {
-      const response = await httpClient.get('/cards/4990');
+      const response = await httpClient.get(`/cards/${cardId}`);
       setCardData(response.data);
     } catch (error) {
       console.error('카드 데이터 가져오기 실패:', error);
@@ -83,18 +76,9 @@ const TodoCardModal = () => {
 
   //댓글 데이터 가져오기
   const fetchCommentData = async (params: fetchCommentsParams) => {
-    const { teamId, size, cursorId, cardId } = params;
     try {
-      const response = await httpClient.get(`/comments`, {
-        params: {
-          teamId,
-          size,
-          cursorId,
-          cardId,
-        },
-      });
-      //const response = await httpClient.get('/comments?size=10&cardId=4990');
-      //setCommentData(response.data.comments);
+      const response = await httpClient.get('/comments?size=10&cardId=${cardId}');
+      setCommentData(response.data.comments);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -102,30 +86,11 @@ const TodoCardModal = () => {
     }
   };
 
-  const loadComments = async (cursor: number | null) => {
-    if (!hasMore || loading) return;
-    setLoading(true);
-    const params = { teamId: '1-7', size: 10, cursorId: cursor, cardId: 4990 };
-    try {
-      const data = await fetchCommentData(params);
-      const newComments = data.comments;
-      if (newComments.length > 0) {
-        setCommentData(prevComments => [...prevComments, ...newComments]); // 이전 댓글 데이터와 새로운 댓글 데이터를 결합
-      }
-      setHasMore(newComments.length === 10);
-      setNextCursor(data.cursorId);
-      setLoading(false);
-    } catch (error) {
-      console.error('댓글 데이터 가져오기 실패:', error);
-      setLoading(false);
-    }
-  };
-
   //컬럼명(상태) 가져오기
   const fetchColumnTitle = async () => {
     try {
-      const response = await httpClient.get(`/columns?dashboardId=5911`);
-      const column = response?.data.data.find((column: ColumnData) => column.id === cardData?.columnId);
+      const response = await httpClient.get(`/columns?dashboardId=${dashboardId}`);
+      const column = response.data.data.find((column: ColumnData) => column.id === cardData?.columnId);
       setColumnTitle(column?.title);
       console.log(column?.title);
     } catch (error) {
@@ -136,11 +101,7 @@ const TodoCardModal = () => {
   //컴포넌트가 마운트되면 카드 데이터, 댓글 데이터, 컬럼명 가져오기
   useEffect(() => {
     fetchCardData();
-    fetchCommentData({ teamId: '1-7', size: 10, cursorId: null, cardId: 4990 }).then(data => {
-      if (data?.comments.length > 0) {
-        setCommentData(data?.comments); // 초기 댓글 데이터 설정
-      }
-    });
+    fetchCommentData();
     fetchColumnTitle();
   }, []);
 
@@ -160,7 +121,7 @@ const TodoCardModal = () => {
       });
       console.log('댓글 작성 성공:', response.data);
       //fetchCommentData();
-      fetchCommentData({ teamId: '1-7', size: 10, cursorId: nextCursor, cardId: 4990 });
+      fetchCommentData();
       setCommentInput('');
     } catch (error) {
       console.error('댓글 작성 실패:', error);
@@ -175,7 +136,7 @@ const TodoCardModal = () => {
       });
       console.log('댓글 수정 성공:', response.data);
       ///fetchCommentData();
-      fetchCommentData({ teamId: '1-7', size: 10, cursorId: nextCursor, cardId: 4990 });
+      fetchCommentData();
     } catch (error) {
       console.error('댓글 수정 실패:', error);
     }
@@ -187,7 +148,7 @@ const TodoCardModal = () => {
       const response = await httpClient.delete(`/comments/${commentId}`);
       console.log('댓글 삭제 성공:', response.data);
       //fetchCommentData();
-      fetchCommentData({ teamId: '1-7', size: 10, cursorId: nextCursor, cardId: 4990 });
+      fetchCommentData();
     } catch (error) {
       console.error('댓글 삭제 실패:', error);
     }
@@ -196,7 +157,7 @@ const TodoCardModal = () => {
   //카드 삭제 핸들러
   const handleCardDelete = async () => {
     try {
-      const response = await httpClient.delete(`/cards/4990`);
+      const response = await httpClient.delete(`/cards/${cardId}`);
       console.log('카드 삭제 성공', response.data);
       closeModal();
     } catch (error) {
