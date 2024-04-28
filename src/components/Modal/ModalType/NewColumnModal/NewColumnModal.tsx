@@ -13,6 +13,7 @@ type ColumnData = {
   updatedAt: string;
 };
 
+//dashboardId를 props로 받아와야함
 const NewColumnModal = () => {
   const [input, setInput] = useState('');
   const [isExist, setIsExist] = useState(false); //이름 중복 여부 확인하는 state
@@ -36,7 +37,7 @@ const NewColumnModal = () => {
     setInput(e.target.value);
   };
 
-  const handleCreateColumn = () => {
+  const handleCreateColumn = async () => {
     //이름 중복 확인 로직 추가
     if (columns.some(column => column.title === input)) {
       setIsExist(true);
@@ -44,7 +45,7 @@ const NewColumnModal = () => {
     }
     //서버로 생성 요청 보내는 로직 추가
     try {
-      httpClient.post('/columns', {
+      await httpClient.post('/columns', {
         title: input,
         dashboardId: 5911,
       });

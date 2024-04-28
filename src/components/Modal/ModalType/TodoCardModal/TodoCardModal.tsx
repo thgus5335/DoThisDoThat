@@ -1,6 +1,6 @@
 import styles from './TodoCardModal.module.scss';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import httpClient from '@/src/apis/httpClient';
 import useModal from '@/src/hooks/useModal';
 import DoubleButtonModal from '../../DoubleButtonModal';
@@ -75,10 +75,12 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
   };
 
   //댓글 데이터 가져오기
-  const fetchCommentData = async () => {
+  const fetchCommentData = async (params: fetchCommentsParams) => {
     try {
-      const response = await httpClient.get(`/comments?size=10&cardId=${cardId}`);
+      const response = await httpClient.get('/comments?size=10&cardId=${cardId}');
       setCommentData(response.data.comments);
+      console.log(response.data);
+      return response.data;
     } catch (error) {
       console.error('댓글 데이터 가져오기 실패:', error);
     }
@@ -118,6 +120,7 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
         dashboardId: cardData?.dashboardId,
       });
       console.log('댓글 작성 성공:', response.data);
+      //fetchCommentData();
       fetchCommentData();
       setCommentInput('');
     } catch (error) {
@@ -132,6 +135,7 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
         content: content,
       });
       console.log('댓글 수정 성공:', response.data);
+      ///fetchCommentData();
       fetchCommentData();
     } catch (error) {
       console.error('댓글 수정 실패:', error);
@@ -143,6 +147,7 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
     try {
       const response = await httpClient.delete(`/comments/${commentId}`);
       console.log('댓글 삭제 성공:', response.data);
+      //fetchCommentData();
       fetchCommentData();
     } catch (error) {
       console.error('댓글 삭제 실패:', error);
@@ -197,21 +202,23 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
           </div>
         </div>
         <div className={styles.description}>{cardData?.description}</div>
-        <img src={cardData?.imageUrl} className={styles.todoImage} />
+        {cardData?.imageUrl && <img src={cardData?.imageUrl} className={styles.todoImage} />}
         <CommentInput value={commentInput} onChange={handleCommentInput} onClick={handleCommentSubmit} />
-        {commentData && (
-          <div className={styles.commentBox}>
-            {commentData?.map(comment => (
-              <CommentBox
-                key={comment.id}
-                data={comment}
-                assigneeId={cardData?.assignee?.id}
-                onDeleteComment={handleCommentDelete}
-                onEditComment={handleCommentEdit}
-              />
-            ))}
-          </div>
-        )}
+        <div>
+          {commentData.length > 0 && (
+            <div className={styles.commentBox}>
+              {commentData?.map(comment => (
+                <CommentBox
+                  key={comment.id}
+                  data={comment}
+                  assigneeId={cardData?.assignee?.id}
+                  onDeleteComment={handleCommentDelete}
+                  onEditComment={handleCommentEdit}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <div className={styles.infoBox}>
         <div className={styles.assigneeBox}>

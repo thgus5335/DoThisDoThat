@@ -49,6 +49,7 @@ interface TodoEditModalProps {
   data: Card;
 }
 
+//cardId, columnId를 props로 받아와야함
 const TodoEditModal = ({ data }: TodoEditModalProps) => {
   const [selectedNickname, setSelectedNickname] = useState(data.assignee?.nickname);
   const [selectedUserId, setSelectedUserId] = useState(data.assignee?.id);
