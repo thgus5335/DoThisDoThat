@@ -7,9 +7,10 @@ import BaseButton from '../components/common/Button/BaseButton';
 import Footer from '../components/common/Footer/Footer';
 import { MAIN_ARTICLE_LIST, SUB_ARTICLE_LIST } from '../constants/constant';
 import coverImg from '@/src/assets/images/coverImg.png';
-import logo from '@/src/assets/icons/logoBig.svg';
+import logo from '@/public/Title.png';
 import styles from './index.module.scss';
 import { getTokenFromLocalStorage } from '../utils/authUtils';
+import test from '@/public/Logo.png';
 
 export default function Home() {
   const router = useRouter();
@@ -28,11 +29,11 @@ export default function Home() {
       <div className={styles.homePageLayout}>
         <section className={styles.mainSection}>
           <div className={styles.coverImg}>
-            <Image src={coverImg} alt="대표 이미지" layout="responsive" />
+            <Image src={test} alt="대표 이미지" />
           </div>
           <div className={styles.mainTextBox}>
-            <h1 className={styles.mainTitle}>새로운 일정 관리</h1>
-            <Image src={logo} alt="로고" width={327} height={65} />
+            {/* <h1 className={styles.mainTitle}>새로운 일정 관리</h1> */}
+            <Image className={styles.logoTitle} src={logo} alt="로고" />
           </div>
           <Link href={'/Login'}>
             <BaseButton size={'medium'}>로그인하기</BaseButton>
@@ -69,8 +70,8 @@ export default function Home() {
             ))}
           </div>
         </section>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 }
