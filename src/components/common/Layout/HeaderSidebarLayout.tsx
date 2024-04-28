@@ -3,18 +3,16 @@ import Sidebar from '@/src/components/common/Sidebar/Sidebar';
 import styles from './HeaderSidebarLayout.module.scss';
 
 interface Props {
-  type: 'simple' | 'complex';
+  dashboardId?: number;
   title?: string;
   hasBackward?: boolean;
-  // isOwner?: boolean;
-  // hasMember?: boolean;
   children: React.ReactNode;
 }
 
-const HeaderSidebarLayout = ({ type, title, hasBackward = true, children }: Props) => {
+const HeaderSidebarLayout = ({ dashboardId, title, hasBackward = true, children }: Props) => {
   return (
     <div className={styles.headerSidebarLayout}>
-      <Header type={type} title={title} hasBackward={hasBackward} />
+      <Header title={title} dashboardId={dashboardId} hasBackward={hasBackward} />
       <Sidebar />
       {children}
     </div>

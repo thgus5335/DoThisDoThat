@@ -1,5 +1,11 @@
 import createHttpClient from './createHttpClient';
-import { ColumnListResponse, CardListResponse, DashboardListResponse } from '@/src/apis/schema/dashboardResponse';
+import {
+  ColumnListResponse,
+  CardListResponse,
+  DashboardListResponse,
+  MemberListResponse,
+  DashboardDetailResponse,
+} from '@/src/apis/schema/dashboardResponse';
 
 const httpClient = createHttpClient();
 
@@ -9,6 +15,13 @@ export const dashboardHttp = {
   getCardList: async (columnId: number) =>
     await httpClient.get<CardListResponse>(`/cards?size=10&columnId=${columnId}`),
   // delete: async () => await httpClient.delete<ColumnResponse>(`/columns?dashboardId=${n}`),
+};
+
+export const headerHttp = {
+  getDashboardDetail: async (dashboardId: number) =>
+    await httpClient.get<DashboardDetailResponse>(`/dashboards/${dashboardId}`),
+  getMemberList: async (dashboardId: number) =>
+    await httpClient.get<MemberListResponse>(`/members?page=1&size=20&dashboardId=${dashboardId}`),
 };
 
 export const sidebarHttp = {

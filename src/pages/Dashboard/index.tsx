@@ -13,7 +13,7 @@ import NewColumnModal from '@/src/components/Modal/ModalType/NewColumnModal/NewC
 import useModal from '@/src/hooks/useModal';
 import { useRouter } from 'next/router';
 
-const Dashboard: NextPageWithLayout = () => {
+const Dashboard = () => {
   const router = useRouter();
   const dashboardId = Number(router.query.dashboardId);
   const { modalState, openModal, closeModal } = useModal();
@@ -30,27 +30,25 @@ const Dashboard: NextPageWithLayout = () => {
 
   return (
     <>
-      {modalState && (
-        <DoubleButtonModal size={'small'} isOpen={modalState} onClose={closeModal}>
-          <NewColumnModal />
-        </DoubleButtonModal>
-      )}
-      <div className={styles.dashboard}>
-        {columnList &&
-          columnList.map(column => <Column columnId={column.id} columnTitle={column.title} key={column.id} />)}
+      <HeaderSidebarLayout dashboardId={dashboardId}>
+        {modalState && (
+          <DoubleButtonModal size={'small'} isOpen={modalState} onClose={closeModal}>
+            <NewColumnModal />
+          </DoubleButtonModal>
+        )}
+        <div className={styles.dashboard}>
+          {columnList &&
+            columnList.map(column => <Column columnId={column.id} columnTitle={column.title} key={column.id} />)}
 
-        <div className={styles.addColumn}>
-          <DashboardButton type={'columnLarge'} onClick={() => openModal()}>
-            새로운 컬럼 추가하기
-          </DashboardButton>
+          <div className={styles.addColumn}>
+            <DashboardButton type={'columnLarge'} onClick={() => openModal()}>
+              새로운 컬럼 추가하기
+            </DashboardButton>
+          </div>
         </div>
-      </div>
+      </HeaderSidebarLayout>
     </>
   );
-};
-
-Dashboard.getLayout = function getLayout(page: ReactElement) {
-  return <HeaderSidebarLayout type="complex">{page}</HeaderSidebarLayout>;
 };
 
 export default Dashboard;

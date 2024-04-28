@@ -37,6 +37,32 @@ export interface CardListResponse {
   cursorId: number;
 }
 
+export interface DashboardDetailResponse {
+  id: number;
+  title: string;
+  color: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: number;
+  createdByMe: boolean;
+}
+
+export interface MemberListResponse {
+  members: [
+    {
+      id: number;
+      email: string;
+      nickname: string;
+      profileImageUrl?: string;
+      createdAt: string;
+      updatedAt: string;
+      isOwner: boolean;
+      userId: number;
+    }
+  ];
+  totalCount: number;
+}
+
 export interface DashboardListResponse {
   dashboards: [
     {
