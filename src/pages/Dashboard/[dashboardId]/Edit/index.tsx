@@ -1,5 +1,5 @@
 import DashboardDeleteButton from '@/src/components/common/Button/DashboardDeleteButton';
-import { NextPageWithLayout } from '../_app';
+import { NextPageWithLayout } from '../../../_app';
 import { ReactElement, useEffect, useState } from 'react';
 import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
 import Image from 'next/image';
@@ -20,8 +20,7 @@ import NewInviteModal from '@/src/components/Modal/ModalType/NewInviteModal/NewI
 
 const Edit: NextPageWithLayout = () => {
   const router = useRouter();
-  // const dashboardId = router.query.dashboardId
-  const dashboardId = 5916;
+  const dashboardId = Number(router.query.dashboardId);
 
   const [dashboardInfo, setDashboardInfo] = useState(initialDashboardInfo);
   const [isUpdateTrigger, setIsUpdateTrigger] = useState<boolean>(false);

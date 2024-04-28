@@ -45,9 +45,7 @@ const Sidebar = () => {
         <ul className={styles.dashboardList}>
           {dashboardList &&
             dashboardList.map(dashboard => (
-              <li
-                key={dashboard.id}
-                onClick={() => router.replace({ pathname: `/Dashboard`, query: { dashboardId: dashboard.id } })}>
+              <li key={dashboard.id} onClick={() => router.replace({ pathname: `/Dashboard/${dashboard.id}` })}>
                 <div className={styles.dashboard}>
                   <div className={styles.color} style={{ backgroundColor: `${dashboard.color}` }} />
                   <div className={styles.name}>{dashboard.title}</div>

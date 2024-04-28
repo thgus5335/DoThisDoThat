@@ -18,13 +18,15 @@ const Dashboard = () => {
   const { modalState, openModal, closeModal } = useModal();
   const [columnList, setColumnList] = useState<ColumnList[]>([]);
 
-  const loadColumnList = async () => {
+  const loadColumnList = async (dashboardId: number) => {
     const response = await dashboardHttp.getColumnList(dashboardId);
     setColumnList(response.data);
   };
 
   useEffect(() => {
-    loadColumnList();
+    if (dashboardId) {
+      loadColumnList(dashboardId);
+    }
   }, [dashboardId]);
 
   return (
@@ -36,22 +38,22 @@ const Dashboard = () => {
           </DoubleButtonModal>
         )}
         <div className={styles.dashboard}>
-          <div className={styles.columnContainer}>
-            {columnList &&
-              columnList.map(column => (
-                <>
-                  <Column columnId={column.id} columnTitle={column.title} key={column.id} />
-                  <div className={styles.line} />
-                </>
-              ))}
+          {/* <div className={styles.columnContainer}> */}
+          {columnList &&
+            columnList.map(column => (
+              <>
+                <Column key={column.id} columnId={column.id} columnTitle={column.title} />
+                <div className={styles.line} />
+              </>
+            ))}
 
-            <div className={styles.addColumn}>
-              <DashboardButton type={'columnLarge'} onClick={() => openModal()}>
-                새로운 컬럼 추가하기
-              </DashboardButton>
-            </div>
+          <div className={styles.addColumn}>
+            <DashboardButton type={'columnLarge'} onClick={() => openModal()}>
+              새로운 컬럼 추가하기
+            </DashboardButton>
           </div>
         </div>
+        {/* </div> */}
       </HeaderSidebarLayout>
     </>
   );

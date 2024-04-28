@@ -39,12 +39,12 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
     setmemberList(response.members);
   };
 
-  if (dashboardId) {
-    useEffect(() => {
+  useEffect(() => {
+    if (dashboardId) {
       loadDashboardDetail(dashboardId);
       loadMemberList(dashboardId);
-    }, [dashboardId]);
-  }
+    }
+  }, [dashboardId]);
 
   const isOwner = dashboardDetail?.createdByMe;
   const dashboardTitle = title ? title : dashboardDetail?.title;
@@ -69,8 +69,7 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
     <>
       {modalState && (
         <DoubleButtonModal size={'small'} isOpen={modalState} onClose={closeModal}>
-          {/* props : dashboardId 보내주기! */}
-          <NewInviteModal />
+          <NewInviteModal dashboardId={dashboardId} />
         </DoubleButtonModal>
       )}
       <header className={styles.header}>
@@ -84,16 +83,12 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
         <div className={styles.operation}>
           {isOwner && (
             <div className={styles.buttonGroup}>
-              <button>
-                <Image
-                  src={iconSetting}
-                  onClick={() => router.push({ pathname: `/dashboard/${5911}/edit`, query: { dashboardId: 5911 } })}
-                  alt={`관리하기 버튼.`}
-                />
+              <button onClick={() => router.push({ pathname: `/Dashboard/${dashboardId}/Edit` })}>
+                <Image src={iconSetting} alt={`관리하기 버튼.`} />
                 관리
               </button>
-              <button>
-                <Image src={iconAdd} onClick={() => openModal()} alt={`초대하기 버튼.`} />
+              <button onClick={() => openModal()}>
+                <Image src={iconAdd} alt={`초대하기 버튼.`} />
                 초대하기
               </button>
             </div>
@@ -104,14 +99,19 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
                 className={styles.memberprofileGroup}
                 onMouseOver={handleMemberDropdown}
                 onMouseOut={handleMemberDropdown}>
-                {memberList && memberList.map(member => <div className={styles.memberProfile}>{member.nickname}</div>)}
+                {memberList &&
+                  memberList.map(member => (
+                    <div key={member.id} className={styles.memberProfile}>
+                      {member.nickname}
+                    </div>
+                  ))}
                 <div className={styles.plusProfile}>+9</div>
                 {isMemberDropdown && (
                   <div className={styles.dropdown}>
                     <div className={styles.memberList}>
                       {memberList &&
                         memberList.map(member => (
-                          <div className={styles.member}>
+                          <div className={styles.member} key={member.id}>
                             <div className={styles.memberProfile}>{member.nickname}</div>
                             <p className={styles.memberName}>{member.nickname}</p>
                           </div>

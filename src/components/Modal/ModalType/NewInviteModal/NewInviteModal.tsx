@@ -29,7 +29,7 @@ const NewInviteModal = ({ dashboardId, onClose }: any) => {
       window.alert('성공적으로 초대되었습니다.');
       console.log('성공적으로 초대되었습니다.');
       onClose();
-    } catch (error) {
+    } catch (error: any) {
       console.error('초대에 실패했습니다:', error);
       window.alert(error.response.data.message);
     }

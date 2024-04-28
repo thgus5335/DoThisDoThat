@@ -19,12 +19,10 @@ interface Props {
 const Column = ({ columnId, columnTitle }: Props) => {
   const { modalState: createToDoState, openModal: openCreateToDo, closeModal: closeCreateToDo } = useModal();
   const { modalState: editColumnState, openModal: openEditColumn, closeModal: closeEditColumn } = useModal();
-  const [cardList, setCardList] = useState<dashboard.Cards[]>([]);
   const [cardTotal, setCardTotal] = useState<dashboard.CardList['totalCount']>(0);
 
   const loadCardList = async () => {
     const data = await dashboardHttp.getCardList(columnId);
-    setCardList(data.cards);
     setCardTotal(data.totalCount);
   };
 
