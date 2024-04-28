@@ -78,3 +78,12 @@ export interface DashboardListResponse {
   totalCount: number;
   cursorId: any;
 }
+
+export interface UserInfoResponse {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImageUrl: any;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -4,6 +4,7 @@ import {
   DashboardDetailResponse,
   DashboardListResponse,
   MemberListResponse,
+  UserInfoResponse,
 } from '../apis/schema/dashboardResponse';
 
 export type ColumnList = ColumnListResponse['data'][number];
@@ -17,7 +18,6 @@ export type Cards = CardListResponse['cards'][number];
 export type Assignee = Cards['assignee'];
 
 export interface DashboardList {
-  map(arg0: (dashboard: any) => import('react').JSX.Element): import('react').ReactNode;
   dashboards: Dashboards;
   totalCount: number;
   cursorId: any;
@@ -31,3 +31,5 @@ export interface MemberList {
   totalCount: number;
 }
 export type Members = MemberListResponse['members'][number];
+
+export type UserInfo = UserInfoResponse;

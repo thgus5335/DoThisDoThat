@@ -5,6 +5,7 @@ import {
   DashboardListResponse,
   MemberListResponse,
   DashboardDetailResponse,
+  UserInfoResponse,
 } from '@/src/apis/schema/dashboardResponse';
 
 const httpClient = createHttpClient();
@@ -22,6 +23,7 @@ export const headerHttp = {
     await httpClient.get<DashboardDetailResponse>(`/dashboards/${dashboardId}`),
   getMemberList: async (dashboardId: number) =>
     await httpClient.get<MemberListResponse>(`/members?page=1&size=20&dashboardId=${dashboardId}`),
+  getUserInfo: async () => await httpClient.get<UserInfoResponse>('users/me'),
 };
 
 export const sidebarHttp = {

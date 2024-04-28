@@ -13,7 +13,7 @@ import router from 'next/router';
 import DoubleButtonModal from '../../Modal/DoubleButtonModal';
 import NewInviteModal from '../../Modal/ModalType/NewInviteModal/NewInviteModal';
 import useModal from '@/src/hooks/useModal';
-import { DashboardDetail, Members } from '@/src/types/dashboard';
+import { DashboardDetail, Members, UserInfo } from '@/src/types/dashboard';
 import { headerHttp } from '@/src/apis/dashboard';
 
 interface Props {
@@ -28,6 +28,9 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
   const [isDropdown, setIsDropdown] = useState(false);
   const [dashboardDetail, setDashboardDetail] = useState<DashboardDetail>();
   const [memberList, setmemberList] = useState<Members[]>([]);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  const myProfileText = userInfo?.profileImageUrl ? '' : userInfo?.nickname.substring(0, 1);
 
   const loadDashboardDetail = async (dashboardId: number) => {
     const response = await headerHttp.getDashboardDetail(dashboardId);
@@ -39,10 +42,16 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
     setmemberList(response.members);
   };
 
+  const loadUserInfo = async () => {
+    const response = await headerHttp.getUserInfo();
+    setUserInfo(response);
+  };
+
   useEffect(() => {
     if (dashboardId) {
       loadDashboardDetail(dashboardId);
       loadMemberList(dashboardId);
+      loadUserInfo();
     }
   }, [dashboardId]);
 
@@ -102,7 +111,7 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
                 {memberList &&
                   memberList.map(member => (
                     <div key={member.id} className={styles.memberProfile}>
-                      {member.nickname}
+                      {member.nickname.substring(0, 1)}
                     </div>
                   ))}
                 <div className={styles.plusProfile}>+9</div>
@@ -112,7 +121,7 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
                       {memberList &&
                         memberList.map(member => (
                           <div className={styles.member} key={member.id}>
-                            <div className={styles.memberProfile}>{member.nickname}</div>
+                            <div className={styles.memberProfile}>{member.nickname.substring(0, 1)}</div>
                             <p className={styles.memberName}>{member.nickname}</p>
                           </div>
                         ))}
@@ -125,8 +134,8 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
             </>
           )}
           <div className={styles.myprofileGroup} onClick={handleDropdown} ref={dropdownRef}>
-            <div className={styles.myProfile}>박</div>
-            <p className={styles.myName}>박이름</p>
+            <div className={styles.myProfile}>{myProfileText}</div>
+            <p className={styles.myName}>{userInfo?.nickname}</p>
             <Image width={30} height={30} src={iconDropDown} alt={`프로필 메뉴.`} />
             {isDropdown && (
               <div className={styles.dropdown}>
