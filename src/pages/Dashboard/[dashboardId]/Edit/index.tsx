@@ -1,7 +1,5 @@
 import DashboardDeleteButton from '@/src/components/common/Button/DashboardDeleteButton';
-import { NextPageWithLayout } from '../../../_app';
-import { ReactElement, useEffect, useState } from 'react';
-import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import TaskButton from '@/src/components/common/Button/TaskButton';
@@ -18,7 +16,7 @@ import styles from './Edit.module.scss';
 import DoubleButtonModal from '@/src/components/Modal/DoubleButtonModal';
 import NewInviteModal from '@/src/components/Modal/ModalType/NewInviteModal/NewInviteModal';
 
-const Edit: NextPageWithLayout = () => {
+const Edit = () => {
   const router = useRouter();
   const dashboardId = Number(router.query.dashboardId);
 
@@ -302,10 +300,6 @@ const Edit: NextPageWithLayout = () => {
       </div>
     </>
   );
-};
-
-Edit.getLayout = function getLayout(page: ReactElement) {
-  return <HeaderSidebarLayout>{page}</HeaderSidebarLayout>;
 };
 
 export default Edit;
