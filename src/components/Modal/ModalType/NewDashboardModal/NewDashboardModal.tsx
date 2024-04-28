@@ -20,10 +20,10 @@ const NewDashboardModal = () => {
     setSelectColor(color);
   };
 
-  const handleCreateDashboard = () => {
+  const handleCreateDashboard = async () => {
     //서버로 생성 요청 보내는 로직 추가
     try {
-      httpClient.post('/dashboards', {
+      await httpClient.post('/dashboards', {
         title: input,
         color: selectColor,
       });
