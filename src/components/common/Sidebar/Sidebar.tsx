@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import styles from './Sidebar.module.scss';
 
-import iconlogo from '@/src/assets/icons/headerLogo.svg';
-import icontitle from '@/src/assets/icons/headerTitle.svg';
+import iconlogo from '@/public/Logo.png';
+import icontitle from '@/public/Title.png';
 import iconAdd from '@/src/assets/icons/addBox.svg';
 import iconCrown from '@/src/assets/icons/crownIcon.svg';
 
@@ -10,8 +10,8 @@ const Sidebar = () => {
   return (
     <div className={styles.sidebar}>
       <div className={styles.logoTitle}>
-        <Image src={iconlogo} alt="로고." />
-        <Image src={icontitle} alt="일해라절해라." />
+        <Image width={60} height={60} layout="intrinsic" src={iconlogo} alt="로고." />
+        <Image width={120} height={22} layout="intrinsic" src={icontitle} alt="일해라절해라." />
       </div>
       <div className={styles.sidebarTitle}>
         <p>Dash Boards</p>
