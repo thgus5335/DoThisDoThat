@@ -29,6 +29,7 @@ const Edit = () => {
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
   const [isInviteModalOpen, setIsInviteModalOpen] = useState<boolean>(false);
+  // const [isDeleteDashboardModalOpen, setIsDeleteDashboardModalOpen] = useState<boolean>(false);
   const [memberList, setMemberList] = useState<MemberList[]>([]);
   const [invitationList, setInvitationList] = useState<InvitationList[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -166,6 +167,11 @@ const Edit = () => {
           <NewInviteModal dashboardId={dashboardId} onClose={() => setIsInviteModalOpen(false)} />
         </DoubleButtonModal>
       )}
+      {/* {isDeleteDashboardModalOpen && (
+        <SingleButtonModal isOpen onClick={handleDashboardDelete} onClose={() => setIsDeleteDashboardModalOpen(false)}>
+          " {dashboardInfo.title} " 대시보드를 삭제하겠습니까 ?
+        </SingleButtonModal>
+      )} */}
       <HeaderSidebarLayout dashboardId={dashboardId}>
         <div className={styles.editpageLayout}>
           <section className={styles.editpageSection}>

@@ -1,19 +1,7 @@
 .editpageLayout {
+  width: 100%;
   padding: 2.5rem;
   background: #fafafa;
-}
-
-.backBtn {
-  @include text-m(500);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2.5rem;
-  color: $black_33;
-  font-style: normal;
-  gap: 0.6rem;
-  line-height: normal;
 }
 
 .editpageSection {
