@@ -1,8 +1,9 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, useRef, ChangeEvent } from 'react';
 import Image from 'next/image';
 import defaultUser from '@/src/assets/images/defaultUser.png';
 import styles from './AssigneeDropdown.module.scss';
 import httpClient from '@/src/apis/httpClient';
+import useClickOutside from '@/src/hooks/useClickOutside';
 
 type User = {
   id: number;
@@ -23,6 +24,7 @@ const AssigneeDropdown = ({ onNicknameSelect = () => {} }: AssigneeDropdownProps
   const [isOpen, setIsOpen] = useState(false);
   const [selectedNickname, setSelectedNickname] = useState<string>('');
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const dropdownRef = useRef(null);
   //console.log(typeof onNicknameSelect);
 
   useEffect(() => {
@@ -39,6 +41,8 @@ const AssigneeDropdown = ({ onNicknameSelect = () => {} }: AssigneeDropdownProps
     fetchUsers();
   }, []);
 
+  useClickOutside(dropdownRef, setIsOpen);
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const searchText = e.target.value;
     setSelectedNickname(searchText);
@@ -53,7 +57,7 @@ const AssigneeDropdown = ({ onNicknameSelect = () => {} }: AssigneeDropdownProps
   };
 
   return (
-    <div className={styles.dropDownContainer}>
+    <div className={styles.dropDownContainer} ref={dropdownRef}>
       <label className={styles.label}>담당자</label>
       <div className={styles.inputContainer}>
         <input

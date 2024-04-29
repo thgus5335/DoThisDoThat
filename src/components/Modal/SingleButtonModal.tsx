@@ -24,11 +24,18 @@ const SingleButtonModal = ({ children, isOpen, onClose }: SingleButtonModalProps
     return () => window.removeEventListener('keydown', keyHandler);
   }, [onClose]);
 
+  // 모달 배경 클릭 시 모달 닫기 로직
+  function onBackgroundClick(e: React.MouseEvent) {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }
+
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className={styles.modalBackground}>
-      <div className={styles.modalContainer}>
+    <div className={styles.modalBackground} onClick={onBackgroundClick}>
+      <div className={styles.modalContainer} onClick={e => e.stopPropagation()}>
         {children}
         <div className={styles.okButton}>
           <ModalButton size={'large'} color={'violet'} onClick={onClose}>

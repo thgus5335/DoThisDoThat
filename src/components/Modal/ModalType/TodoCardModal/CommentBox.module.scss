@@ -70,3 +70,14 @@
   line-height: normal;
   text-decoration-line: underline;
 }
+
+.editInput {
+  @include text-s(400);
+
+  border: 1px solid $gray_D9;
+  border-radius: 4px;
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+  resize: none;
+}
