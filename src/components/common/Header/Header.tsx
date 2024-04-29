@@ -38,7 +38,6 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
   }, [dashboardId]);
 
   const isOwner = dashboardDetail?.createdByMe;
-  const dashboardTitle = title ? title : dashboardDetail?.title;
 
   return (
     <>
@@ -50,11 +49,23 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
       <header className={styles.header}>
         <div className={styles.titleContainer}>
           {hasBackward && (
-            <Image width={20} height={20} src={iconBackward} onClick={() => router.back()} alt={`뒤로 가기.`} />
+            <Image
+              className={styles.iconBackward}
+              width={20}
+              height={20}
+              src={iconBackward}
+              onClick={() => router.back()}
+              alt={`뒤로 가기.`}
+            />
           )}
-          <p className={styles.title}>{dashboardTitle}</p>
-          {isOwner && <Image src={iconCrown} alt={`대시보드.`} />}
+          {title ? (
+            <p className={styles.title}>{title}</p>
+          ) : (
+            <p className={styles.titleDetail}>{dashboardDetail?.title}</p>
+          )}
+          {isOwner && <Image className={styles.iconCrown} src={iconCrown} alt={`대시보드.`} />}
         </div>
+
         <div className={styles.operation}>
           {isOwner && (
             <div className={styles.buttonGroup}>

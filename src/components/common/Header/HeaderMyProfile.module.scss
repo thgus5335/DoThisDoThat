@@ -14,6 +14,7 @@
     display: flex;
     width: 3.8rem;
     height: 3.8rem;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
     border: 0.2rem solid $white_FF;
@@ -63,5 +64,11 @@
 
   &:hover {
     background-color: $gray_EE;
+  }
+}
+
+@include media(mobile) {
+  .myName {
+    display: none;
   }
 }
