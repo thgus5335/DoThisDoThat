@@ -9,6 +9,7 @@ import Title from '@/src/assets/images/Title.png';
 import Image from 'next/image';
 
 export default function Login() {
+  const [buttonSize, setButtonSize] = useState<'large' | 'medium'>('large');
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -34,6 +35,21 @@ export default function Login() {
   useEffect(() => {
     checkFormValidity(formErrors, formData);
   }, [formData, formErrors]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setButtonSize('medium');
+      } else {
+        setButtonSize('large');
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const setFormError = (name: 'email' | 'password', newError: string) => {
     setFormErrors(prevErrors => {
@@ -117,7 +133,7 @@ export default function Login() {
             validate={validatePassword}
             setFormError={setFormError}
           />
-          <BaseButton size="large" isDisabled={!isSubmitEnabled} onClick={handleButtonClick}>
+          <BaseButton size={buttonSize} isDisabled={!isSubmitEnabled} onClick={handleButtonClick}>
             로그인
           </BaseButton>
           <div className={styles.goToLogin}>
