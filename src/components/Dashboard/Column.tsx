@@ -4,6 +4,7 @@ import iconSetting from '@/src/assets/icons/setting.svg';
 import styles from './Column.module.scss';
 import { useEffect, useState } from 'react';
 import { dashboardHttp } from '@/src/apis/dashboard';
+import HeartPaper from '@/src/assets/images/heartPaper.png';
 import CardList from './CardList';
 import DashboardButton from '../common/Button/DashboardButton';
 import DoubleButtonModal from '../Modal/DoubleButtonModal';
@@ -45,8 +46,8 @@ const Column = ({ dashboardId, columnId, columnTitle }: Props) => {
       <div className={styles.column}>
         <div className={styles.columnInfo}>
           <div className={styles.columnTitle}>
-            <div className={styles.color} />
-            <p>{columnTitle}</p>
+            <Image className={styles.iconColumn} src={HeartPaper} alt={'컬럼 아이콘.'} />
+            <p className={styles.title}>{columnTitle}</p>
             <div className={styles.number}>{cardTotal}</div>
           </div>
           <Image src={iconSetting} onClick={() => setEditColumnModal(true)} alt="컬럼 환경설정." />

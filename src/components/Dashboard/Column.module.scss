@@ -21,11 +21,16 @@
     gap: 0.8rem;
   }
 
-  .color {
-    width: 0.8rem;
-    height: 0.8rem;
-    border-radius: 50%;
-    background-color: $pink_E8;
+  .iconColumn {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .title {
+    overflow: hidden;
+    width: 22rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .number {

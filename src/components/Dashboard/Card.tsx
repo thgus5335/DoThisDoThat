@@ -9,6 +9,8 @@ import { createDate } from '@/src/utils/createDate';
 import useModal from '@/src/hooks/useModal';
 import NormalModal from '../Modal/NormalModal';
 import TodoCardModal from '../Modal/ModalType/TodoCardModal/TodoCardModal';
+import { getRandomcolorForPrefix } from '@/src/utils/makeRandomColor';
+import TagChip from '../Modal/ModalInput/TagInput/TagChip';
 
 interface Props {
   card: Cards;
@@ -54,15 +56,7 @@ const Card = ({ card }: Props) => {
         )}
         <p className={styles.cardTitle}>{card.title}</p>
         <div className={styles.tagContainer}>
-          {card.tags &&
-            card.tags.map(
-              (tag, index) =>
-                index < MAX_TAG && (
-                  <p key={index} className={styles.tag}>
-                    {tag}
-                  </p>
-                )
-            )}
+          {card.tags && card.tags.map((tag, index) => index < MAX_TAG && <TagChip key={index} name={tag} />)}
           {exTag > 0 && <p className={styles.tag}>{`+${exTag}`}</p>}
         </div>
 

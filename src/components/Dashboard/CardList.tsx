@@ -36,8 +36,6 @@ const CardList = ({ columnId }: Props) => {
     if (cursorId) loadCardList(cursorId);
   }, [inView]);
 
-  console.log(cursorId);
-
   return (
     <div className={styles.cardList}>
       {cardList && cardList.map(card => <Card key={card.id} card={card} />)}
