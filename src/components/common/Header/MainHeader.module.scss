@@ -16,6 +16,16 @@
   padding: 0.4rem 0.2rem 0 0.4rem;
 }
 
+@include media(mobile) {
+  .mainHeader {
+    padding: 2rem;
+  }
+
+  .headerTitle {
+    display: none;
+  }
+}
+
 .linkBox {
   display: flex;
   gap: 3rem;
