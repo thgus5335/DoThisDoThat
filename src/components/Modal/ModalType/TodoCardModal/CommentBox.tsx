@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 import httpClient from '@/src/apis/httpClient';
 import styles from './CommentBox.module.scss';
+import router from 'next/router';
 
 type Comment = {
   id: number;
@@ -18,11 +19,10 @@ type Comment = {
 
 interface CommentBoxProps {
   data: Comment;
-  assigneeId: number | undefined;
   onDeleteComment?: (commentId: number) => Promise<void>;
 }
 
-const CommentBox = ({ data, assigneeId, onDeleteComment }: CommentBoxProps) => {
+const CommentBox = ({ data, onDeleteComment }: CommentBoxProps) => {
   const [commentEdit, setCommentEdit] = useState<string>(data?.content);
   const [isModify, setIsModify] = useState<boolean>(false);
 
@@ -36,7 +36,7 @@ const CommentBox = ({ data, assigneeId, onDeleteComment }: CommentBoxProps) => {
     return format(date, 'yyyy.MM.dd HH:mm');
   };
 
-  //댓글 수정 핸들러 (로직 수정 필요)
+  //댓글 수정 핸들러
   const handleCommentEdit = async (commentId: number, content: string) => {
     try {
       const response = await httpClient.put(`/comments/${commentId}`, {
@@ -44,13 +44,53 @@ const CommentBox = ({ data, assigneeId, onDeleteComment }: CommentBoxProps) => {
       });
       console.log('댓글 수정 성공:', response.data);
       window.alert('댓글이 수정되었습니다.');
-      window.location.reload();
+      router.reload();
       ///fetchCommentData();
       //fetchCommentData(cursorId);
     } catch (error) {
       console.error('댓글 수정 실패:', error);
     }
   };
+
+  //로그인된 사용자의 아이디를 토큰으로부터 가져오기
+  function getIdFromJWT() {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      console.log('토큰이 저장되어 있지 않습니다.');
+      return null;
+    }
+
+    try {
+      // JWT의 payload 부분만 디코딩
+      const base64Url = token.split('.')[1];
+      if (!base64Url) {
+        console.log('토큰 형식이 올바르지 않습니다.');
+        return null;
+      }
+      // Base64로 인코딩된 URL을 디코딩
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const payload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join('')
+      );
+
+      // JSON 객체로 파싱
+      const parsedPayload = JSON.parse(payload);
+      // 아이디를 추출
+      const id = parsedPayload.id;
+      return id;
+    } catch (error) {
+      console.error('토큰 디코드 중 오류가 발생했습니다:', error);
+      return null;
+    }
+  }
+
+  // 사용자 ID 추출
+  const userId = getIdFromJWT();
 
   return (
     <div className={styles.commentContainer}>
@@ -79,7 +119,7 @@ const CommentBox = ({ data, assigneeId, onDeleteComment }: CommentBoxProps) => {
         ) : (
           <div className={styles.commentContent}>{data?.content}</div>
         )}
-        {data?.author?.id === assigneeId ? ( //담당자 id가 아니라, 로그인된 id로 비교해야함;;
+        {data?.author?.id === userId ? ( //담당자 id가 아니라, 로그인된 id로 비교해야함;;
           <div className={styles.commentMenu}>
             <button className={styles.commentEdit} onClick={() => setIsModify(true)}>
               수정

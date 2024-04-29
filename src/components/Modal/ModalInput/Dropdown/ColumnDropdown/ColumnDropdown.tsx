@@ -12,10 +12,11 @@ type ColumnData = {
 };
 
 interface ColumnDropdownProps {
+  dashboardId: number;
   onColumnSelect: (columnId: number) => void;
 }
 
-const ColumnDropdown = ({ onColumnSelect = () => {} }: ColumnDropdownProps) => {
+const ColumnDropdown = ({ dashboardId, onColumnSelect = () => {} }: ColumnDropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedColumn, setSelectedColumn] = useState<string>('');
   const [columns, setColumns] = useState<ColumnData[]>([]);
@@ -23,7 +24,7 @@ const ColumnDropdown = ({ onColumnSelect = () => {} }: ColumnDropdownProps) => {
   useEffect(() => {
     const fetchColumns = async () => {
       try {
-        const response = await httpClient.get('/columns?dashboardId=5911');
+        const response = await httpClient.get(`/columns?dashboardId=${dashboardId}`);
         const columns = response.data.data;
         setColumns(columns);
       } catch (error) {

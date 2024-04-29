@@ -13,6 +13,14 @@
   line-height: normal;
 }
 
+.star {
+  @include text-l(500);
+
+  color: $violet_55;
+  font-style: normal;
+  line-height: normal;
+}
+
 .dateBox {
   display: flex;
   width: 45rem;
