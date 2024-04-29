@@ -1,0 +1,74 @@
+.myprofileGroup {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: $gray_EE;
+  }
+
+  .myProfile {
+    @include text-m(600);
+
+    display: flex;
+    width: 3.8rem;
+    height: 3.8rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border: 0.2rem solid $white_FF;
+    border-radius: 50%;
+    background-color: $white_FF;
+    color: $white_FF;
+  }
+
+  .myName {
+    @include text-m(500);
+
+    display: flex;
+    align-items: center;
+    margin-left: 0.6rem;
+    color: $black_33;
+  }
+}
+
+.dropdown {
+  @include text-m(400);
+
+  position: absolute;
+  top: 6.4rem;
+  right: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.6rem;
+  border: 0.1rem solid $gray_D9;
+  border-radius: 0.8rem;
+  background: $white_FF;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.myNav {
+  display: flex;
+  width: 12rem;
+  height: 3rem;
+  align-items: center;
+  padding: 0 0.6rem;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: $gray_EE;
+  }
+}
+
+@include media(mobile) {
+  .myName {
+    display: none;
+  }
+}

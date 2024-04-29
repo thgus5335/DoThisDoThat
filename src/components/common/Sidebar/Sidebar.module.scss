@@ -4,7 +4,8 @@
   top: 0;
   left: 0;
   display: flex;
-  width: 30rem;
+  width: 100%;
+  max-width: 30rem;
   flex-direction: column;
   flex-shrink: 0;
   padding: 2rem 0;
@@ -17,6 +18,18 @@
   align-items: center;
   padding: 0 2.4rem;
   gap: 0.6rem;
+
+  .logo {
+    width: 4rem;
+    height: fit-content;
+    object-fit: contain;
+  }
+
+  .title {
+    width: 10rem;
+    height: fit-content;
+    object-fit: contain;
+  }
 }
 
 .sidebarTitle {
@@ -65,12 +78,53 @@
 .color {
   width: 0.8rem;
   height: 0.8rem;
+  flex-shrink: 0;
   border-radius: 50%;
   background-color: $gray_78;
 }
 
-.iconCrown {
-  height: 0.05rem;
+@include media(tablet) {
+  .sidebar {
+    max-width: 20rem;
+  }
+
+  .dashboardList > li {
+    @include text-m(500);
+
+    width: 17rem;
+    white-space: wrap;
+  }
+}
+
+@include media(mobile) {
+  .sidebar {
+    max-width: 7rem;
+  }
+
+  .dashboardList > li {
+    width: 2rem;
+  }
+
+  .titleName {
+    display: none;
+  }
+
+  .logo {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+
+  .title {
+    display: none;
+  }
+
+  .name {
+    display: none;
+  }
+
+  .iconCrown {
+    display: none;
+  }
 }
 
 @include media(tablet) {

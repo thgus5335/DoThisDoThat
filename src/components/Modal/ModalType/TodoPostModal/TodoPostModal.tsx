@@ -10,6 +10,7 @@ import DateInput from '../../ModalInput/DateInput/DateInput';
 import TagInput from '../../ModalInput/TagInput/TagInput';
 import ImageInput from '../../ModalInput/ImageInput/ImageInput';
 import TagChip from '../../ModalInput/TagInput/TagChip';
+import router from 'next/router';
 
 //4-16/cards로 post 요청 보내는 모달
 /*request body 형태 예시 {
@@ -26,7 +27,7 @@ import TagChip from '../../ModalInput/TagInput/TagChip';
 }*/
 
 //props로 dashboardID, columnID 받아야함
-const TodoPostModal = () => {
+const TodoPostModal = ({ dashboardId, columnId, onClose }: any) => {
   const [selectedNickname, setSelectedNickname] = useState('');
   const [selectedUserId, setSelectedUserId] = useState(0);
   const [title, setTitle] = useState('');
@@ -68,6 +69,10 @@ const TodoPostModal = () => {
 
   //태그 생성 함수
   const createTags = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) {
+      return;
+    }
+
     if (e.key === 'Enter') {
       e.preventDefault();
       const newTag = tagName.trim();
@@ -85,7 +90,7 @@ const TodoPostModal = () => {
     formData.append('image', file);
 
     httpClient
-      .post('/columns/20334/card-image', formData, {
+      .post(`/columns/${columnId}/card-image`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -102,20 +107,25 @@ const TodoPostModal = () => {
   //할 일 생성 버튼 클릭 시, 할 일 생성 요청을 보내는 함수
   const handleSubmit = async (e: any) => {
     e.preventDefault(); //전체 폼 제출 시, 엔터키 눌렀을때 제출 방지
+
+    const requestBody = {
+      dashboardId: dashboardId,
+      columnId: columnId,
+      title: title,
+      description: description,
+      dueDate: formatDate(selectedDate),
+      tags: tags,
+      ...(selectedUserId > 0 && { assigneeUserId: selectedUserId }), // 조건부 속성 추가
+      ...(image && { imageUrl: image }), // 조건부 속성 추가
+    };
+
     //서버로 전송
     await httpClient
-      .post('/cards', {
-        assigneeUserId: selectedUserId,
-        dashboardId: 5911,
-        columnId: 20334, //아이디들은 추후 변경 예정
-        title: title,
-        description: description,
-        dueDate: formatDate(selectedDate),
-        tags: tags,
-        imageUrl: image,
-      })
+      .post('/cards', requestBody)
       .then(response => {
         console.log('할 일 생성 성공:', response.data);
+        onClose();
+        router.reload();
       })
       .catch(error => {
         console.error('할 일 생성 오류:', error);
@@ -126,7 +136,7 @@ const TodoPostModal = () => {
     <div className={styles.modalContainer}>
       <div className={styles.modalName}>할 일 생성</div>
       <form className={styles.todoForm} onSubmit={handleSubmit}>
-        <AssigneeDropdown onNicknameSelect={handleNicknameChange} />
+        <AssigneeDropdown onNicknameSelect={handleNicknameChange} dashboardId={dashboardId} />
         <TitleInput value={title} onChange={handleTitle} />
         <DescriptionInput value={description} onChange={handleDescription} />
         <DateInput onDateSelect={handleDateChange} />

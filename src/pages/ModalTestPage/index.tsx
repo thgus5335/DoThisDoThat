@@ -47,20 +47,20 @@ export default function ModalTestPage() {
 
       {/* 모달 쓰는 방법!!
 
-         할일 카드 모달 (TodoCardModal)*/}
+         할일 카드 모달 (TodoCardModal)
       <button onClick={openModal}>Open TodoCardModal</button>
       {modalState && (
         <NormalModal isOpen={modalState} onClose={closeModal}>
           <TodoCardModal cardId={6490} dashboardId={5911} />
         </NormalModal>
-      )}
-      {/* 할일 생성 모달 (TodoPostModal)
+      )}*/}
+      {/* 할일 생성 모달 (TodoPostModal)*/}
       <button onClick={openModal}>Open TodoPostModal</button>
       {modalState && (
         <DoubleButtonModal size={'large'} isOpen={modalState} onClose={closeModal}>
           <TodoPostModal />
         </DoubleButtonModal>
-      )}*/}
+      )}
       {/* 새 컬럼 생성 모달 (NewColumnModal)
       <button onClick={openModal}>Open NewColumnModal</button>
       {modalState && (

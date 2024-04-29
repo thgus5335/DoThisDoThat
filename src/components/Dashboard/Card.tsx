@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import styles from './Card.module.scss';
 import calendarIcon from '@/src/assets/icons/calendar.svg';
@@ -9,6 +9,8 @@ import { createDate } from '@/src/utils/createDate';
 import useModal from '@/src/hooks/useModal';
 import NormalModal from '../Modal/NormalModal';
 import TodoCardModal from '../Modal/ModalType/TodoCardModal/TodoCardModal';
+import { getRandomcolorForPrefix } from '@/src/utils/makeRandomColor';
+import TagChip from '../Modal/ModalInput/TagInput/TagChip';
 
 interface Props {
   card: Cards;
@@ -39,43 +41,40 @@ const Card = ({ card }: Props) => {
       )}
       <div className={styles.card} onClick={() => openModal()}>
         {card.imageUrl && (
-          <Image
-            className={styles.cardImage}
-            width={274}
-            height={16}
-            src={card.imageUrl}
-            layout="intrinsic"
-            onError={handleImageError}
-            alt="카드 이미지."
-          />
+          <div className={styles.cardImage}>
+            <Image
+              className={styles.cardImage}
+              width={274}
+              height={160}
+              src={card.imageUrl}
+              layout="fixed"
+              onError={handleImageError}
+              alt="카드 이미지."
+              priority
+            />
+          </div>
         )}
         <p className={styles.cardTitle}>{card.title}</p>
         <div className={styles.tagContainer}>
-          {card.tags &&
-            card.tags.map(
-              (tag, index) =>
-                index < MAX_TAG && (
-                  <p key={index} className={styles.tag}>
-                    {tag}
-                  </p>
-                )
-            )}
+          {card.tags && card.tags.map((tag, index) => index < MAX_TAG && <TagChip key={index} name={tag} />)}
           {exTag > 0 && <p className={styles.tag}>{`+${exTag}`}</p>}
         </div>
 
         <div className={styles.dateContainer}>
           <Image src={calendarIcon} alt="카드 생성 날짜." />
-          <p>{createCard}</p>
+          <p className={styles.date}>{createCard}</p>
         </div>
         {card.assignee &&
           (card.assignee?.profileImageUrl ? (
-            <Image
-              className={styles.profile}
-              width={24}
-              height={24}
-              src={card.assignee?.profileImageUrl}
-              alt="담당자 프로필."
-            />
+            <div className={styles.profile}>
+              <Image
+                className={styles.profile}
+                width={24}
+                height={24}
+                src={card.assignee?.profileImageUrl}
+                alt="담당자 프로필."
+              />
+            </div>
           ) : (
             <div className={styles.profile}>P</div>
           ))}

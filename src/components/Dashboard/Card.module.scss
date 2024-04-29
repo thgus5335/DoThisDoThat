@@ -13,7 +13,7 @@
 .cardImage {
   display: flex;
   width: 27.4rem;
-  height: 16rem;
+  height: auto;
   align-items: center;
   justify-content: center;
   border-radius: 6px;
@@ -28,19 +28,20 @@
 }
 
 .tagContainer {
+  @include text-xs(400);
+
   display: flex;
+  align-items: center;
   margin-top: 1rem;
-  gap: 0.6rem;
+  gap: 0.4rem;
 }
 
 .tag {
   display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 0.4rem 0.6rem;
   border-radius: 4px;
-  background-color: $pink_F7;
-  color: $pink_E8;
+  background-color: $gray_D9;
+  color: $black_33;
 }
 
 .dateContainer {
@@ -50,7 +51,11 @@
   align-items: center;
   margin-top: 1.2rem;
   color: $gray_78;
-  gap: 0.6rem;
+  gap: 0.4rem;
+
+  .date {
+    margin-top: 0.2rem;
+  }
 }
 
 .profile {

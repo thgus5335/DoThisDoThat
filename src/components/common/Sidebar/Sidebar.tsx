@@ -24,29 +24,22 @@ const Sidebar = () => {
 
   useEffect(() => {
     loadDashboardList();
-  }, []);
+  }, [modalState]);
 
   return (
     <>
       {modalState && (
         <DoubleButtonModal size={'small'} isOpen={modalState} onClose={closeModal}>
-          <NewDashboardModal />
+          <NewDashboardModal onClose={closeModal} />
         </DoubleButtonModal>
       )}
       <div className={styles.sidebar}>
         <div className={styles.logoTitle} onClick={() => router.push('/Mydashboard')}>
-          <Image width={60} height={60} layout="intrinsic" src={iconlogo} alt="로고." />
-          <Image
-            width={120}
-            height={22}
-            layout="intrinsic"
-            src={icontitle}
-            alt="일해라절해라."
-            className={styles.iconTitle}
-          />
+          <Image className={styles.logo} src={iconlogo} alt="로고." />
+          <Image className={styles.title} src={icontitle} priority alt="일해라절해라." />
         </div>
         <div className={styles.sidebarTitle}>
-          <p>Dash Boards</p>
+          <p className={styles.titleName}>Dash Boards</p>
           <Image src={iconAdd} onClick={() => openModal()} alt="대시보드 생성하기." />
         </div>
         <ul className={styles.dashboardList}>
@@ -57,7 +50,11 @@ const Sidebar = () => {
                   <div className={styles.color} style={{ backgroundColor: `${dashboard.color}` }} />
                   <div className={styles.name}>{dashboard.title}</div>
                 </div>
-                {dashboard.createdByMe && <Image src={iconCrown} alt={`내가 만든 대시보드.`} />}
+                {dashboard.createdByMe ? (
+                  <Image className={styles.iconCrown} src={iconCrown} alt={`내가 만든 대시보드.`} />
+                ) : (
+                  <div className={styles.noneIconCrown}></div>
+                )}
               </li>
             ))}
         </ul>

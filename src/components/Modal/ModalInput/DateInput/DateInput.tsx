@@ -20,7 +20,9 @@ const DateInput = ({ onDateSelect = () => {} }: DateInputProps) => {
 
   return (
     <div className={styles.dateContainer}>
-      <label className={styles.label}>마감일</label>
+      <label className={styles.label}>
+        마감일 <span className={styles.star}>*</span>
+      </label>
       <div className={styles.dateBox}>
         <Image src={calendar} width={20} height={20} alt="달력" />
         <DatePicker
