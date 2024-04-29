@@ -152,7 +152,7 @@ const TodoEditModal = ({ data }: TodoEditModalProps) => {
         console.log('할 일 수정 성공:', response.data);
         window.alert('할 일 수정이 완료되었습니다.');
         //페이지 새로고침
-        window.location.reload(); //다른 방식으로 새로고침 로직 수정 필요
+        window.location.reload();
       })
       .catch(error => {
         console.error('할 일 수정 오류:', error);

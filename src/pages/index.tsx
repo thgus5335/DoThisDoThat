@@ -6,10 +6,9 @@ import MainHeader from '../components/common/Header/MainHeader';
 import BaseButton from '../components/common/Button/BaseButton';
 import Footer from '../components/common/Footer/Footer';
 import { MAIN_ARTICLE_LIST, SUB_ARTICLE_LIST } from '../constants/constant';
-import coverImg from '@/src/assets/images/coverImg.png';
-import logo from '@/src/assets/icons/logoBig.svg';
-import styles from './index.module.scss';
 import { getTokenFromLocalStorage } from '../utils/authUtils';
+import coverImage from '@/src/assets/images/coverImage.png';
+import styles from './index.module.scss';
 
 export default function Home() {
   const router = useRouter();
@@ -27,13 +26,7 @@ export default function Home() {
       <MainHeader />
       <div className={styles.homePageLayout}>
         <section className={styles.mainSection}>
-          <div className={styles.coverImg}>
-            <Image src={coverImg} alt="대표 이미지" layout="responsive" />
-          </div>
-          <div className={styles.mainTextBox}>
-            <h1 className={styles.mainTitle}>새로운 일정 관리</h1>
-            <Image src={logo} alt="로고" width={327} height={65} />
-          </div>
+          <Image className={styles.coverImg} src={coverImage} alt="대표 이미지" />
           <Link href={'/Login'}>
             <BaseButton size={'medium'}>로그인하기</BaseButton>
           </Link>
@@ -46,7 +39,13 @@ export default function Home() {
                 <h2 className={styles.mainArticleDescription}>{description}</h2>
               </div>
               <div className={styles.mainArticleImg}>
-                <Image src={image} alt="일해라 절해라 메인 소개 이미지" width={width} height={height} />
+                <Image
+                  src={image}
+                  alt="일해라 절해라 메인 소개 이미지"
+                  width={width}
+                  height={height}
+                  layout="intrinsic"
+                />
               </div>
             </article>
           ))}
@@ -69,8 +68,8 @@ export default function Home() {
             ))}
           </div>
         </section>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 }
