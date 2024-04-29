@@ -76,7 +76,13 @@ const Card = ({ card }: Props) => {
               />
             </div>
           ) : (
-            <div className={styles.profile}>P</div>
+            <div
+              className={styles.profile}
+              style={{
+                backgroundColor: getRandomcolorForPrefix(card.assignee.nickname.substring(0, 1)).color,
+              }}>
+              {card.assignee.nickname.substring(0, 1)}
+            </div>
           ))}
       </div>
     </>
