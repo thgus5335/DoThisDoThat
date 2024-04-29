@@ -27,8 +27,6 @@ const NewDashboardModal = ({ onClose }: any) => {
         title: input,
         color: selectColor,
       });
-      window.alert('새 대시보드가 생성되었습니다.');
-      console.log('새 대시보드 생성에 성공했습니다.');
       onClose();
     } catch (error) {
       console.error('새 대시보드 생성에 실패했습니다:', error);
