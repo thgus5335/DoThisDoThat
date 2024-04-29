@@ -16,8 +16,8 @@ export const dashboardHttp = {
 
   getCardList: async (columnId: number, cursorId?: number) =>
     cursorId
-      ? await httpClient.get<CardListResponse>(`/cards?size=10&cursorId=${cursorId}&columnId=${columnId}`)
-      : await httpClient.get<CardListResponse>(`/cards?size=10&columnId=${columnId}`),
+      ? await httpClient.get<CardListResponse>(`/cards?size=5&cursorId=${cursorId}&columnId=${columnId}`)
+      : await httpClient.get<CardListResponse>(`/cards?size=5&columnId=${columnId}`),
 };
 
 export const headerHttp = {
