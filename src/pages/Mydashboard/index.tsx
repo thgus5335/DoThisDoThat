@@ -59,20 +59,24 @@ const Mydashboard: NextPageWithLayout = () => {
   );
   const [dashboardLinkSize, setDashboardLinkSize] = useState<'large' | 'medium' | 'small'>('large');
   const [paginationSize, setPaginationSize] = useState<'large' | 'small'>('large');
+  const [taskbuttonSize, setTaskbuttonSize] = useState<'large' | 'medium' | 'long' | 'small'>('large');
 
   const adjustDashboardSize = () => {
     if (window.innerWidth < 768) {
       setDashboardSize('dashboardSmall');
       setDashboardLinkSize('small');
-      setPaginationSize('large');
+      setPaginationSize('small');
+      setTaskbuttonSize('long');
     } else if (window.innerWidth >= 768 && window.innerWidth < 1200) {
       setDashboardSize('dashboardMedium');
       setDashboardLinkSize('medium');
       setPaginationSize('large');
+      setTaskbuttonSize('small');
     } else {
       setDashboardSize('dashboardLarge');
       setDashboardLinkSize('large');
-      setPaginationSize('small');
+      setPaginationSize('large');
+      setTaskbuttonSize('large');
     }
   };
 
@@ -259,10 +263,13 @@ const Mydashboard: NextPageWithLayout = () => {
                         {invitation.inviter.nickname}
                       </div>
                       <div className={`${styles.invitedListColumn} ${styles.button}`}>
-                        <TaskButton size="large" color="violet" onClick={() => acceptInvitation(invitation.id)}>
+                        <TaskButton
+                          size={taskbuttonSize}
+                          color="violet"
+                          onClick={() => acceptInvitation(invitation.id)}>
                           수락
                         </TaskButton>
-                        <TaskButton size="large" color="white" onClick={() => rejectInvitation(invitation.id)}>
+                        <TaskButton size={taskbuttonSize} color="white" onClick={() => rejectInvitation(invitation.id)}>
                           거절
                         </TaskButton>
                       </div>

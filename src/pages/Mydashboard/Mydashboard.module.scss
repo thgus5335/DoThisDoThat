@@ -151,11 +151,11 @@
 
 @include media(tablet) {
   .newDashboard {
-    grid-template-columns: repeat(2, 26rem);
+    grid-template-columns: repeat(2, 25rem);
   }
 
   .pagination {
-    width: calc(2 * 26rem + 3 * 1.3rem);
+    width: calc(2 * 25rem + 3 * 1.3rem);
   }
 
   .invitedDashboard {
