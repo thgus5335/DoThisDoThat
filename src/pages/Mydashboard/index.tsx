@@ -1,6 +1,6 @@
 import DashboardButton from '@/src/components/common/Button/DashboardButton';
 import styles from './Mydashboard.module.scss';
-import React, { useState, useEffect, ReactElement } from 'react';
+import React, { useState, useEffect, ReactElement, use } from 'react';
 import DashboardLinkButton, { dashboardData } from '@/src/components/common/Button/DashboardLinkButton';
 import { fetchDashboards } from '@/src/apis/myDashboardService';
 import PagenationButton from '@/src/components/common/Button/PagenationButton';
@@ -54,6 +54,36 @@ const Mydashboard: NextPageWithLayout = () => {
   const [nextCursorId, setNextCursorId] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dashboardSize, setDashboardSize] = useState<'dashboardLarge' | 'dashboardMedium' | 'dashboardSmall'>(
+    'dashboardLarge'
+  );
+  const [dashboardLinkSize, setDashboardLinkSize] = useState<'large' | 'medium' | 'small'>('large');
+  const [paginationSize, setPaginationSize] = useState<'large' | 'small'>('large');
+
+  const adjustDashboardSize = () => {
+    if (window.innerWidth < 768) {
+      setDashboardSize('dashboardSmall');
+      setDashboardLinkSize('small');
+      setPaginationSize('large');
+    } else if (window.innerWidth >= 768 && window.innerWidth < 1200) {
+      setDashboardSize('dashboardMedium');
+      setDashboardLinkSize('medium');
+      setPaginationSize('large');
+    } else {
+      setDashboardSize('dashboardLarge');
+      setDashboardLinkSize('large');
+      setPaginationSize('small');
+    }
+  };
+
+  useEffect(() => {
+    adjustDashboardSize();
+    window.addEventListener('resize', adjustDashboardSize);
+
+    return () => {
+      window.removeEventListener('resize', adjustDashboardSize);
+    };
+  }, []);
 
   useEffect(() => {
     loadDashboardData(currentPage);
@@ -167,7 +197,7 @@ const Mydashboard: NextPageWithLayout = () => {
         <div className={styles.newDashboard}>
           <div>
             <div>
-              <DashboardButton type="dashboardLarge" onClick={handleOpenModal}>
+              <DashboardButton type={dashboardSize} onClick={handleOpenModal}>
                 새로운 대시보드
               </DashboardButton>
               {isModalOpen && (
@@ -181,7 +211,7 @@ const Mydashboard: NextPageWithLayout = () => {
             <DashboardLinkButton
               key={dashboard.id}
               dashboardData={dashboard}
-              size="large"
+              size={dashboardLinkSize}
               onClick={() => router.push({ pathname: `/Dashboard`, query: { dashboardId: dashboard.id } })}
             />
           ))}
@@ -192,7 +222,7 @@ const Mydashboard: NextPageWithLayout = () => {
             {totalPages} 페이지 중 {currentPage}
           </div>
           <PagenationButton
-            size="large"
+            size={paginationSize}
             isDisabledLeft={currentPage <= 1}
             isDisabledRight={currentPage >= totalPages}
             onClickLeft={() => handlePageChange(currentPage - 1)}
@@ -220,8 +250,14 @@ const Mydashboard: NextPageWithLayout = () => {
                 {invitations.length > 0 ? (
                   filteredInvitations.map(invitation => (
                     <div key={invitation.id} className={styles.invitedListItem}>
-                      <div className={styles.invitedListColumn}>{invitation.dashboard.title}</div>
-                      <div className={styles.invitedListColumn}>{invitation.inviter.nickname}</div>
+                      <div className={styles.invitedListColumn}>
+                        <span className={styles.onlyInMobile}>이름</span>
+                        {invitation.dashboard.title}
+                      </div>
+                      <div className={styles.invitedListColumn}>
+                        <span className={styles.onlyInMobile}>초대자</span>
+                        {invitation.inviter.nickname}
+                      </div>
                       <div className={`${styles.invitedListColumn} ${styles.button}`}>
                         <TaskButton size="large" color="violet" onClick={() => acceptInvitation(invitation.id)}>
                           수락

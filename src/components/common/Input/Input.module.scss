@@ -30,12 +30,18 @@
 
 .toggleButton {
   position: absolute;
+  top: 2.2rem;
+  right: 1.5rem;
   color: $gray_9F;
-  right: 15px;
-  top: 22px;
 }
 
 .icon {
   width: 24px;
   height: 24px;
+}
+
+@include media(mobile) {
+  .input {
+    width: 35.1rem;
+  }
 }

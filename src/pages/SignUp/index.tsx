@@ -24,6 +24,7 @@ interface FormErrors {
 }
 
 export default function SignUp() {
+  const [buttonSize, setButtonSize] = useState<'large' | 'medium'>('large');
   const [formData, setFormData] = useState({
     email: '',
     nickname: '',
@@ -63,6 +64,22 @@ export default function SignUp() {
   useEffect(() => {
     checkFormValidity(checkboxAgreed, formErrors, formData);
   }, [formData, formErrors, checkboxAgreed]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setButtonSize('medium');
+      } else {
+        setButtonSize('large');
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const setFormError = (name: 'email' | 'nickname' | 'password' | 'confirmPassword', newError: string) => {
     setFormErrors(prevErrors => {
@@ -185,7 +202,7 @@ export default function SignUp() {
             <input type="checkbox" className={styles.agreeCheck} onChange={() => setCheckboxAgreed(!checkboxAgreed)} />
             <div className={styles.agreeMessage}>이용약관에 동의합니다.</div>
           </div>
-          <BaseButton size="large" isDisabled={!isSubmitEnabled} onClick={handleButtonClick}>
+          <BaseButton size={buttonSize} isDisabled={!isSubmitEnabled} onClick={handleButtonClick}>
             회원가입
           </BaseButton>
           {isModalOpen && (

@@ -85,3 +85,9 @@
     display: none !important;
   }
 }
+
+@include media(mobile) {
+  .header {
+    height: 6rem;
+  }
+}
