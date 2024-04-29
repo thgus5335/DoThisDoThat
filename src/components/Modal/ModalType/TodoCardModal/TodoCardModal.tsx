@@ -220,12 +220,7 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
           {commentData.length > 0 && (
             <div className={styles.commentBox}>
               {commentData?.map(comment => (
-                <CommentBox
-                  key={comment?.id}
-                  data={comment}
-                  assigneeId={cardData?.assignee?.id}
-                  onDeleteComment={handleCommentDelete}
-                />
+                <CommentBox key={comment?.id} data={comment} onDeleteComment={handleCommentDelete} />
               ))}
               <div ref={ref} />
             </div>
