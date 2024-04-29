@@ -47,10 +47,12 @@ type Card = {
 
 interface TodoEditModalProps {
   data: Card;
+  cardId: number;
+  dashboardId: number;
 }
 
 //cardId, columnId를 props로 받아와야함
-const TodoEditModal = ({ data }: TodoEditModalProps) => {
+const TodoEditModal = ({ data, cardId, dashboardId }: TodoEditModalProps) => {
   const [selectedNickname, setSelectedNickname] = useState(data.assignee?.nickname);
   const [selectedUserId, setSelectedUserId] = useState(data.assignee?.id);
   const [selectedColumnId, setSelectedColumnId] = useState(data.columnId);
@@ -120,7 +122,7 @@ const TodoEditModal = ({ data }: TodoEditModalProps) => {
     formData.append('image', file);
 
     httpClient
-      .post('/columns/20334/card-image', formData, {
+      .post(`/columns/${selectedColumnId}/card-image`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -139,7 +141,7 @@ const TodoEditModal = ({ data }: TodoEditModalProps) => {
     e.preventDefault(); //전체 폼 제출 시, 엔터키 눌렀을때 제출 방지
     //서버로 전송
     await httpClient
-      .put('/cards/4990', {
+      .put(`/cards/${cardId}`, {
         columnId: selectedColumnId,
         assigneeUserId: selectedUserId,
         title: title,
@@ -164,7 +166,7 @@ const TodoEditModal = ({ data }: TodoEditModalProps) => {
       <div className={styles.modalName}>할 일 수정</div>
       <form className={styles.todoForm} onSubmit={handleSubmit}>
         <div className={styles.dropDownContainer}>
-          <AssigneeDropdown onNicknameSelect={handleNicknameChange} />
+          <AssigneeDropdown dashboardId={dashboardId} onNicknameSelect={handleNicknameChange} />
           <ColumnDropdown onColumnSelect={handleColumnChange} />
         </div>
         <TitleInput value={title} onChange={handleTitle} />
