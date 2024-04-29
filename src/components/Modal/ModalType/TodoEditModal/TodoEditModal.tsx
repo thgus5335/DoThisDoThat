@@ -1,5 +1,6 @@
 import { useState, ChangeEvent, KeyboardEvent } from 'react';
 import { format } from 'date-fns';
+import router from 'next/router';
 import httpClient from '@/src/apis/httpClient';
 import styles from './TodoEditModal.module.scss';
 import ModalButton from '../../ModalButton/ModalButton';
@@ -47,10 +48,12 @@ type Card = {
 
 interface TodoEditModalProps {
   data: Card;
+  cardId: number;
+  dashboardId: number;
 }
 
 //cardId, columnId를 props로 받아와야함
-const TodoEditModal = ({ data }: TodoEditModalProps) => {
+const TodoEditModal = ({ data, cardId, dashboardId }: TodoEditModalProps) => {
   const [selectedNickname, setSelectedNickname] = useState(data.assignee?.nickname);
   const [selectedUserId, setSelectedUserId] = useState(data.assignee?.id);
   const [selectedColumnId, setSelectedColumnId] = useState(data.columnId);
@@ -98,6 +101,10 @@ const TodoEditModal = ({ data }: TodoEditModalProps) => {
 
   //태그 생성 함수
   const createTags = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) {
+      return;
+    }
+
     if (e.key === 'Enter') {
       e.preventDefault();
       const newTag = tagName.trim();
@@ -120,7 +127,7 @@ const TodoEditModal = ({ data }: TodoEditModalProps) => {
     formData.append('image', file);
 
     httpClient
-      .post('/columns/20334/card-image', formData, {
+      .post(`/columns/${selectedColumnId}/card-image`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -137,22 +144,25 @@ const TodoEditModal = ({ data }: TodoEditModalProps) => {
   //할 일 생성 버튼 클릭 시, 할 일 생성 요청을 보내는 함수
   const handleSubmit = async (e: any) => {
     e.preventDefault(); //전체 폼 제출 시, 엔터키 눌렀을때 제출 방지
+
+    const requestBody = {
+      columnId: selectedColumnId,
+      assigneeUserId: selectedUserId ?? null,
+      title: title,
+      description: description,
+      dueDate: formatDate(selectedDate),
+      tags: tags,
+      ...(image && { imageUrl: image }), // 조건부 속성 추가
+    };
+
     //서버로 전송
     await httpClient
-      .put('/cards/4990', {
-        columnId: selectedColumnId,
-        assigneeUserId: selectedUserId,
-        title: title,
-        description: description,
-        dueDate: formatDate(selectedDate),
-        tags: tags,
-        imageUrl: image,
-      })
+      .put(`/cards/${cardId}`, requestBody)
       .then(response => {
         console.log('할 일 수정 성공:', response.data);
         window.alert('할 일 수정이 완료되었습니다.');
         //페이지 새로고침
-        window.location.reload();
+        router.reload();
       })
       .catch(error => {
         console.error('할 일 수정 오류:', error);
@@ -164,8 +174,8 @@ const TodoEditModal = ({ data }: TodoEditModalProps) => {
       <div className={styles.modalName}>할 일 수정</div>
       <form className={styles.todoForm} onSubmit={handleSubmit}>
         <div className={styles.dropDownContainer}>
-          <AssigneeDropdown onNicknameSelect={handleNicknameChange} />
-          <ColumnDropdown onColumnSelect={handleColumnChange} />
+          <AssigneeDropdown dashboardId={dashboardId} onNicknameSelect={handleNicknameChange} />
+          <ColumnDropdown dashboardId={dashboardId} onColumnSelect={handleColumnChange} />
         </div>
         <TitleInput value={title} onChange={handleTitle} />
         <DescriptionInput value={description} onChange={handleDescription} />

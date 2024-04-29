@@ -1,4 +1,5 @@
 .modalContainer {
+  z-index: 1;
   margin: 3.2rem 2.8rem;
 }
 
@@ -13,6 +14,7 @@
 
 .todoForm {
   position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
