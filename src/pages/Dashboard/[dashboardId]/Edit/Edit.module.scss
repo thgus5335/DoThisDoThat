@@ -150,10 +150,16 @@
 }
 
 .profileImg {
+  @include text-m(600);
+
+  position: relative;
+  display: flex;
   width: 3.8rem;
   height: 3.8rem;
-  border-radius: 9999px;
-  background-color: #9dd7ed;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: $white_FF;
 }
 
 .members {

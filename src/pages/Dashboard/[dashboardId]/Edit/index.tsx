@@ -16,6 +16,7 @@ import styles from './Edit.module.scss';
 import DoubleButtonModal from '@/src/components/Modal/DoubleButtonModal';
 import NewInviteModal from '@/src/components/Modal/ModalType/NewInviteModal/NewInviteModal';
 import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
+import { getRandomcolorForPrefix } from '@/src/utils/makeRandomColor';
 
 const Edit = () => {
   const router = useRouter();
@@ -229,11 +230,11 @@ const Edit = () => {
             </div>
             <p className={styles.infoCategory}>이름</p>
             <div className={styles.members}>
-              {memberList.map(member => (
+              {memberList.map((member, index) => (
                 <div key={member.id} className={styles.memberInfo}>
                   <div className={styles.imgAndNickname}>
                     <div className={styles.profileImg}>
-                      {member.profileImageUrl && (
+                      {member.profileImageUrl ? (
                         <Image
                           className={styles.profileImg}
                           src={member.profileImageUrl}
@@ -241,6 +242,16 @@ const Edit = () => {
                           width={38}
                           height={38}
                         />
+                      ) : (
+                        <div
+                          className={styles.profileImg}
+                          style={{
+                            left: `${index * -1}rem`,
+                            backgroundColor: getRandomcolorForPrefix(member.nickname.substring(0, 1)).color,
+                          }}
+                          key={member.id}>
+                          {member.nickname.substring(0, 1)}
+                        </div>
                       )}
                     </div>
                     <p className={styles.nickname}>{member.nickname}</p>
