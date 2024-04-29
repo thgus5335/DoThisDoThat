@@ -183,23 +183,27 @@ const Mypage: NextPageWithLayout = () => {
         </div>
       )}
       <div className={styles.mypageContent}>
-        <button className={styles.backBtn} onClick={() => router.back()}>
+        {/* <button className={styles.backBtn} onClick={() => router.back()}>
           <Image src={backIcon} alt="돌아가기" />
           <p>돌아가기</p>
-        </button>
+        </button> */}
         <section className={styles.mypageSection}>
           <h3 className={styles.title}>프로필</h3>
           <div className={styles.profileContent}>
             <div className={styles.imageUpload}>
               <label htmlFor="imageInputField" className={styles.imageInputButton}>
-                <Image
-                  className={styles.imagePreview}
-                  src={profileImage ? profileImage : addIcon}
-                  layout="responsive"
-                  width={30}
-                  height={30}
-                  alt="추가한 이미지"
-                />
+                {profileImage ? (
+                  <Image
+                    className={styles.imagePreview}
+                    src={profileImage}
+                    layout="responsive"
+                    width={30}
+                    height={30}
+                    alt="추가한 이미지"
+                  />
+                ) : (
+                  <Image className={styles.imagePreview} src={addIcon} width={30} height={30} alt="추가한 이미지" />
+                )}
               </label>
               <input
                 id="imageInputField"
