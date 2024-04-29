@@ -11,14 +11,11 @@ import DoubleButtonModal from '@/src/components/Modal/DoubleButtonModal';
 import NewColumnModal from '@/src/components/Modal/ModalType/NewColumnModal/NewColumnModal';
 import useModal from '@/src/hooks/useModal';
 import { useRouter } from 'next/router';
-import React from 'react';
-import ColumnEditDeleteModal from '@/src/components/Modal/ModalType/ColumnEditDeleteModal/ColumnEditDeleteModal';
 
 const Dashboard = () => {
   const router = useRouter();
   const dashboardId = Number(router.query.dashboardId);
   const { modalState, openModal, closeModal } = useModal();
-  const [editColumnModal, setEditColumnModal] = useState(false);
   const [columnList, setColumnList] = useState<ColumnList[]>([]);
 
   const loadColumnList = async (dashboardId: number) => {

@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { dashboardHttp } from '@/src/apis/dashboard';
 import CardList from './CardList';
 import DashboardButton from '../common/Button/DashboardButton';
-import useModal from '@/src/hooks/useModal';
 import DoubleButtonModal from '../Modal/DoubleButtonModal';
 import TodoPostModal from '../Modal/ModalType/TodoPostModal/TodoPostModal';
 import ColumnEditDeleteModal from '../Modal/ModalType/ColumnEditDeleteModal/ColumnEditDeleteModal';
