@@ -4,6 +4,9 @@ import defaultUser from '@/src/assets/images/defaultUser.png';
 import styles from './AssigneeDropdown.module.scss';
 import httpClient from '@/src/apis/httpClient';
 import useClickOutside from '@/src/hooks/useClickOutside';
+import { headerHttp } from '@/src/apis/dashboard';
+import { UserInfo } from '@/src/types/dashboard';
+import { getRandomcolorForPrefix } from '@/src/utils/makeRandomColor';
 
 type User = {
   id: number;
@@ -22,11 +25,24 @@ interface AssigneeDropdownProps {
 }
 
 const AssigneeDropdown = ({ onNicknameSelect = () => {}, dashboardId }: AssigneeDropdownProps) => {
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedNickname, setSelectedNickname] = useState<string>('');
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const dropdownRef = useRef(null);
   //console.log(typeof onNicknameSelect);
+
+  let myProfileText = '';
+  if (userInfo) {
+    myProfileText = userInfo?.profileImageUrl ? '' : userInfo?.nickname.substring(0, 1);
+  }
+
+  const { color, backgroundColor } = getRandomcolorForPrefix(myProfileText);
+
+  const loadUserInfo = async () => {
+    const response = await headerHttp.getUserInfo();
+    setUserInfo(response);
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -41,6 +57,10 @@ const AssigneeDropdown = ({ onNicknameSelect = () => {}, dashboardId }: Assignee
 
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    loadUserInfo();
+  }, [userInfo?.profileImageUrl]);
 
   useClickOutside(dropdownRef, setIsOpen);
 
@@ -78,13 +98,21 @@ const AssigneeDropdown = ({ onNicknameSelect = () => {}, dashboardId }: Assignee
                 onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'lavender')}
                 onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'white')}
                 onClick={() => handleSelectNickname(user.nickname, user.userId)}>
-                <Image
-                  width={24}
-                  height={24}
-                  src={user.profileImageUrl ? user.profileImageUrl : defaultUser}
-                  alt="프로필"
-                  className={styles.profileImage}
-                />
+                {user?.profileImageUrl ? (
+                  <Image
+                    width={24}
+                    height={24}
+                    src={user.profileImageUrl}
+                    alt="프로필"
+                    className={styles.profileImage}
+                  />
+                ) : (
+                  <div
+                    className={styles.myProfile}
+                    style={{ backgroundColor: getRandomcolorForPrefix(user.nickname.substring(0, 1)).color }}>
+                    {user.nickname.substring(0, 1)}
+                  </div>
+                )}
                 {user.nickname}
               </li>
             ))}

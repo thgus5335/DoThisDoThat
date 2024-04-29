@@ -11,6 +11,7 @@ import TagChip from '../../ModalInput/TagInput/TagChip';
 import CommentInput from '../../ModalInput/CommentInput/CommentInput';
 import CommentBox from './CommentBox';
 import kebab from '@/src/assets/icons/kebab.svg';
+import { getRandomcolorForPrefix } from '@/src/utils/makeRandomColor';
 
 type Card = {
   id: number;
@@ -55,10 +56,11 @@ type ColumnData = {
 
 interface Props {
   cardId: number;
+  columnId: number;
   dashboardId: number;
 }
 
-const TodoCardModal = ({ cardId, dashboardId }: Props) => {
+const TodoCardModal = ({ cardId, columnId, dashboardId }: Props) => {
   const [cardData, setCardData] = useState<Card>();
   const [commentData, setCommentData] = useState<Comment[]>([]);
   const [columnTitle, setColumnTitle] = useState<string | undefined>('');
@@ -69,6 +71,13 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { ref, inView } = useInView({ threshold: 0.1 });
+
+  let myProfileText = '';
+  if (cardData) {
+    myProfileText = cardData?.assignee?.profileImageUrl ? '' : (cardData?.assignee?.nickname ?? '').substring(0, 1);
+  }
+
+  const { color, backgroundColor } = getRandomcolorForPrefix(myProfileText);
 
   //카드 데이터 가져오기
   const fetchCardData = async () => {
@@ -103,9 +112,9 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
   const fetchColumnTitle = async () => {
     try {
       const response = await httpClient.get(`/columns?dashboardId=${dashboardId}`);
-      const column = response.data.data.find((column: ColumnData) => column.id === cardData?.columnId);
-      setColumnTitle(column?.title);
-      console.log(column?.title);
+      const exactColumn = response?.data?.data.find((column: ColumnData) => column?.id === columnId);
+      setColumnTitle(exactColumn?.title);
+      console.log(exactColumn?.title);
     } catch (error) {
       console.error('컬럼 데이터 가져오기 실패:', error);
     }
@@ -231,7 +240,13 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
         <div className={styles.assigneeBox}>
           <div className={styles.assigneeTitle}>담당자</div>
           <div className={styles.assigneeProfile}>
-            <img src={cardData?.assignee?.profileImageUrl} className={styles.profileImage} />
+            {cardData?.assignee?.profileImageUrl ? (
+              <img src={cardData?.assignee?.profileImageUrl} className={styles.profileImage} />
+            ) : (
+              <div className={styles.myProfile} style={{ backgroundColor: color }}>
+                {myProfileText}
+              </div>
+            )}
             <div className={styles.assigneeNickname}>{cardData?.assignee?.nickname}</div>
           </div>
         </div>

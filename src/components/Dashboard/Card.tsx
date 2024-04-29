@@ -36,7 +36,7 @@ const Card = ({ card }: Props) => {
     <>
       {modalState && (
         <NormalModal isOpen={modalState} onClose={closeModal}>
-          <TodoCardModal cardId={card.id} dashboardId={card.dashboardId} />
+          <TodoCardModal columnId={card.columnId} cardId={card.id} dashboardId={card.dashboardId} />
         </NormalModal>
       )}
       <div className={styles.card} onClick={() => openModal()}>

@@ -11,6 +11,21 @@
   border-radius: 50%;
 }
 
+.myProfile {
+  @include text-m(600);
+
+  display: flex;
+  width: 3.4rem;
+  height: 3.4rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 0.2rem solid $white_FF;
+  border-radius: 50%;
+  background-color: $white_FF;
+  color: $white_FF;
+}
+
 .commentBox {
   display: flex;
   flex-direction: column;
