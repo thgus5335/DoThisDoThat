@@ -69,6 +69,10 @@ const TodoPostModal = ({ dashboardId, columnId, onClose }: any) => {
 
   //태그 생성 함수
   const createTags = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) {
+      return;
+    }
+
     if (e.key === 'Enter') {
       e.preventDefault();
       const newTag = tagName.trim();
@@ -103,18 +107,21 @@ const TodoPostModal = ({ dashboardId, columnId, onClose }: any) => {
   //할 일 생성 버튼 클릭 시, 할 일 생성 요청을 보내는 함수
   const handleSubmit = async (e: any) => {
     e.preventDefault(); //전체 폼 제출 시, 엔터키 눌렀을때 제출 방지
+
+    const requestBody = {
+      dashboardId: dashboardId,
+      columnId: columnId,
+      title: title,
+      description: description,
+      dueDate: formatDate(selectedDate),
+      tags: tags,
+      ...(selectedUserId > 0 && { assigneeUserId: selectedUserId }), // 조건부 속성 추가
+      ...(image && { imageUrl: image }), // 조건부 속성 추가
+    };
+
     //서버로 전송
     await httpClient
-      .post('/cards', {
-        assigneeUserId: selectedUserId,
-        dashboardId: dashboardId,
-        columnId: columnId,
-        title: title,
-        description: description,
-        dueDate: formatDate(selectedDate),
-        tags: tags,
-        imageUrl: image,
-      })
+      .post('/cards', requestBody)
       .then(response => {
         console.log('할 일 생성 성공:', response.data);
         onClose();
