@@ -18,11 +18,10 @@ interface CommentBoxProps {
   data: Comment;
   assigneeId: number | undefined;
   onDeleteComment?: (commentId: number) => Promise<void>;
-  onEditComment?: (commentId: number, content: string) => Promise<void>;
 }
 
 //댓글 수정 기능 추가해야함
-const CommentBox = ({ data, assigneeId, onDeleteComment, onEditComment }: CommentBoxProps) => {
+const CommentBox = ({ data, assigneeId, onDeleteComment }: CommentBoxProps) => {
   const formatDate = (date: string) => {
     return format(date, 'yyyy.MM.dd HH:mm');
   };
@@ -30,20 +29,20 @@ const CommentBox = ({ data, assigneeId, onDeleteComment, onEditComment }: Commen
   return (
     <div className={styles.commentContainer}>
       <img
-        src={data.author?.profileImageUrl ? data.author?.profileImageUrl : '/assets/images/defaultUser.png'}
+        src={data?.author?.profileImageUrl ? data?.author?.profileImageUrl : '/assets/images/defaultUser.png'}
         alt="프로필 이미지"
         className={styles.commentAuthorProfile}
       />
       <div className={styles.commentBox}>
         <div className={styles.commentAuthor}>
-          <span className={styles.commentAuthorNickname}>{data.author?.nickname}</span>
-          <div className={styles.commentDate}>{formatDate(data.createdAt)}</div>
+          <span className={styles.commentAuthorNickname}>{data?.author?.nickname}</span>
+          <div className={styles.commentDate}>{formatDate(data?.createdAt)}</div>
         </div>
-        <div className={styles.commentContent}>{data.content}</div>
-        {data.author?.id === assigneeId ? ( //담당자 id가 아니라, 로그인된 id로 비교해야함;;
+        <div className={styles.commentContent}>{data?.content}</div>
+        {data?.author?.id === assigneeId ? ( //담당자 id가 아니라, 로그인된 id로 비교해야함;;
           <div className={styles.commentMenu}>
             <button className={styles.commentEdit}>수정</button>
-            <button className={styles.commentDelete} onClick={() => onDeleteComment && onDeleteComment(data.id)}>
+            <button className={styles.commentDelete} onClick={() => onDeleteComment && onDeleteComment(data?.id)}>
               삭제
             </button>
           </div>

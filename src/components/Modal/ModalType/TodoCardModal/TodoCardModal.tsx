@@ -1,6 +1,7 @@
+import { useState, useEffect, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 import styles from './TodoCardModal.module.scss';
 import Image from 'next/image';
-import { useState, useEffect, useRef } from 'react';
 import httpClient from '@/src/apis/httpClient';
 import useModal from '@/src/hooks/useModal';
 import DoubleButtonModal from '../../DoubleButtonModal';
@@ -63,6 +64,10 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
   const [commentInput, setCommentInput] = useState<string>('');
   const [isKebabOpen, setIsKebabOpen] = useState<boolean>(false);
   const { modalState, openModal, closeModal } = useModal();
+  const [cursorId, setCursorId] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const { ref, inView } = useInView({ threshold: 0.1 });
 
   //카드 데이터 가져오기
   const fetchCardData = async () => {
@@ -75,14 +80,21 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
   };
 
   //댓글 데이터 가져오기
-  const fetchCommentData = async () => {
+  const fetchCommentData = async (cursorId: number | null) => {
     try {
-      const response = await httpClient.get('/comments?size=10&cardId=${cardId}');
-      setCommentData(response.data.comments);
+      setLoading(true);
+      const cursorParam = cursorId ? `&cursorId=${cursorId}` : '';
+      const response = await httpClient.get(`/comments?size=10${cursorParam}&cardId=${cardId}`);
+      setCommentData(prev => [...prev, ...response.data.comments]);
+      setCursorId(response.data.cursorId);
+      setLoading(false);
+      //const response = await httpClient.get(`/comments?size=10&cardId=${cardId}`);
+      //setCommentData(response.data.comments);
       console.log(response.data);
       return response.data;
     } catch (error) {
       console.error('댓글 데이터 가져오기 실패:', error);
+      setLoading(false);
     }
   };
 
@@ -101,9 +113,16 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
   //컴포넌트가 마운트되면 카드 데이터, 댓글 데이터, 컬럼명 가져오기
   useEffect(() => {
     fetchCardData();
-    fetchCommentData();
+    fetchCommentData(null);
     fetchColumnTitle();
   }, []);
+
+  //무한 스크롤로 댓글 데이터 추가로 가져오기
+  useEffect(() => {
+    if (inView && cursorId && !loading) {
+      fetchCommentData(cursorId);
+    }
+  }, [inView, cursorId, loading]);
 
   //댓글 입력창 핸들러
   const handleCommentInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -120,8 +139,11 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
         dashboardId: cardData?.dashboardId,
       });
       console.log('댓글 작성 성공:', response.data);
+      window.alert('댓글이 작성되었습니다.');
+      window.location.reload();
+      //setCommentData(currentComments => [...currentComments, response.data.comment]);
       //fetchCommentData();
-      fetchCommentData();
+      fetchCommentData(cursorId);
       setCommentInput('');
     } catch (error) {
       console.error('댓글 작성 실패:', error);
@@ -136,7 +158,7 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
       });
       console.log('댓글 수정 성공:', response.data);
       ///fetchCommentData();
-      fetchCommentData();
+      //fetchCommentData(cursorId);
     } catch (error) {
       console.error('댓글 수정 실패:', error);
     }
@@ -147,8 +169,11 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
     try {
       const response = await httpClient.delete(`/comments/${commentId}`);
       console.log('댓글 삭제 성공:', response.data);
+      window.alert('댓글이 삭제되었습니다.');
+      window.location.reload();
+      //setCommentData(currentComments => currentComments.filter(comment => comment.id !== commentId));
       //fetchCommentData();
-      fetchCommentData();
+      fetchCommentData(cursorId);
     } catch (error) {
       console.error('댓글 삭제 실패:', error);
     }
@@ -209,13 +234,13 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
             <div className={styles.commentBox}>
               {commentData?.map(comment => (
                 <CommentBox
-                  key={comment.id}
+                  key={comment?.id}
                   data={comment}
                   assigneeId={cardData?.assignee?.id}
                   onDeleteComment={handleCommentDelete}
-                  onEditComment={handleCommentEdit}
                 />
               ))}
+              <div ref={ref} />
             </div>
           )}
         </div>
