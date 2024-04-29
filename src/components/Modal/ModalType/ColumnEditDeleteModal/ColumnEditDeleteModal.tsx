@@ -6,6 +6,7 @@ import httpClient from '@/src/apis/httpClient';
 import useModal from '@/src/hooks/useModal';
 import DoubleButtonModal from '../../DoubleButtonModal';
 import DeleteAlertModal from '../DeleteAlertModal/DeleteAlertModal';
+import router from 'next/router';
 
 type ColumnData = {
   id: number;
@@ -17,7 +18,7 @@ type ColumnData = {
 };
 
 //input 초깃값 설정하려면 columnId를 props로 받아와야함
-const ColumnEditDeleteModal = () => {
+const ColumnEditDeleteModal = ({ columnId, onClose }: any) => {
   const [input, setInput] = useState('');
   const { modalState, openModal, closeModal } = useModal();
   //const [columns, setColumns] = useState<ColumnData[]>([]);
@@ -42,11 +43,10 @@ const ColumnEditDeleteModal = () => {
 
   const handleEditColumn = async () => {
     try {
-      await httpClient.put('/columns/20334', {
+      await httpClient.put(`/columns/${columnId}`, {
         title: input,
       });
-      window.alert('컬럼이 수정되었습니다.');
-      console.log('컬럼 수정에 성공했습니다.');
+      onClose();
     } catch (error) {
       console.error('컬럼 수정에 실패했습니다:', error);
     }
@@ -54,9 +54,9 @@ const ColumnEditDeleteModal = () => {
 
   const handleDeleteColumn = async () => {
     try {
-      await httpClient.delete('/columns/20334');
-      window.alert('컬럼이 삭제되었습니다.');
-      console.log('컬럼 삭제에 성공했습니다.');
+      await httpClient.delete(`/columns/${columnId}`);
+      onClose();
+      router.reload();
     } catch (error) {
       console.error('컬럼 삭제에 실패했습니다:', error);
     }
