@@ -194,7 +194,7 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
         )}
         {modalState && cardData && (
           <DoubleButtonModal size={'large'} isOpen={modalState} onClose={closeModal}>
-            <TodoEditModal data={cardData} />
+            <TodoEditModal data={cardData} cardId={cardId} dashboardId={dashboardId} />
           </DoubleButtonModal>
         )}
       </div>
