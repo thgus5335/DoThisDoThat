@@ -101,6 +101,10 @@ const TodoEditModal = ({ data, cardId, dashboardId }: TodoEditModalProps) => {
 
   //태그 생성 함수
   const createTags = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) {
+      return;
+    }
+
     if (e.key === 'Enter') {
       e.preventDefault();
       const newTag = tagName.trim();
