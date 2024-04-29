@@ -14,7 +14,7 @@ type ColumnData = {
 };
 
 //dashboardId를 props로 받아와야함
-const NewColumnModal = () => {
+const NewColumnModal = ({ dashboardId, onClose }: any) => {
   const [input, setInput] = useState('');
   const [isExist, setIsExist] = useState(false); //이름 중복 여부 확인하는 state
   const [columns, setColumns] = useState<ColumnData[]>([]);
@@ -22,7 +22,7 @@ const NewColumnModal = () => {
   useEffect(() => {
     const fetchColumns = async () => {
       try {
-        const response = await httpClient.get('/columns?dashboardId=5911');
+        const response = await httpClient.get(`/columns?dashboardId=${dashboardId}`);
         const columnData = response.data.data;
         setColumns(columnData);
       } catch (error) {
@@ -47,10 +47,9 @@ const NewColumnModal = () => {
     try {
       await httpClient.post('/columns', {
         title: input,
-        dashboardId: 5911,
+        dashboardId: dashboardId,
       });
-      window.alert('새 컬럼이 생성되었습니다.');
-      console.log('새 컬럼 생성에 성공했습니다.');
+      onClose();
     } catch (error) {
       console.error('새 컬럼 생성에 실패했습니다:', error);
     }

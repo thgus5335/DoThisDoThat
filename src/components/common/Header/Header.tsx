@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import styles from './Header.module.scss';
 import iconCrown from '@/src/assets/icons/crownIcon.svg';
 import iconAdd from '@/src/assets/icons/addBox.svg';
@@ -51,8 +51,8 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
     if (dashboardId) {
       loadDashboardDetail(dashboardId);
       loadMemberList(dashboardId);
-      loadUserInfo();
     }
+    loadUserInfo();
   }, [dashboardId]);
 
   const isOwner = dashboardDetail?.createdByMe;
@@ -78,7 +78,7 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
     <>
       {modalState && (
         <DoubleButtonModal size={'small'} isOpen={modalState} onClose={closeModal}>
-          <NewInviteModal dashboardId={dashboardId} />
+          <NewInviteModal dashboardId={dashboardId} onClose={closeModal} />
         </DoubleButtonModal>
       )}
       <header className={styles.header}>
@@ -110,8 +110,21 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
                 onMouseOut={handleMemberDropdown}>
                 {memberList &&
                   memberList.map(member => (
-                    <div key={member.id} className={styles.memberProfile}>
-                      {member.nickname.substring(0, 1)}
+                    <div key={member.id}>
+                      {member.profileImageUrl ? (
+                        <Image
+                          className={styles.memberProfile}
+                          width={40}
+                          height={40}
+                          layout="intrinsic"
+                          src={member.profileImageUrl}
+                          alt={'프로필 이미지.'}
+                        />
+                      ) : (
+                        <div className={styles.memberProfile} key={member.id}>
+                          {member.nickname.substring(0, 1)}
+                        </div>
+                      )}
                     </div>
                   ))}
                 <div className={styles.plusProfile}>+9</div>
@@ -121,7 +134,18 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
                       {memberList &&
                         memberList.map(member => (
                           <div className={styles.member} key={member.id}>
-                            <div className={styles.memberProfile}>{member.nickname.substring(0, 1)}</div>
+                            {member.profileImageUrl ? (
+                              <Image
+                                className={styles.memberProfile}
+                                width={40}
+                                height={40}
+                                layout="intrinsic"
+                                src={member.profileImageUrl}
+                                alt={'프로필 이미지.'}
+                              />
+                            ) : (
+                              <div className={styles.memberProfile}>{member.nickname.substring(0, 1)}</div>
+                            )}
                             <p className={styles.memberName}>{member.nickname}</p>
                           </div>
                         ))}
