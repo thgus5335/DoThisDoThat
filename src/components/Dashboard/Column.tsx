@@ -12,13 +12,14 @@ import TodoPostModal from '../Modal/ModalType/TodoPostModal/TodoPostModal';
 import ColumnEditDeleteModal from '../Modal/ModalType/ColumnEditDeleteModal/ColumnEditDeleteModal';
 
 interface Props {
+  dashboardId: number;
   columnId: number;
   columnTitle: string;
 }
 
-const Column = ({ columnId, columnTitle }: Props) => {
-  const { modalState: createToDoState, openModal: openCreateToDo, closeModal: closeCreateToDo } = useModal();
-  const { modalState: editColumnState, openModal: openEditColumn, closeModal: closeEditColumn } = useModal();
+const Column = ({ dashboardId, columnId, columnTitle }: Props) => {
+  const [toDoModal, setToDoModal] = useState(false);
+  const [editColumnModal, setEditColumnModal] = useState(false);
   const [cardTotal, setCardTotal] = useState<dashboard.CardList['totalCount']>(0);
 
   const loadCardList = async () => {
@@ -32,14 +33,14 @@ const Column = ({ columnId, columnTitle }: Props) => {
 
   return (
     <>
-      {createToDoState && (
-        <DoubleButtonModal size={'large'} isOpen={createToDoState} onClose={closeCreateToDo}>
-          <TodoPostModal />
+      {toDoModal && (
+        <DoubleButtonModal size={'large'} isOpen onClose={() => setToDoModal(false)}>
+          <TodoPostModal dashboardId={dashboardId} columnId={columnId} onClose={() => setToDoModal(false)} />
         </DoubleButtonModal>
       )}
-      {editColumnState && (
-        <DoubleButtonModal size={'small'} isOpen={editColumnState} onClose={closeEditColumn}>
-          <ColumnEditDeleteModal />
+      {editColumnModal && (
+        <DoubleButtonModal size={'small'} isOpen onClose={() => setEditColumnModal(false)}>
+          <ColumnEditDeleteModal columnId={columnId} onClose={() => setEditColumnModal(false)} />
         </DoubleButtonModal>
       )}
       <div className={styles.column}>
@@ -49,9 +50,9 @@ const Column = ({ columnId, columnTitle }: Props) => {
             <p>{columnTitle}</p>
             <div className={styles.number}>{cardTotal}</div>
           </div>
-          <Image src={iconSetting} onClick={() => openEditColumn} alt="컬럼 환경설정." />
+          <Image src={iconSetting} onClick={() => setEditColumnModal(true)} alt="컬럼 환경설정." />
         </div>
-        <DashboardButton type={'taskLarge'} onClick={() => openCreateToDo} />
+        <DashboardButton type={'taskLarge'} onClick={() => setToDoModal(true)} />
         <CardList columnId={columnId}></CardList>
       </div>
     </>

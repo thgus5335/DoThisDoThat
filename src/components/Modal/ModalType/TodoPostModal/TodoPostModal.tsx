@@ -10,6 +10,7 @@ import DateInput from '../../ModalInput/DateInput/DateInput';
 import TagInput from '../../ModalInput/TagInput/TagInput';
 import ImageInput from '../../ModalInput/ImageInput/ImageInput';
 import TagChip from '../../ModalInput/TagInput/TagChip';
+import router from 'next/router';
 
 //4-16/cards로 post 요청 보내는 모달
 /*request body 형태 예시 {
@@ -26,7 +27,7 @@ import TagChip from '../../ModalInput/TagInput/TagChip';
 }*/
 
 //props로 dashboardID, columnID 받아야함
-const TodoPostModal = () => {
+const TodoPostModal = ({ dashboardId, columnId, onClose }: any) => {
   const [selectedNickname, setSelectedNickname] = useState('');
   const [selectedUserId, setSelectedUserId] = useState(0);
   const [title, setTitle] = useState('');
@@ -85,7 +86,7 @@ const TodoPostModal = () => {
     formData.append('image', file);
 
     httpClient
-      .post('/columns/20334/card-image', formData, {
+      .post(`/columns/${columnId}/card-image`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -106,8 +107,8 @@ const TodoPostModal = () => {
     await httpClient
       .post('/cards', {
         assigneeUserId: selectedUserId,
-        dashboardId: 5911,
-        columnId: 20334, //아이디들은 추후 변경 예정
+        dashboardId: dashboardId,
+        columnId: columnId,
         title: title,
         description: description,
         dueDate: formatDate(selectedDate),
@@ -116,6 +117,8 @@ const TodoPostModal = () => {
       })
       .then(response => {
         console.log('할 일 생성 성공:', response.data);
+        onClose();
+        router.reload();
       })
       .catch(error => {
         console.error('할 일 생성 오류:', error);
@@ -126,7 +129,7 @@ const TodoPostModal = () => {
     <div className={styles.modalContainer}>
       <div className={styles.modalName}>할 일 생성</div>
       <form className={styles.todoForm} onSubmit={handleSubmit}>
-        <AssigneeDropdown onNicknameSelect={handleNicknameChange} />
+        <AssigneeDropdown onNicknameSelect={handleNicknameChange} dashboardId={dashboardId} />
         <TitleInput value={title} onChange={handleTitle} />
         <DescriptionInput value={description} onChange={handleDescription} />
         <DateInput onDateSelect={handleDateChange} />

@@ -78,7 +78,7 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
     <>
       {modalState && (
         <DoubleButtonModal size={'small'} isOpen={modalState} onClose={closeModal}>
-          <NewInviteModal dashboardId={dashboardId} />
+          <NewInviteModal dashboardId={dashboardId} onClose={closeModal} />
         </DoubleButtonModal>
       )}
       <header className={styles.header}>
@@ -110,7 +110,7 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
                 onMouseOut={handleMemberDropdown}>
                 {memberList &&
                   memberList.map(member => (
-                    <>
+                    <div key={member.id}>
                       {member.profileImageUrl ? (
                         <Image
                           className={styles.memberProfile}
@@ -125,7 +125,7 @@ const Header = ({ title, dashboardId, hasBackward }: Props) => {
                           {member.nickname.substring(0, 1)}
                         </div>
                       )}
-                    </>
+                    </div>
                   ))}
                 <div className={styles.plusProfile}>+9</div>
                 {isMemberDropdown && (

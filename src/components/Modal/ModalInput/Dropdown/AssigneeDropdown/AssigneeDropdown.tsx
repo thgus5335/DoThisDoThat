@@ -16,10 +16,11 @@ type User = {
 };
 
 interface AssigneeDropdownProps {
+  dashboardId: number;
   onNicknameSelect: (nickname: string, userId: number) => void;
 }
 
-const AssigneeDropdown = ({ onNicknameSelect = () => {} }: AssigneeDropdownProps) => {
+const AssigneeDropdown = ({ onNicknameSelect = () => {}, dashboardId }: AssigneeDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedNickname, setSelectedNickname] = useState<string>('');
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
@@ -28,7 +29,7 @@ const AssigneeDropdown = ({ onNicknameSelect = () => {} }: AssigneeDropdownProps
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await httpClient.get('/members?page=1&size=20&dashboardId=5911');
+        const response = await httpClient.get(`/members?page=1&size=20&dashboardId=${dashboardId}`);
         const users = response.data.members;
         setFilteredUsers(users);
       } catch (error) {
