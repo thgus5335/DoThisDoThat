@@ -6,7 +6,7 @@ import NormalInput from '../../ModalInput/NormalInput/NormalInput';
 import ColorPickBox from './ColorPickBox';
 import httpClient from '@/src/apis/httpClient';
 
-const NewDashboardModal = () => {
+const NewDashboardModal = ({ onClose }: any) => {
   const [input, setInput] = useState<string>('');
   const [selectColor, setSelectColor] = useState<string>('');
 
@@ -29,6 +29,7 @@ const NewDashboardModal = () => {
       });
       window.alert('새 대시보드가 생성되었습니다.');
       console.log('새 대시보드 생성에 성공했습니다.');
+      onClose();
     } catch (error) {
       console.error('새 대시보드 생성에 실패했습니다:', error);
     }

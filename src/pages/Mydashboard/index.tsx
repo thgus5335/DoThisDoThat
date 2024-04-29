@@ -58,7 +58,7 @@ const Mydashboard: NextPageWithLayout = () => {
   useEffect(() => {
     loadDashboardData(currentPage);
     loadInvitations(null);
-  }, [currentPage]);
+  }, [currentPage, currentPage, isModalOpen]);
 
   // 나의 대시보드 목록 GET
   const loadDashboardData = async (page: number) => {
@@ -172,7 +172,7 @@ const Mydashboard: NextPageWithLayout = () => {
               </DashboardButton>
               {isModalOpen && (
                 <DoubleButtonModal isOpen={true} onClose={handleCloseModal} size="small">
-                  <NewDashboardModal />
+                  <NewDashboardModal onClose={handleCloseModal} />
                 </DoubleButtonModal>
               )}
             </div>
