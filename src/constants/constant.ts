@@ -54,4 +54,4 @@ export const FOOTER_SOCIAL_LIST = [
   },
 ];
 
-export const DASHBOARD_COLOR_LIST = ['#7ac555', '#760dde', '#ffa500', '#76a5ea', '#e876ea'];
+export const DASHBOARD_COLOR_LIST = ['#7AC555', '#760DDE', '#FFA500', '#76A5EA', '#E876EA'];

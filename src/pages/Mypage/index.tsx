@@ -1,35 +1,16 @@
 import { useEffect, useState, ChangeEvent, ReactElement } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import httpClient from '@/src/apis/httpClient';
-import SingleButtonModal from '@/src/components/Modal/SingleButtonModal';
-import TaskButton from '@/src/components/common/Button/TaskButton';
-import addIcon from '@/src/assets/icons/addIcon.svg';
-import backIcon from '@/src/assets/icons/leftArrowIcon.svg';
-import styles from './Mypage.module.scss';
 import { NextPageWithLayout } from '../_app';
 import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
-
-interface UserInfo {
-  id: number;
-  email: string;
-  nickname: string;
-  profileImageUrl: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-const initialUserInfo: UserInfo = {
-  id: 0,
-  email: '',
-  nickname: '',
-  profileImageUrl: '',
-  createdAt: '',
-  updatedAt: '',
-};
+import SingleButtonModal from '@/src/components/Modal/SingleButtonModal';
+import TaskButton from '@/src/components/common/Button/TaskButton';
+import httpClient from '@/src/apis/httpClient';
+import { initialUserInfo } from '@/src/types/mypageResponse';
+import addIcon from '@/src/assets/icons/addIcon.svg';
+import styles from './Mypage.module.scss';
 
 const Mypage: NextPageWithLayout = () => {
-  const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
+  const [userInfo, setUserInfo] = useState(initialUserInfo);
   const [nickname, setNickname] = useState<string>('');
   const [profileImage, setProfileImage] = useState<string>('');
   const [isUpdateTrigger, setIsUpdateTrigger] = useState<boolean>(false);
@@ -41,8 +22,6 @@ const Mypage: NextPageWithLayout = () => {
   const [isSaveButtonEnabled, setIsSaveButtonEnabled] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
-
-  const router = useRouter();
 
   // userInfo 가져오기
   async function getUserInfo() {
@@ -183,23 +162,23 @@ const Mypage: NextPageWithLayout = () => {
         </div>
       )}
       <div className={styles.mypageContent}>
-        <button className={styles.backBtn} onClick={() => router.back()}>
-          <Image src={backIcon} alt="돌아가기" />
-          <p>돌아가기</p>
-        </button>
         <section className={styles.mypageSection}>
           <h3 className={styles.title}>프로필</h3>
           <div className={styles.profileContent}>
             <div className={styles.imageUpload}>
               <label htmlFor="imageInputField" className={styles.imageInputButton}>
-                <Image
-                  className={styles.imagePreview}
-                  src={profileImage ? profileImage : addIcon}
-                  layout="responsive"
-                  width={30}
-                  height={30}
-                  alt="추가한 이미지"
-                />
+                {profileImage ? (
+                  <Image
+                    className={styles.imagePreview}
+                    src={profileImage}
+                    layout="responsive"
+                    width={30}
+                    height={30}
+                    alt="추가한 이미지"
+                  />
+                ) : (
+                  <Image className={styles.addIcon} src={addIcon} width={30} height={30} alt="추가한 이미지" />
+                )}
               </label>
               <input
                 id="imageInputField"
