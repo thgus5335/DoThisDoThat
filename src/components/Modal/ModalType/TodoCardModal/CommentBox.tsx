@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import httpClient from '@/src/apis/httpClient';
 import styles from './CommentBox.module.scss';
 import router from 'next/router';
+import { getRandomcolorForPrefix } from '@/src/utils/makeRandomColor';
 
 type Comment = {
   id: number;
@@ -25,6 +26,13 @@ interface CommentBoxProps {
 const CommentBox = ({ data, onDeleteComment }: CommentBoxProps) => {
   const [commentEdit, setCommentEdit] = useState<string>(data?.content);
   const [isModify, setIsModify] = useState<boolean>(false);
+
+  let myProfileText = '';
+  if (data) {
+    myProfileText = data?.author?.profileImageUrl ? '' : (data?.author?.nickname ?? '').substring(0, 1);
+  }
+
+  const { color, backgroundColor } = getRandomcolorForPrefix(myProfileText);
 
   //댓글 입력창 핸들러
   const handleCommentEditInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -94,11 +102,13 @@ const CommentBox = ({ data, onDeleteComment }: CommentBoxProps) => {
 
   return (
     <div className={styles.commentContainer}>
-      <img
-        src={data?.author?.profileImageUrl ? data?.author?.profileImageUrl : '/assets/images/defaultUser.png'}
-        alt="프로필 이미지"
-        className={styles.commentAuthorProfile}
-      />
+      {data?.author?.profileImageUrl ? (
+        <img src={data?.author?.profileImageUrl} alt="프로필 이미지" className={styles.commentAuthorProfile} />
+      ) : (
+        <div className={styles.myProfile} style={{ backgroundColor: color }}>
+          {myProfileText}
+        </div>
+      )}
       <div className={styles.commentBox}>
         <div className={styles.commentAuthor}>
           <span className={styles.commentAuthorNickname}>{data?.author?.nickname}</span>
