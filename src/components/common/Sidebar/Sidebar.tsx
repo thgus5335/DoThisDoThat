@@ -36,7 +36,14 @@ const Sidebar = () => {
       <div className={styles.sidebar}>
         <div className={styles.logoTitle} onClick={() => router.push('/Mydashboard')}>
           <Image width={60} height={60} layout="intrinsic" src={iconlogo} alt="로고." />
-          <Image width={120} height={22} layout="intrinsic" src={icontitle} alt="일해라절해라." />
+          <Image
+            width={120}
+            height={22}
+            layout="intrinsic"
+            src={icontitle}
+            alt="일해라절해라."
+            className={styles.iconTitle}
+          />
         </div>
         <div className={styles.sidebarTitle}>
           <p>Dash Boards</p>

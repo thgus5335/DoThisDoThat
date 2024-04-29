@@ -72,3 +72,22 @@
 .iconCrown {
   height: 0.05rem;
 }
+
+@include media(tablet) {
+  .sidebar {
+    width: 16rem;
+  }
+
+  .logoTitle {
+    width: 10.9rem;
+    margin-left: 2rem;
+  }
+
+  .iconTitle {
+    display: none;
+  }
+
+  .name {
+    @include text-m(500);
+  }
+}
