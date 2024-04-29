@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styles from './TodoCardModal.module.scss';
 import Image from 'next/image';
+import router from 'next/router';
 import httpClient from '@/src/apis/httpClient';
 import useModal from '@/src/hooks/useModal';
 import DoubleButtonModal from '../../DoubleButtonModal';
@@ -140,10 +141,10 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
       });
       console.log('댓글 작성 성공:', response.data);
       window.alert('댓글이 작성되었습니다.');
-      window.location.reload();
+      router.reload();
       //setCommentData(currentComments => [...currentComments, response.data.comment]);
       //fetchCommentData();
-      fetchCommentData(cursorId);
+      //fetchCommentData(cursorId);
       setCommentInput('');
     } catch (error) {
       console.error('댓글 작성 실패:', error);
@@ -156,7 +157,7 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
       const response = await httpClient.delete(`/comments/${commentId}`);
       console.log('댓글 삭제 성공:', response.data);
       window.alert('댓글이 삭제되었습니다.');
-      window.location.reload();
+      router.reload();
       //setCommentData(currentComments => currentComments.filter(comment => comment.id !== commentId));
       //fetchCommentData();
       fetchCommentData(cursorId);
@@ -170,7 +171,7 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
     try {
       const response = await httpClient.delete(`/cards/${cardId}`);
       console.log('카드 삭제 성공', response.data);
-      closeModal();
+      router.reload();
     } catch (error) {
       console.error('카드 삭제 실패:', error);
     }

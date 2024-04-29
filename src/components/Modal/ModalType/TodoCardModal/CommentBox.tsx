@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 import httpClient from '@/src/apis/httpClient';
 import styles from './CommentBox.module.scss';
+import router from 'next/router';
 
 type Comment = {
   id: number;
@@ -44,7 +45,7 @@ const CommentBox = ({ data, assigneeId, onDeleteComment }: CommentBoxProps) => {
       });
       console.log('댓글 수정 성공:', response.data);
       window.alert('댓글이 수정되었습니다.');
-      window.location.reload();
+      router.reload();
       ///fetchCommentData();
       //fetchCommentData(cursorId);
     } catch (error) {
