@@ -7,11 +7,18 @@ import { headerHttp } from '@/src/apis/dashboard';
 import { useEffect, useRef, useState } from 'react';
 import { UserInfo } from '@/src/types/dashboard';
 import useClickOutside from '@/src/hooks/useClickOutside';
+import { getRandomcolorForPrefix } from '@/src/utils/makeRandomColor';
 
 const HeaderMyProfile = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [isDropdown, setIsDropdown] = useState(false);
-  const myProfileText = userInfo?.profileImageUrl ? '' : userInfo?.nickname.substring(0, 1);
+
+  let myProfileText = '';
+  if (userInfo) {
+    myProfileText = userInfo?.profileImageUrl ? '' : userInfo?.nickname.substring(0, 1);
+  }
+
+  const { color, backgroundColor } = getRandomcolorForPrefix(myProfileText);
 
   const loadUserInfo = async () => {
     const response = await headerHttp.getUserInfo();
@@ -32,11 +39,17 @@ const HeaderMyProfile = () => {
 
   useEffect(() => {
     loadUserInfo();
-  }, []);
+  }, [userInfo?.profileImageUrl]);
 
   return (
     <div className={styles.myprofileGroup} onClick={handleDropdown} ref={dropdownRef}>
-      <div className={styles.myProfile}>{myProfileText}</div>
+      {userInfo?.profileImageUrl ? (
+        <Image className={styles.myProfile} width={40} height={40} src={userInfo.profileImageUrl} />
+      ) : (
+        <div className={styles.myProfile} style={{ backgroundColor: color }}>
+          {myProfileText}
+        </div>
+      )}
       <p className={styles.myName}>{userInfo?.nickname}</p>
       <Image width={30} height={30} src={iconDropDown} alt={`프로필 메뉴.`} />
       {isDropdown && (

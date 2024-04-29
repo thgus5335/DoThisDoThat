@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   padding: 0.4rem 1rem;
-  border-radius: 8px;
+  border-radius: 10px;
 
   &:hover {
     background-color: $gray_EE;
@@ -17,9 +17,8 @@
     align-items: center;
     justify-content: center;
     border: 0.2rem solid $white_FF;
-    border-radius: 99px;
-    margin-right: 1rem;
-    background-color: $blue_76;
+    border-radius: 50%;
+    background-color: $white_FF;
     color: $white_FF;
   }
 
@@ -28,7 +27,7 @@
 
     display: flex;
     align-items: center;
-    margin-right: 0.6rem;
+    margin-left: 0.6rem;
     color: $black_33;
   }
 }
@@ -38,7 +37,8 @@
 
   position: absolute;
   top: 6.4rem;
-  display: inline-flex;
+  right: 4rem;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0.6rem;
@@ -55,7 +55,7 @@
 
 .myNav {
   display: flex;
-  width: 10rem;
+  width: 12rem;
   height: 3rem;
   align-items: center;
   padding: 0 0.6rem;
