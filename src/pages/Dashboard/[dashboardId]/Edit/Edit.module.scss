@@ -1,19 +1,7 @@
 .editpageLayout {
+  width: 100%;
   padding: 2.5rem;
   background: #fafafa;
-}
-
-.backBtn {
-  @include text-m(500);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2.5rem;
-  color: $black_33;
-  font-style: normal;
-  gap: 0.6rem;
-  line-height: normal;
 }
 
 .editpageSection {
@@ -150,10 +138,16 @@
 }
 
 .profileImg {
+  @include text-m(600);
+
+  position: relative;
+  display: flex;
   width: 3.8rem;
   height: 3.8rem;
-  border-radius: 9999px;
-  background-color: #9dd7ed;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: $white_FF;
 }
 
 .members {
