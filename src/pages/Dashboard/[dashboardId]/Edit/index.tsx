@@ -49,8 +49,11 @@ const Edit = () => {
   };
 
   useEffect(() => {
+    if (!dashboardId) {
+      return;
+    }
     loadDashboardInfo();
-  }, []);
+  }, [dashboardId]);
 
   // 대시보드 수정
   const handleChangeTitleAndColor = async () => {
@@ -96,8 +99,11 @@ const Edit = () => {
   };
 
   useEffect(() => {
+    if (!dashboardId) {
+      return;
+    }
     loadMemberList(currentPage);
-  }, [currentPage]);
+  }, [dashboardId, currentPage]);
 
   // 대시보드 멤버 삭제
   const handleMemberDelete = async (memberId: number) => {
@@ -127,8 +133,11 @@ const Edit = () => {
   };
 
   useEffect(() => {
+    if (!dashboardId) {
+      return;
+    }
     loadInvitationList(invitationCurrentPage);
-  }, [invitationCurrentPage, isInviteModalOpen]);
+  }, [dashboardId, invitationCurrentPage, isInviteModalOpen]);
 
   // 초대 삭제
   const handleinvitationDelete = async (invitationId: number) => {
