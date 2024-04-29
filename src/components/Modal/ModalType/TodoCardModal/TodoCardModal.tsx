@@ -150,20 +150,6 @@ const TodoCardModal = ({ cardId, dashboardId }: Props) => {
     }
   };
 
-  //댓글 수정 핸들러 (로직 수정 필요)
-  const handleCommentEdit = async (commentId: number, content: string) => {
-    try {
-      const response = await httpClient.put(`/comments/${commentId}`, {
-        content: content,
-      });
-      console.log('댓글 수정 성공:', response.data);
-      ///fetchCommentData();
-      //fetchCommentData(cursorId);
-    } catch (error) {
-      console.error('댓글 수정 실패:', error);
-    }
-  };
-
   //댓글 삭제 핸들러
   const handleCommentDelete = async (commentId: number) => {
     try {
