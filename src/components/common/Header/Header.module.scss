@@ -180,3 +180,9 @@
 .myNav:hover {
   background-color: $gray_EE;
 }
+
+@include media(mobile) {
+  .header {
+    height: 6rem;
+  }
+}

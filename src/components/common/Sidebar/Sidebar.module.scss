@@ -91,3 +91,26 @@
     @include text-m(500);
   }
 }
+
+@include media(mobile) {
+  .sidebar {
+    width: 6.7rem;
+  }
+
+  .sidebarTitle > p {
+    display: none;
+  }
+
+  .name {
+    display: none;
+  }
+
+  .dashboardList > img {
+    display: none;
+  }
+
+  .logoTitle {
+    padding: 0;
+    margin-left: 0.3rem;
+  }
+}

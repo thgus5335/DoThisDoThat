@@ -1,7 +1,8 @@
 .contentContainer {
   display: flex;
-  height: 100%;
+  height: auto;
   flex-direction: column;
+  flex-grow: 1;
   background-color: $gray_FA;
 }
 
@@ -16,9 +17,9 @@
 
 .invitedDashboard {
   display: flex;
-  overflow: hidden;
+  overflow: auto;
   width: 102.2rem;
-  height: 50rem;
+  min-height: 50rem;
   flex-direction: column;
   border-radius: 0.8rem;
   margin-left: 3.5rem;
@@ -123,6 +124,10 @@
   @include text-m(400);
 }
 
+.onlyInMobile {
+  display: none;
+}
+
 .button {
   display: flex;
   gap: 1rem;
@@ -135,6 +140,7 @@
 
 .scroll::-webkit-scrollbar {
   width: 0.6rem;
+  height: 0.6rem;
   background-color: $white_FF;
 }
 
@@ -159,5 +165,71 @@
 
   .invitedInput {
     width: 44.8rem;
+  }
+}
+
+@include media(mobile) {
+  .newDashboard {
+    grid-template-columns: repeat(1, 26rem);
+  }
+
+  .pagination {
+    width: calc(26rem + 2 * 1.6rem);
+  }
+
+  .invitedDashboard {
+    width: 26rem;
+    min-height: 83.6rem;
+    margin-bottom: 6rem;
+  }
+
+  .invitedInput {
+    width: 22.8rem;
+    padding-left: 4rem;
+    margin-left: 1.6rem;
+  }
+
+  .invitedListHeader {
+    display: none;
+  }
+
+  .invitedTitle {
+    @include text-xl(700);
+
+    padding-left: 1.6rem;
+  }
+
+  .whereAmI {
+    @include text-xs(400);
+  }
+
+  .searchIcon {
+    left: 3rem;
+  }
+
+  .invitedListItem {
+    flex-direction: column;
+    padding-left: 0;
+  }
+
+  .onlyInMobile {
+    display: flex;
+    color: $gray_9F;
+
+    @include text-m(400);
+  }
+
+  .invitedListColumn {
+    display: flex;
+    margin-bottom: 0.7rem;
+    gap: 1rem;
+  }
+
+  .button {
+    margin-top: 1rem;
+  }
+
+  .scroll {
+    max-height: 75rem;
   }
 }

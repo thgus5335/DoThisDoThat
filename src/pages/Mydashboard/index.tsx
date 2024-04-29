@@ -250,8 +250,14 @@ const Mydashboard: NextPageWithLayout = () => {
                 {invitations.length > 0 ? (
                   filteredInvitations.map(invitation => (
                     <div key={invitation.id} className={styles.invitedListItem}>
-                      <div className={styles.invitedListColumn}>{invitation.dashboard.title}</div>
-                      <div className={styles.invitedListColumn}>{invitation.inviter.nickname}</div>
+                      <div className={styles.invitedListColumn}>
+                        <span className={styles.onlyInMobile}>이름</span>
+                        {invitation.dashboard.title}
+                      </div>
+                      <div className={styles.invitedListColumn}>
+                        <span className={styles.onlyInMobile}>초대자</span>
+                        {invitation.inviter.nickname}
+                      </div>
                       <div className={`${styles.invitedListColumn} ${styles.button}`}>
                         <TaskButton size="large" color="violet" onClick={() => acceptInvitation(invitation.id)}>
                           수락
