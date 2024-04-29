@@ -8,6 +8,7 @@ import httpClient from '@/src/apis/httpClient';
 import { initialUserInfo } from '@/src/types/mypageResponse';
 import addIcon from '@/src/assets/icons/addIcon.svg';
 import styles from './Mypage.module.scss';
+import { useRouter } from 'next/router';
 
 const Mypage: NextPageWithLayout = () => {
   const [userInfo, setUserInfo] = useState(initialUserInfo);
@@ -22,6 +23,8 @@ const Mypage: NextPageWithLayout = () => {
   const [isSaveButtonEnabled, setIsSaveButtonEnabled] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
+
+  const router = useRouter();
 
   // userInfo 가져오기
   async function getUserInfo() {
@@ -150,6 +153,7 @@ const Mypage: NextPageWithLayout = () => {
   const handleModalClose = () => {
     setModalMessage('');
     setIsModalOpen(false);
+    router.reload();
   };
 
   return (

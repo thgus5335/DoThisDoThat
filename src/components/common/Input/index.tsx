@@ -55,9 +55,9 @@ export default function Input<T extends string>({
       {type === 'password' && (
         <div onClick={togglePasswordVisibility} className={styles.toggleButton}>
           {showPassword ? (
-            <FontAwesomeIcon icon={faEyeSlash} className={styles.icon} />
-          ) : (
             <FontAwesomeIcon icon={faEye} className={styles.icon} />
+          ) : (
+            <FontAwesomeIcon icon={faEyeSlash} className={styles.icon} />
           )}
         </div>
       )}
