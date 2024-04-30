@@ -87,7 +87,7 @@
 .profileInput {
   @extend %inputStyle;
 
-  max-width: 36.6rem;
+  width: 36.6rem;
 
   @include media(tablet) {
     width: 100%;

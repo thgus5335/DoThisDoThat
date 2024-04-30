@@ -181,7 +181,7 @@ const Edit = () => {
                 {DASHBOARD_COLOR_LIST.map(color => (
                   <div key={color} className={styles.colorSelectContainer}>
                     <input
-                      className={styles.colorSelect}
+                      className={`${styles.colorSelect} ${selectedColor !== color && styles.mobileOnly}`}
                       type="radio"
                       value={color}
                       checked={selectedColor === color}
@@ -252,7 +252,6 @@ const Edit = () => {
                         <div
                           className={styles.profileImg}
                           style={{
-                            left: `${index * -1}rem`,
                             backgroundColor: getRandomcolorForPrefix(member.nickname.substring(0, 1)).color,
                           }}
                           key={member.id}>

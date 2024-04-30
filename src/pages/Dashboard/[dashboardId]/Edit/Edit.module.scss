@@ -5,12 +5,16 @@
 }
 
 .editpageSection {
-  width: 62rem;
+  max-width: 62rem;
   flex-shrink: 0;
   padding: 3.5rem 3rem;
   border-radius: 8px;
   margin-bottom: 1.2rem;
   background: $white_FF;
+
+  @include media(tablet) {
+    width: 100%;
+  }
 }
 
 .dashboardNameAndColor {
@@ -58,6 +62,12 @@
   }
 }
 
+@include media(mobile) {
+  .mobileOnly {
+    display: none;
+  }
+}
+
 .nameChangeInputBox {
   display: flex;
   flex-direction: column;
@@ -76,7 +86,7 @@
 .dashboardNameInput {
   @include text-m(400);
 
-  width: 56.4rem;
+  max-width: 56.4rem;
   height: 4.8rem;
   flex-shrink: 0;
   padding: 1.5rem;
@@ -86,6 +96,10 @@
   color: $black_33;
   font-style: normal;
   line-height: normal;
+
+  @include media(tablet) {
+    width: 100%;
+  }
 }
 
 .taskBtn {
@@ -103,6 +117,10 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
+
+  @include media(mobile) {
+    align-items: flex-start;
+  }
 }
 
 .sectionTitle {
@@ -212,6 +230,11 @@
   display: flex;
   align-items: center;
   gap: 1.6rem;
+
+  @include media(mobile) {
+    flex-direction: column;
+    align-items: flex-end;
+  }
 }
 
 .noInvitations {
