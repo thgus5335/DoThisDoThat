@@ -1,0 +1,53 @@
+.commentContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.label {
+  @include text-m(500);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.commentBox {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.commentInput {
+  @include text-s(400);
+
+  width: 45rem;
+  height: 11rem;
+  padding: 1.6rem;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background: $white_FF;
+  font-style: normal;
+  line-height: normal;
+  resize: none;
+
+  &:focus {
+    border: 1px solid $violet_55;
+  }
+
+  &::placeholder {
+    @include text-s(400);
+
+    color: $gray_9F;
+    font-style: normal;
+    line-height: normal;
+  }
+}
+
+.submitButton {
+  position: absolute;
+  right: 1.2rem;
+  bottom: 1.2rem;
+}

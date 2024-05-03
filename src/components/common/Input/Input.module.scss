@@ -1,0 +1,47 @@
+.input {
+  width: 520px;
+  height: 50px;
+  padding: 15px 16px;
+  border: 1px solid $gray_D9;
+  border-radius: 8px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.inputContainer {
+  position: relative;
+}
+
+.errorInput {
+  width: 520px;
+  height: 50px;
+  padding: 15px 16px;
+  border: 1px solid $red_D6;
+  border-radius: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.errorMessage {
+  margin-bottom: 8px;
+  color: $red_D6;
+  font-size: 14px;
+}
+
+.toggleButton {
+  position: absolute;
+  top: 2.2rem;
+  right: 1.5rem;
+  color: $gray_9F;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+@include media(mobile) {
+  .input {
+    width: 35.1rem;
+  }
+}

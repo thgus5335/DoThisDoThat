@@ -1,54 +1,41 @@
-@mixin text-xs-400 {
+$breakpoints: (
+  mobile: 'screen and (max-width: 768px)',
+  tablet: 'screen and (max-width: 1200px)',
+  pc: 'screen and (min-width: 1201px)',
+);
+
+@mixin media($breakpoint) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+@mixin text-xs($weight) {
   font-size: 12px;
-  font-weight: 400;
+  font-weight: $weight;
 }
 
-@mixin text-xs-500 {
-  font-size: 12px;
-  font-weight: 500;
-}
-
-@mixin text-xs-600 {
-  font-size: 12px;
-  font-weight: 600;
-}
-
-@mixin text-s-400 {
+@mixin text-s($weight) {
   font-size: 14px;
-  font-weight: 400;
+  font-weight: $weight;
 }
 
-@mixin text-s-500 {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-@mixin text-s-600 {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-@mixin text-m-400 {
+@mixin text-m($weight) {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: $weight;
 }
 
-@mixin text-m-500 {
-  font-size: 16px;
-  font-weight: 500;
-}
-
-@mixin text-l-500 {
+@mixin text-l($weight) {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: $weight;
 }
 
-@mixin text-xl-700 {
+@mixin text-xl($weight) {
   font-size: 20px;
-  font-weight: 700;
+  font-weight: $weight;
 }
 
-@mixin text-2xl-700 {
+@mixin text-2xl($weight) {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: $weight;
 }

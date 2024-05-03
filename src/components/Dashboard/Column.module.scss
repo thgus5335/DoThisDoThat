@@ -1,0 +1,49 @@
+.column {
+  display: flex;
+  width: 35.4rem;
+  height: fit-content;
+  flex-direction: column;
+  padding: 2.2rem 2rem;
+  gap: 1.6rem;
+}
+
+.columnInfo {
+  @include text-l(700);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: $black_33;
+
+  .columnTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .iconColumn {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .title {
+    overflow: hidden;
+    width: 22rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .number {
+    @include text-xs(500);
+
+    display: flex;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    background: $gray_EE;
+    color: $gray_78;
+    gap: 10px;
+  }
+}

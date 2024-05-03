@@ -1,0 +1,10 @@
+.tagChip {
+  @include text-xs(400);
+
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  margin: 0.1rem;
+}

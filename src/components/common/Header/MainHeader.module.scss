@@ -1,0 +1,40 @@
+.mainHeader {
+  display: flex;
+  width: 100%;
+  height: 7rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6rem 5rem 1.6rem 1.6rem;
+  background: $white_FF;
+}
+
+.headerLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.2rem 0 0.4rem;
+}
+
+@include media(mobile) {
+  .mainHeader {
+    padding: 2rem;
+  }
+
+  .headerTitle {
+    display: none;
+  }
+}
+
+.linkBox {
+  display: flex;
+  gap: 3rem;
+}
+
+.signLink {
+  @include text-m(400);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}

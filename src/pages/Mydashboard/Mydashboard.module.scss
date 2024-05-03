@@ -1,0 +1,235 @@
+.contentContainer {
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: $gray_FA;
+}
+
+.newDashboard {
+  display: grid;
+  align-items: flex-start;
+  justify-content: start;
+  margin: 4rem 3.5rem;
+  grid-gap: 1.3rem 1.2rem;
+  grid-template-columns: repeat(3, 33.5rem);
+}
+
+.invitedDashboard {
+  display: flex;
+  overflow: auto;
+  width: 102.2rem;
+  min-height: 50rem;
+  flex-direction: column;
+  border-radius: 0.8rem;
+  margin-left: 3.5rem;
+  background-color: $white_FF;
+}
+
+.invitedTitle {
+  @include text-2xl(700);
+
+  padding-top: 3.2rem;
+  padding-left: 2.8rem;
+}
+
+.noInvitedContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.noInvitedImage {
+  width: 10rem;
+  height: 10rem;
+  margin-top: 14rem;
+}
+
+.noInvited {
+  @include text-l(400);
+
+  margin-top: 2.4rem;
+  color: $gray_9F;
+}
+
+.pagination {
+  display: flex;
+  width: calc(3 * 33.5rem + 4 * 1.3rem); /* 마지막 대시보드의 너비에 맞춤 */
+  align-items: center;
+  justify-content: flex-end; /* 페이지네이션 버튼을 오른쪽에 정렬 */
+  margin-bottom: 5.5rem;
+  gap: 1.5rem;
+}
+
+.whereAmI {
+  @include text-s(400);
+}
+
+.invitedInput {
+  width: 96.6rem;
+  height: 4rem;
+  padding-left: 5.5rem;
+  border: 0.1rem solid $gray_D9;
+  border-radius: 0.6rem;
+  margin-top: 2rem;
+  margin-left: 2.8rem;
+}
+
+.yesInvitedContainer {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 2.8rem;
+  left: 5rem;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.invitedListContainer {
+  display: flex;
+  width: 100%; /* 컨테이너 전체 너비 */
+  flex-direction: column;
+}
+
+.invitedListHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  margin-bottom: 0.6rem;
+  margin-left: 2.8rem;
+  color: $gray_9F;
+
+  @include text-m(400);
+}
+
+.invitedListColumn {
+  flex: 1; /* 모든 컬럼의 비율을 1:1:1로 설정 */
+}
+
+.invitedListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+  padding-left: 2.8rem;
+  border-bottom: 1px solid $gray_EE; /* 항목 간 구분선 */
+  margin-top: 2rem;
+
+  @include text-m(400);
+}
+
+.onlyInMobile {
+  display: none;
+}
+
+.button {
+  display: flex;
+  gap: 1rem;
+}
+
+.scroll {
+  max-height: 30rem; // 최대 높이 설정
+  overflow-y: auto; // 내용이 넘칠 경우 스크롤 가능
+}
+
+.scroll::-webkit-scrollbar {
+  width: 0.6rem;
+  height: 0.6rem;
+  background-color: $white_FF;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 0.7rem;
+  background-color: $violet_55;
+}
+
+@include media(tablet) {
+  .newDashboard {
+    grid-template-columns: repeat(2, 25rem);
+  }
+
+  .pagination {
+    width: calc(2 * 25rem + 3 * 1.3rem);
+  }
+
+  .invitedDashboard {
+    width: 50.4rem;
+    margin-bottom: 6rem;
+  }
+
+  .invitedInput {
+    width: 44.8rem;
+  }
+}
+
+@include media(mobile) {
+  .newDashboard {
+    grid-template-columns: repeat(1, 26rem);
+  }
+
+  .pagination {
+    width: calc(26rem + 2 * 1.6rem);
+  }
+
+  .invitedDashboard {
+    width: 26rem;
+    min-height: 83.6rem;
+    margin-bottom: 6rem;
+  }
+
+  .invitedInput {
+    width: 22.8rem;
+    padding-left: 4rem;
+    margin-left: 1.6rem;
+  }
+
+  .invitedListHeader {
+    display: none;
+  }
+
+  .invitedTitle {
+    @include text-xl(700);
+
+    padding-left: 1.6rem;
+  }
+
+  .whereAmI {
+    @include text-xs(400);
+  }
+
+  .searchIcon {
+    left: 3rem;
+  }
+
+  .invitedListItem {
+    flex-direction: column;
+    padding-left: 0;
+  }
+
+  .onlyInMobile {
+    display: flex;
+    color: $gray_9F;
+
+    @include text-m(400);
+  }
+
+  .invitedListColumn {
+    display: flex;
+    margin-bottom: 0.7rem;
+    gap: 1rem;
+  }
+
+  .button {
+    margin-top: 1rem;
+  }
+
+  .scroll {
+    max-height: 75rem;
+  }
+}

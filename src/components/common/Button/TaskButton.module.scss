@@ -1,0 +1,60 @@
+%TaskbuttonStyle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: $violet_55;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+
+  &:disabled {
+    background-color: $gray_D9;
+    cursor: default;
+  }
+}
+
+.large {
+  @extend %TaskbuttonStyle;
+  @include text-s(500);
+
+  width: 8.4rem;
+  height: 3.2rem;
+  padding: 0.7rem 2.9rem;
+}
+
+.medium {
+  @extend %TaskbuttonStyle;
+  @include text-s(500);
+
+  width: 7.2rem;
+  height: 3rem;
+  padding: 0.6rem 2.3rem;
+}
+
+.long {
+  @extend %TaskbuttonStyle;
+  @include text-xs(500);
+
+  width: 10.9rem;
+  padding: 0.7rem 3.7rem;
+}
+
+.small {
+  @extend %TaskbuttonStyle;
+  @include text-xs(500);
+
+  width: 5.2rem;
+  padding: 0.7rem 0.9rem;
+}
+
+.violet {
+  background: $violet_55;
+  color: $white_FF;
+}
+
+.white {
+  border: 1px solid $gray_D9;
+  background: $white_FF;
+  color: $violet_55;
+}

@@ -1,0 +1,98 @@
+.commentContainer {
+  display: flex;
+  width: 45rem;
+  height: auto;
+  gap: 1rem;
+}
+
+.commentAuthorProfile {
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+}
+
+.myProfile {
+  @include text-m(600);
+
+  display: flex;
+  width: 3.4rem;
+  height: 3.4rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 0.2rem solid $white_FF;
+  border-radius: 50%;
+  background-color: $white_FF;
+  color: $white_FF;
+}
+
+.commentBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.commentAuthor {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.commentAuthorNickname {
+  @include text-s(600);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.commentDate {
+  @include text-xs(400);
+
+  color: $gray_9F;
+  font-style: normal;
+  line-height: normal;
+}
+
+.commentContent {
+  @include text-s(400);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.commentMenu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.commentEdit {
+  @include text-xs(400);
+
+  color: $gray_9F;
+  font-style: normal;
+  line-height: normal;
+  text-decoration-line: underline;
+}
+
+.commentDelete {
+  @include text-xs(400);
+
+  color: $gray_9F;
+  font-style: normal;
+  line-height: normal;
+  text-decoration-line: underline;
+}
+
+.editInput {
+  @include text-s(400);
+
+  border: 1px solid $gray_D9;
+  border-radius: 4px;
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+  resize: none;
+}

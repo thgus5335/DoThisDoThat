@@ -1,0 +1,108 @@
+.dropDownContainer {
+  z-index: 100;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.label {
+  @include text-l(500);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.input {
+  @include text-xs(400);
+
+  display: flex;
+  width: 21.7rem;
+  height: 4.8rem;
+  align-items: center;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background: $white_FF;
+  color: $violet_55;
+  font-style: normal;
+  gap: 1rem;
+  line-height: normal;
+
+  &::placeholder {
+    @include text-m(400);
+
+    color: $gray_9F;
+    font-style: normal;
+    line-height: normal;
+  }
+
+  &:focus {
+    border: 1px solid $violet_55;
+  }
+}
+
+.ulContainer {
+  position: absolute;
+  z-index: 1000;
+  top: 5rem;
+  display: flex;
+  overflow: hidden auto;
+  width: 100%;
+  max-height: 25rem;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background: $white_FF;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 8%);
+  gap: 1.3rem;
+  list-style: none;
+
+  // width: 21.7rem;
+  // height: auto;
+}
+
+.liContainer {
+  @include text-xs(400);
+
+  display: flex;
+  width: max-content;
+  height: 2.2rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.8rem;
+  border-radius: 11px;
+  background: $violet_F1;
+  color: $violet_55;
+  cursor: pointer;
+  font-style: normal;
+  line-height: normal;
+
+  &:hover {
+    background: $violet_55;
+    color: $violet_F1;
+  }
+}
+
+.circle {
+  @include text-xl(400);
+
+  padding-bottom: 0.5rem;
+  margin-right: 0.6rem;
+  text-align: center;
+
+  &:hover {
+    background: $violet_55;
+    color: $violet_F1;
+  }
+}

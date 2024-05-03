@@ -1,0 +1,102 @@
+.dropDownContainer {
+  z-index: 100;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.label {
+  @include text-l(500);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.myProfile {
+  @include text-m(600);
+
+  display: flex;
+  width: 3.4rem;
+  height: 3.4rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 0.2rem solid $white_FF;
+  border-radius: 50%;
+  background-color: $white_FF;
+  color: $white_FF;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.input {
+  @include text-m(400);
+
+  display: flex;
+  width: 21.7rem;
+  height: 4.8rem;
+  align-items: center;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background: $white_FF;
+  color: $black_33;
+  font-style: normal;
+  gap: 1rem;
+  line-height: normal;
+
+  &::placeholder {
+    @include text-m(400);
+
+    color: $gray_9F;
+    font-style: normal;
+    line-height: normal;
+  }
+
+  &:focus {
+    border: 1px solid $violet_55;
+  }
+}
+
+.ulContainer {
+  position: absolute;
+  z-index: 1000;
+  top: 5rem;
+  width: 100%;
+  max-height: 25rem; /* 스크롤을 추가하기 위해 최대 높이 설정 */
+  padding: 0;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background: $white_FF;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 8%);
+  list-style: none;
+  overflow-y: auto; /* 필요한 경우 스크롤 바 추가 */
+  // width: 21.7rem;
+  // height: auto;
+}
+
+.liContainer {
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  color: $black_33;
+  cursor: pointer;
+  font-style: normal;
+  gap: 0.6rem;
+  line-height: normal;
+
+  @include text-m(400);
+}
+
+.profileImage {
+  border-radius: 50%;
+}

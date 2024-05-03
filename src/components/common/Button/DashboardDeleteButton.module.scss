@@ -1,0 +1,29 @@
+%dashboardDeleteButtonStyle {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $gray_D9;
+  border-radius: 8px;
+  background: $gray_FA;
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+}
+
+.large {
+  @extend %dashboardDeleteButtonStyle;
+  @include text-l(500);
+
+  width: 32rem;
+  height: 6.2rem;
+}
+
+.small {
+  @extend %dashboardDeleteButtonStyle;
+  @include text-m(500);
+
+  width: 28.4rem;
+  height: 5.2rem;
+}

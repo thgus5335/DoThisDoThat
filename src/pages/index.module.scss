@@ -1,0 +1,218 @@
+.homePageLayout {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+.mainSection {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 9rem 0;
+  gap: 5rem;
+}
+
+.coverImg {
+  max-width: 96rem;
+  height: 59.8rem;
+  flex-shrink: 0;
+
+  @include media(mobile) {
+    width: 100%;
+    height: 50rem;
+  }
+}
+
+.mainArticleBox {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: $violet-F1;
+}
+
+.mainArticleImg {
+  display: flex;
+  width: 59.4rem;
+  height: 49.8rem;
+  flex-shrink: 0;
+  align-items: center;
+  align-self: flex-end;
+  justify-content: center;
+}
+
+.mainArticleSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10rem;
+  gap: 10rem;
+}
+
+@include media(pc) {
+  .mainArticleBox {
+    height: 60rem;
+    align-items: center;
+
+    &:nth-child(odd) {
+      flex-direction: row;
+      padding-left: 10rem;
+
+      .mainArticleImg {
+        margin-left: auto;
+      }
+    }
+
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+      padding-right: 10rem;
+
+      .mainArticleImg {
+        margin-right: auto;
+      }
+    }
+  }
+}
+
+@include media(tablet) {
+  .mainArticleBox {
+    flex-direction: column;
+    gap: 10rem;
+
+    &:nth-child(odd) {
+      padding: 6rem 0 0 6rem;
+    }
+
+    &:nth-child(even) {
+      .mainArticleTextBox {
+        margin: 6rem 0 0 6rem;
+      }
+
+      .mainArticleImg {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@include media(mobile) {
+  .mainArticleBox {
+    .mainArticleDescription {
+      text-align: center;
+    }
+
+    .mainArticleTextBox {
+      align-items: center;
+    }
+
+    &:nth-child(odd) {
+      .mainArticleTextBox {
+        margin-right: 6rem;
+      }
+    }
+
+    &:nth-child(even) {
+      .mainArticleTextBox {
+        margin: 6rem 6rem 0;
+      }
+    }
+  }
+}
+
+.mainArticleTextBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 8rem;
+}
+
+.point {
+  color: $gray_9F;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.mainArticleDescription {
+  width: 40rem;
+  color: $black_00;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 6.4rem;
+}
+
+.subArticleSection {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10rem;
+
+  @include media(tablet) {
+    align-items: center;
+  }
+}
+
+.subArticleMainTitle {
+  margin-bottom: 3.6rem;
+  color: $black_00;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.subArticle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 3.5rem;
+
+  @include media(tablet) {
+    flex-direction: column;
+  }
+}
+
+.subArticleImgBox {
+  display: flex;
+  width: 37.8rem;
+  height: 26rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem 0.8rem 0 0;
+  background: $violet-F1;
+}
+
+.subDescriptionBox {
+  display: flex;
+  width: 37.8rem;
+  height: 12.4rem;
+  flex-direction: column;
+  flex-shrink: 0;
+  padding: 3.3rem;
+  border-radius: 0 0 0.8rem 0.8rem;
+  background: $violet_55;
+  color: $white_FF;
+  font-style: normal;
+  gap: 1.8rem;
+  line-height: normal;
+}
+
+.subArticleTitle {
+  @include text-l(700);
+}
+
+.subArticleDescription {
+  @include text-m(500);
+}

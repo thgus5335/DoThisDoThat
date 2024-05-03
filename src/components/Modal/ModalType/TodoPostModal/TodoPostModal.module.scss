@@ -1,0 +1,35 @@
+.modalContainer {
+  z-index: 1;
+  margin: 3.2rem 2.8rem;
+}
+
+.modalName {
+  @include text-2xl(700);
+
+  margin-bottom: 3rem;
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.todoForm {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.submitButton {
+  position: absolute;
+  right: 0.2rem;
+  bottom: -8.2rem;
+}
+
+.tagList {
+  display: flex;
+  width: 44rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  gap: 0.2rem;
+}

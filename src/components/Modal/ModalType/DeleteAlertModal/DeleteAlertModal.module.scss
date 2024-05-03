@@ -1,0 +1,19 @@
+.modalContainer {
+  position: relative;
+  margin-top: 12rem;
+}
+
+.deleteText {
+  @include text-l(500);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+}
+
+.modalButton {
+  position: absolute;
+  top: 10.3rem;
+  right: 2.8rem;
+}

@@ -1,0 +1,33 @@
+.modalBackground {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(0 0 0 / 50%);
+  inset: 0;
+}
+
+.modalContainer {
+  position: relative;
+  border-radius: 8px;
+  background: $white_FF;
+}
+
+.cancelButton {
+  position: absolute;
+  right: 16rem;
+  bottom: 2.8rem;
+}
+
+/* 할일 생성, 수정 모달 크기 */
+.large {
+  width: 50.6rem;
+  height: 90.7rem;
+}
+
+/* 보통 모달 크기 */
+.small {
+  width: 54rem;
+  height: 30rem;
+}

@@ -1,0 +1,93 @@
+.header {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 7rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4rem;
+  border-bottom: 1px solid $gray_D9;
+  background: $white_FF;
+}
+
+.titleContainer {
+  @include text-xl(700);
+
+  display: flex;
+  align-items: center;
+  color: $black_33;
+  gap: 1rem;
+  white-space: nowrap;
+
+  .title {
+    margin: 0 1rem;
+  }
+
+  .titleDetail {
+    margin: 0 1rem;
+  }
+}
+
+.operation {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.buttonGroup > button {
+  @include text-m(500);
+
+  display: flex;
+  width: 11.6rem;
+  height: 4rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $gray_D9;
+  border-radius: 8px;
+  background: $white_FF;
+  color: $gray_78;
+  gap: 0.8rem;
+}
+
+.buttonGroup > button:hover {
+  background: $gray_EE;
+}
+
+.line {
+  display: flex;
+  height: 3.5rem;
+  border-left: 1px solid $gray_D9;
+}
+
+@include media(tablet) {
+  .titleDetail {
+    display: none;
+  }
+
+  .title {
+    left: 0;
+  }
+
+  .iconCrown {
+    display: none !important;
+  }
+
+  .iconBackward {
+    display: none !important;
+  }
+}
+
+@include media(mobile) {
+  .header {
+    height: 6rem;
+  }
+}

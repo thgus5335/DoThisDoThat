@@ -1,0 +1,52 @@
+.descContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.label {
+  @include text-l(500);
+
+  color: $black_33;
+  font-style: normal;
+  line-height: normal;
+}
+
+.star {
+  @include text-l(500);
+
+  color: $violet_55;
+  font-style: normal;
+  line-height: normal;
+}
+
+.descInput {
+  @include text-m(400);
+
+  display: flex;
+  overflow: hidden;
+  width: 45rem;
+  height: 9.6rem;
+  align-items: center;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid $gray_D9;
+  border-radius: 6px;
+  background: $white_FF;
+  font-style: normal;
+  gap: 1rem;
+  line-height: normal;
+  resize: none;
+
+  &::placeholder {
+    @include text-m(400);
+
+    color: $gray_9F;
+    font-style: normal;
+    line-height: normal;
+  }
+
+  &:focus {
+    border: 1px solid $violet_55;
+  }
+}
