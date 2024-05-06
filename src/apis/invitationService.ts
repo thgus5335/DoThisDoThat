@@ -1,4 +1,7 @@
-import httpClient from './httpClient';
+import createHttpClient from './createHttpClient';
+import { InvitationResponse } from '@/src/apis/schema/dashboardResponse';
+
+const httpClient = createHttpClient();
 
 interface FetchInvitationsParams {
   teamId: string;
@@ -13,38 +16,14 @@ interface UpdateInvitationParams {
   accept: boolean;
 }
 
-// 초대된 대시보듬 목록 GET
-export const fetchInvitations = async (params: FetchInvitationsParams) => {
-  const { teamId, size, cursorId, title } = params;
-  try {
-    const response = await httpClient.get(`/invitations`, {
-      params: {
-        teamId,
-        size,
-        cursorId,
-        title,
-      },
-    });
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Failed to load invitations', error);
-    throw error;
-  }
-};
-
-// 수락, 거절 버튼 클릭 시 PUT
-export const updateInvitation = async ({ teamId, invitationId, accept }: UpdateInvitationParams) => {
-  const body = { inviteAccepted: accept };
-  try {
-    const response = await httpClient.put(`/invitations/${invitationId}`, body, {
-      params: {
-        teamId,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error updating invitation', error);
-    throw error;
-  }
+export const invitationService = {
+  fetchInvitations: async (params: FetchInvitationsParams) =>
+    await httpClient.get<InvitationResponse>('/invitations', { params }),
+  updateInvitation: async ({ teamId, invitationId, accept }: UpdateInvitationParams) =>
+    await httpClient.put<InvitationResponse, { inviteAccepted: boolean }>(
+      `/invitations/${invitationId}?teamId=${teamId}`,
+      {
+        inviteAccepted: accept,
+      }
+    ),
 };
