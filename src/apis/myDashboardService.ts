@@ -1,7 +1,8 @@
-import axios from 'axios';
-import httpClient from './httpClient';
+import createHttpClient from './createHttpClient';
+import { DashboardListResponse } from '@/src/apis/schema/dashboardResponse';
+const httpClient = createHttpClient();
 
-interface fetchDashboardsParams {
+interface FetchDashboardsParams {
   teamId: string;
   navigationMethod: 'infiniteScroll' | 'pagination';
   cursorId?: number;
@@ -10,22 +11,7 @@ interface fetchDashboardsParams {
 }
 
 // 대시보드 목록 불러오기
-export const fetchDashboards = async (params: fetchDashboardsParams) => {
-  try {
-    const { teamId, navigationMethod, cursorId, page, size } = params;
-    const response = await httpClient.get('/dashboards', {
-      params: {
-        teamId,
-        navigationMethod,
-        cursorId,
-        page,
-        size,
-      },
-    });
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error('대시보드 데이터를 불러오는데 실패했습니다:', error);
-    throw error;
-  }
+export const myDashboardService = {
+  fetchDashboards: async (params: FetchDashboardsParams) =>
+    await httpClient.get<DashboardListResponse>('/dashboards', { params }),
 };

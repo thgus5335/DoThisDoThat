@@ -1,7 +1,7 @@
 import Input from '@/src/components/common/Input';
 import styles from './SignUp.module.scss';
 import React, { useState, useEffect, FormEvent } from 'react';
-import { registerUser } from '@/src/apis/authService';
+import { authService } from '@/src/apis/authService';
 import BaseButton from '@/src/components/common/Button/BaseButton';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import Logo from '@/src/assets/images/Logo.png';
@@ -125,7 +125,7 @@ export default function SignUp() {
     if (isSubmitEnabled) {
       // 서버에 데이터 전송 로직
       try {
-        const result = await registerUser(formData);
+        const result = await authService.registerUser(formData);
         console.log('Registration successful:', result);
         alert('가입이 완료되었습니다');
         window.location.href = '/Login';

@@ -2,7 +2,7 @@ import styles from './Login.module.scss';
 import Input from '@/src/components/common/Input';
 import BaseButton from '@/src/components/common/Button/BaseButton';
 import React, { useState, useEffect } from 'react';
-import { login } from '@/src/apis/authService';
+import { authService } from '@/src/apis/authService';
 import { saveTokenToLocalStorage } from '@/src/utils/authUtils';
 import Logo from '@/src/assets/images/Logo.png';
 import Title from '@/src/assets/images/Title.png';
@@ -81,7 +81,7 @@ export default function Login() {
     e.preventDefault();
     if (!isSubmitEnabled) return;
     try {
-      const data = await login(formData);
+      const data = (await authService.login(formData)) as any;
       console.log('로그인 성공', data);
       saveTokenToLocalStorage(data.accessToken);
       window.location.href = '/Mydashboard';
