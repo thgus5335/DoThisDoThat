@@ -1,9 +1,9 @@
 import httpClient from './httpClient';
 
 export const createHttpClient = () => {
-  async function get<R>(url: string) {
+  async function get<R>(url: string, options?: { params?: any; headers?: any }) {
     try {
-      const response = await httpClient.get<R>(url);
+      const response = await httpClient.get<R>(url, options);
       return response.data;
     } catch (error) {
       // location.href = '../pages/NotFoundPage';
@@ -16,8 +16,8 @@ export const createHttpClient = () => {
     return response.data;
   }
 
-  async function put<T, P>(url: string, data: P) {
-    const response = await httpClient.put<T>(url, data);
+  async function put<T, P>(url: string, data: P, options?: { headers?: any }) {
+    const response = await httpClient.put<T>(url, data, options);
     return response.data;
   }
 

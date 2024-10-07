@@ -2,10 +2,10 @@ import DashboardButton from '@/src/components/common/Button/DashboardButton';
 import styles from './Mydashboard.module.scss';
 import React, { useState, useEffect, ReactElement, use } from 'react';
 import DashboardLinkButton, { dashboardData } from '@/src/components/common/Button/DashboardLinkButton';
-import { fetchDashboards } from '@/src/apis/myDashboardService';
+import { myDashboardService } from '@/src/apis/myDashboardService';
 import PagenationButton from '@/src/components/common/Button/PagenationButton';
 import TaskButton from '@/src/components/common/Button/TaskButton';
-import { fetchInvitations, updateInvitation } from '@/src/apis/invitationService';
+import { invitationService } from '@/src/apis/invitationService';
 import { NextPageWithLayout } from '../_app';
 import HeaderSidebarLayout from '@/src/components/common/Layout/HeaderSidebarLayout';
 import { useRouter } from 'next/router';
@@ -14,33 +14,7 @@ import DoubleButtonModal from '@/src/components/Modal/DoubleButtonModal';
 import Image from 'next/image';
 import search from '@/src/assets/icons/search.svg';
 import unsubscribe from '@/src/assets/icons/unsubscribe.svg';
-
-interface Invitation {
-  id: number;
-  inviter: {
-    nickname: string;
-    email: string;
-    id: number;
-  };
-  teamId: string;
-  dashboard: {
-    title: string;
-    id: number;
-  };
-  invitee: {
-    nickname: string;
-    email: string;
-    id: number;
-  };
-  inviteAccepted: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface InvitationResponse {
-  totalCount: number;
-  invitations: Invitation[];
-}
+import { Invitation, InvitationResponse } from '@/src/apis/schema/dashboardResponse';
 
 const Mydashboard: NextPageWithLayout = () => {
   const router = useRouter();
@@ -102,7 +76,7 @@ const Mydashboard: NextPageWithLayout = () => {
       page: page,
       size: 5,
     };
-    const data = await fetchDashboards(params);
+    const data = await myDashboardService.fetchDashboards(params);
     setDashboards(data.dashboards);
     setTotalPages(Math.ceil(data.totalCount / params.size));
   };
@@ -118,7 +92,7 @@ const Mydashboard: NextPageWithLayout = () => {
       cursorId: cursor, // 무한 스크롤 위해 다른 데이터 배치를 가져오는데 사용됨
     };
     try {
-      const data = await fetchInvitations(params);
+      const data = await invitationService.fetchInvitations(params);
       const newInvitations = data.invitations;
       // Set을 사용하여 id 기반으로 중복 제거
       const uniqueInvitations = new Map(invitations.concat(newInvitations).map(inv => [inv.id, inv]));
@@ -136,11 +110,24 @@ const Mydashboard: NextPageWithLayout = () => {
   // 초대 수락
   const acceptInvitation = async (invitationId: number) => {
     try {
-      const response = await updateInvitation({ teamId: '4-16', invitationId, accept: true });
-      setInvitations(current => current.filter(inv => inv.id !== invitationId));
+      await invitationService.updateInvitation({ teamId: '4-16', invitationId, accept: true });
+      const acceptedInvitation = invitations.find(inv => inv.id === invitationId);
+      if (!acceptedInvitation) {
+        throw new Error('Invitation not found');
+      }
 
+      setInvitations(current => current.filter(inv => inv.id !== invitationId));
       setDashboards(currentDashboards => {
-        const newDashboards = [response.dashboard, ...currentDashboards];
+        const newDashboard: dashboardData = {
+          id: acceptedInvitation.dashboard.id,
+          title: acceptedInvitation.dashboard.title,
+          color: 'defaultColor', // 적절한 기본값 설정
+          userId: acceptedInvitation.invitee.id, // 가정: 초대받은 사용자 ID 사용
+          createdAt: acceptedInvitation.createdAt, // 초대 정보에서 가져온 시간 사용
+          updatedAt: acceptedInvitation.updatedAt, // 초대 정보에서 가져온 시간 사용
+          createdByMe: false, // 가정: 현재 사용자가 생성하지 않음
+        };
+        const newDashboards = [newDashboard, ...currentDashboards];
         const newTotalPages = Math.ceil(newDashboards.length / MAX_DASHBOARD_PER_PAGE);
 
         // 총 페이지 수 업데이트
@@ -158,7 +145,7 @@ const Mydashboard: NextPageWithLayout = () => {
   // 초대 거절
   const rejectInvitation = async (invitationId: number) => {
     try {
-      const response = await updateInvitation({ teamId: '4-16', invitationId, accept: false });
+      const response = await invitationService.updateInvitation({ teamId: '4-16', invitationId, accept: false });
       setInvitations(current => current.filter(inv => inv.id !== invitationId));
     } catch (error) {
       console.error('Failed to reject invitation', error);
